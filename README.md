@@ -28,3 +28,9 @@ pip3 freeze > requirements.txt
 ```sh
 deactivate
 ```
+
+## If problem with vscode venv
+
+> https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
+
+<br>
