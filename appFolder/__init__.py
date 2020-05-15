@@ -12,4 +12,4 @@ migrate = Migrate(app, db)
 # login_manager = LoginManager()
 # login_manager.init_app(app)
 
-from appFolder import routes
+from appFolder import routes, models
