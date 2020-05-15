@@ -1,20 +1,13 @@
-from flask import Flask, render_template, flash, redirect,\
+from appFolder import app
+
+from flask import render_template, flash, redirect,\
      url_for
-from config import Config
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from forms import LoginForm
+
+from appFolder.forms import LoginForm
 
 PROJECT_NAME = 'Hubble-Berry'
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-# login_manager = LoginManager()
-# login_manager.init_app(app)
 
-from app import routes, models
 
 @app.route('/')
 @app.route('/index')

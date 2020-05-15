@@ -9,7 +9,7 @@
 ## To start the app with Flask
 
 ```sh
-FLASK_APP=app.py FLASK_ENV=development flask run --port 8080
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000
 ```
 If it is all configured in Code
 
