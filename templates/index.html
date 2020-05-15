@@ -3,6 +3,13 @@
         <title>{{ title }}</title>
     </head>
     <body>
+        {% if user.username %}
         <h1>Hello, {{ user.username }}!</h1>
+        {% else %}
+        <h1>Welcome unknown people</h1>
+        {% endif %}
+        <a href="{{ url_for('login') }}">login page</a>
+        
+        {% extends "flash_messages.html" %}
     </body>
 </html>
