@@ -22,7 +22,3 @@ def login():
         flash('Login requested for user {}, remember_me={}'.format(form.username.data, form.remember_me.data))
         return redirect(url_for('index'))
     return render_template('login.html', form=form)
-
-
-if __name__ == '__main__':
-    app.run(host='localhost', port=8000, debug=True)
