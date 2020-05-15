@@ -12,6 +12,14 @@
 FLASK_APP=main.py FLASK_ENV=development flask run --port 8000
 ```
 
+## To manage the database after changing models
+
+```sh
+FLASK_APP=main.py flask db migrate -m "<message explicatif>"
+FLASK_APP=main.py flask db upgrade
+```
+
+
 ## To see requirements for the env
 
 ```sh

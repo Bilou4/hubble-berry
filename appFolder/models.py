@@ -27,10 +27,3 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-# class Admin(User):
-#     def __init__(self):
-#         super().__init__()
-#         self.username = 'admin'
-#         self.password_hash = generate_password_hash('admin')
-#         self.id = 2
-
