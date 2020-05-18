@@ -1,2 +1,23 @@
-<h1>You've reached direct page !</h1>
-<a href="{{ url_for('logout') }}">Logout</a>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+
+</head>
+
+    <body>
+
+        <a class="button" href="{{ url_for('logout') }}">Logout</a>
+        <div class="containerDirect">
+            <h1>You are now connected as {{ current_user.username }}!</h1>
+            <video controls width="250">
+                <source src="/media/bilou/stockage/ligo20160211v2.m4v" type="video/mp4">
+            </video>
+            <p>Place to save it</p><input placeholder="/path/to/file">
+            <a class="button" href="#">Apply changes</a>
+
+            <a class="button" href="#">Take a screenshot</a>
+            <a class="button" href="#">Timelapse</a>
+            
+        </div>
+    </body>
+</html>

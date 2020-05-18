@@ -24,3 +24,10 @@ body{
 .messagesError{
     color:white;
 }
+
+.containerDirect{
+    color: white;
+    border: 3px solid green;
+    margin-left: 10vh;
+        
+}
