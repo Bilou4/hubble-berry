@@ -37,3 +37,11 @@ deactivate
 > https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
 
 <br>
+
+## Add user in sqlite
+
+```sql
+-- SQLite
+INSERT INTO `user` (id, username, email, password_hash)
+VALUES (1, 'test','bonjour@mail.fr', 'pbkdf2:sha256:150000$E7IKksJJ$7efee81204352ecfe031ae666716a9475cfd0a550658097e8181f388e6050e54');
+```
