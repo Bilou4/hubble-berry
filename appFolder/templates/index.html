@@ -3,13 +3,18 @@
         <title>{{ title }}</title>
     </head>
     <body>
-        {% if user.username %}
-        <h1>Hello, {{ user.username }}!</h1>
+        {% if current_user.username %}
+        <h1>Hello, {{ current_user.username }}!</h1>
         {% else %}
         <h1>Welcome unknown people</h1>
         {% endif %}
-        <a href="{{ url_for('login') }}">login page</a>
         
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">login page</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+
         {% extends "flash_messages.html" %}
     </body>
 </html>
