@@ -5,10 +5,10 @@ from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
 from appFolder.models import User
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    username = StringField('Who are you?', validators=[DataRequired()])
+    password = PasswordField('What is your password?', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+    submit = SubmitField('Go!')
 
 
 
