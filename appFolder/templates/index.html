@@ -1,9 +1,11 @@
 <html>
     <head>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <title>{{ title }}</title>
     </head>
+
     <body>
-        {% if current_user.username %}
+        <!-- {% if current_user.username %}
         <h1>Hello, {{ current_user.username }}!</h1>
         {% else %}
         <h1>Welcome unknown people</h1>
@@ -13,7 +15,13 @@
         <a href="{{ url_for('login') }}">login page</a>
         {% else %}
         <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %}
+        {% endif %} -->
+        <div class="container">
+            <h1>HUBLLE-BERRY</h1>
+            <h3>by BILOU</h3>
+            <p><a href="{{ url_for('login') }}">login</a></p>
+            <p><a href="{{ url_for('register') }}">sign in</a></p>
+        </div>
 
         {% extends "flash_messages.html" %}
     </body>
