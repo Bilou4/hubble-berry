@@ -1,3 +1,22 @@
-.container{
+body{
     background-color: black;
+}
+
+.container{
+    color: white;
+    margin: auto;
+    width: 50%;
+    margin-top: 30vh;
+    /* border: 3px solid green; */
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+.button{
+    background-color: blueviolet;
+    text-decoration: none;
+    color: white;
+    border-radius: 0.2em;
+    margin-top: .5em;
+    padding: .5em;
 }
