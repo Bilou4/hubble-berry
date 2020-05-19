@@ -4,12 +4,6 @@ from flask_login import UserMixin
 from appFolder import db
 from appFolder import login_manager
 
-# class User(UserMixin):
-#     def __init__(self):
-#         super().__init__()
-#         self.username = 'user'
-#         self.password_hash = generate_password_hash('password')
-#         self.id = 1
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
