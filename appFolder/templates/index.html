@@ -1,28 +1,17 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-        <title>{{ title }}</title>
-    </head>
+{% extends "layout.html" %}
 
-    <body>
-        <!-- {% if current_user.username %}
-        <h1>Hello, {{ current_user.username }}!</h1>
-        {% else %}
-        <h1>Welcome unknown people</h1>
-        {% endif %}
-        
-        {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">login page</a>
-        {% else %}
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% endif %} -->
-        <div class="container">
-            <h1>HUBLLE-BERRY</h1>
-            <h3>by BILOU</h3>
-            <a class="button" href="{{ url_for('login') }}">login</a>
-            <a class="button" href="{{ url_for('register') }}">sign up</a>
-        </div>
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
 
-        {% extends "flash_messages.html" %}
-    </body>
-</html>
+{% block container %}
+    <h1>HUBLLE-BERRY</h1>
+    <h3>by BILOU</h3>
+    <a class="button" href="{{ url_for('login') }}">login</a>
+    <a class="button" href="{{ url_for('register') }}">sign up</a>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
