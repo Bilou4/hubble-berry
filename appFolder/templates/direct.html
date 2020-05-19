@@ -5,7 +5,7 @@
   {{ super() }}
 {% endblock %}
 
-<a class="button" href="{{ url_for('logout') }}">Logout</a>
+{% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>{% endblock %}
 
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>

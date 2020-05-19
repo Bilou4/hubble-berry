@@ -1,15 +1,18 @@
 body{
     background-color: black;
+    display: flex;
+    min-height: 95vh;
+    flex-direction: column;
 }
 
 .container{
     color: white;
-    margin: auto;
-    width: 50%;
-    margin-top: 30vh;
-    /* border: 3px solid green; */
+    flex: 1;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    padding-top: 7vh;
+    /* border: 3px solid pink; */
     text-align: center;
-    padding-bottom: 1em;
 }
 
 .button{
@@ -23,6 +26,17 @@ body{
 
 .messagesError{
     color:white;
+}
+
+nav{
+    /* border: 3px solid blue; */
+    padding-top: 1vh;  
+    padding-bottom: 1vh;  
+}
+
+footer{
+    color:white;
+    /* border: 3px solid green;    */
 }
 
 .containerDirect{

@@ -7,7 +7,7 @@
     {% endblock %}
   </head>
   <body>
-    <!-- navbar -->
+    <nav>{% block navbar %}{% endblock %}</nav>
     <div class="container">
         {% block container %}{% endblock %}
         {% block messages %}
@@ -24,11 +24,11 @@
             {% endwith %}
         {% endblock %}
     </div>
-    <div class="footer">
+    <footer>
       {% block footer %}
       &copy; Copyright 2020 by <a href="#">BILOU</a>.
       {% endblock %}
-    </div>
+    </footer>
   </body>
 </html>
 

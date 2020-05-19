@@ -5,7 +5,7 @@
   {{ super() }}
 {% endblock %}
 
-<a class="button" href="{{ url_for('index') }}">index</a>
+{% block navbar %}<a class="button" href="{{ url_for('index') }}">index</a>{% endblock %}
 
 {% block container %}
     <h1>Sign In</h1>
