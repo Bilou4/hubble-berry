@@ -7,6 +7,7 @@ from flask import render_template, flash, redirect,\
 from flask_login import current_user, login_user, logout_user,\
     login_required
 from werkzeug.urls import url_parse
+
 PROJECT_NAME = 'Hubble-Berry'
 
 
@@ -16,7 +17,7 @@ PROJECT_NAME = 'Hubble-Berry'
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('direct'))
-    return render_template('index.html', title=PROJECT_NAME)
+    return render_template('index.html', title=PROJECT_NAME + '- Index')
 
 @app.route('/logout')
 def logout():
@@ -38,7 +39,7 @@ def login():
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
             next_page = url_for('direct')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', title=PROJECT_NAME + '- Sign In', form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -52,10 +53,10 @@ def register():
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', title=PROJECT_NAME + '- Register', form=form)
 
 
 @app.route('/direct')
 @login_required
 def direct():
-    return render_template('direct.html')
+    return render_template('direct.html', title=PROJECT_NAME + '- Direct')
