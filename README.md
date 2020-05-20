@@ -9,7 +9,8 @@
 ## To start the app with Flask
 
 ```sh
-FLASK_APP=main.py FLASK_ENV=development flask run --port 8000
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 <br>
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 
 ```
 
 ## To manage the database after changing models
