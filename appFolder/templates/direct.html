@@ -3,6 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
   {{ super() }}
+  <script src="{{url_for('static', filename='js/main.js')}}"></script>
 {% endblock %}
 
 {% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>{% endblock %}
@@ -12,10 +13,41 @@
     <video controls width="250">
         <source src="/media/bilou/stockage/ligo20160211v2.m4v" type="video/mp4">
     </video>
-    <p>Place to save it</p><input placeholder="/path/to/file">
-    <a class="button" href="#">Apply changes</a>
-    <a class="button" href="#">Take a screenshot</a>
-    <a class="button" href="#">Timelapse</a>
+    
+    <p><label for="path">Place to save it</label> <input id="path" type="text" placeholder="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
+
+
+    <br><br><br>
+
+     <!-- Tab links -->
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'photo')">Photo</button>
+        <button class="tablinks" onclick="openTab(event, 'timelapse')">Timelapse</button>
+        <button class="tablinks" onclick="openTab(event, 'video')">Video</button>
+    </div>
+    
+    <!-- Tab content -->
+    <div id="photo" class="tabcontent">
+        <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" type="number"></p>
+        <a class="button" href="#">Prendre la photo !</a>
+    </div>
+    
+    <div id="timelapse" class="tabcontent">
+        <p><label for="exposure_timelapse">Temps d'ouverture (en secondes)</label> <input id="exposure_timelapse" type="number"></p>
+        <p><label for="time_between_each_photo">Temps entre chaque photo</label> <input id="time_between_each_photo" type="number"></p>
+        <p><label for="number_of_photos">Nombres de photos à prendre</label> <input id="number_of_photos" type="number"></p>
+        <p>Temps total (calculé) => {Insert smthg}</p>
+        <a class="button" href="#">Commencer le timelapse !</a>
+    </div>
+    
+    <div id="video" class="tabcontent">
+        <p><label for="path">Place to save it</label> <input id="path" type="text" placeholder="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
+        <a class="button" href="#">Commencer la vidéo !</a>
+        <a class="button" href="#">Arrêter la vidéo !</a>
+
+    </div> 
+
+
 {% endblock %}
 
 {% block footer %}
