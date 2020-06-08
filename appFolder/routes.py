@@ -61,8 +61,11 @@ def register():
 def direct():
     return render_template('direct.html', title=PROJECT_NAME + '- Direct')
 
-@app.route('/take_a_photo')
+
+@app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
-    print("you clicked on the button")
+    exposure_time = request.form['exposure_photo']
+    print("you clicked on the button " + exposure_time)
     return redirect(url_for('direct'))
+

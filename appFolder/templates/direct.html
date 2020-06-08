@@ -28,8 +28,10 @@
     
     <!-- Tab content -->
     <div id="photo" class="tabcontent">
-        <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" type="number"></p>
-        <a class="button" href="/take_a_photo">Prendre la photo !</a>
+        <form action="/take_a_photo" method="POST">
+        <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" name="exposure_photo" type="number"></p>
+        <input type="submit" class="button" value="Prendre la photo"/>
+        </form>
     </div>
     
     <div id="timelapse" class="tabcontent">
