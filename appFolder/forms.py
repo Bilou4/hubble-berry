@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
+from wtforms import StringField, IntegerField, PasswordField, BooleanField, SubmitField
+from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, NumberRange
 
 from appFolder.models import User
 
@@ -30,3 +30,10 @@ class RegistrationForm(FlaskForm):
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('This email address is already taken.')
+
+
+class TimelapseForm(FlaskForm):
+    exposure_time = IntegerField("Temps d'ouverture (en secondes)", default=1, validators=[NumberRange(min=1, max=15, message="La valeur doit être comprise entre %(min)s et %(max)s")])
+    time_between_each_photo = IntegerField("Temps entre chaque photo", default=1)
+    number_of_photos = IntegerField("Nombres de photos à prendre", default=1)
+    submit = SubmitField("Commencer le timelapse")

@@ -1,6 +1,6 @@
 from appFolder import app, db
 from appFolder.models import User
-from appFolder.forms import LoginForm, RegistrationForm
+from appFolder.forms import LoginForm, RegistrationForm, TimelapseForm
 
 from flask import render_template, flash, redirect,\
      url_for, request
@@ -56,10 +56,11 @@ def register():
     return render_template('register.html', title=PROJECT_NAME + '- Register', form=form)
 
 
-@app.route('/direct')
+@app.route('/direct', methods=['GET','POST'])
 @login_required
 def direct():
-    return render_template('direct.html', title=PROJECT_NAME + '- Direct')
+    timelapse_form = TimelapseForm()
+    return render_template('direct.html', title=PROJECT_NAME + '- Direct', timelapse_form=timelapse_form)
 
 
 @app.route('/take_a_photo', methods=['POST'])
@@ -69,3 +70,15 @@ def take_a_photo():
     print("you clicked on the button " + exposure_time)
     return redirect(url_for('direct'))
 
+
+@app.route('/take_timelapse', methods=['GET','POST'])
+@login_required
+def take_timelapse():
+    form = TimelapseForm()
+    print("over here")
+    if form.validate_on_submit() :
+        exposure_time = form.exposure_time.data #request.form['exposure_timelapse']
+        print("Timelapse => " + exposure_time)
+    return redirect(url_for('direct'))
+
+# put take timelapse and take photo in direct

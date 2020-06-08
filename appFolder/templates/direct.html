@@ -29,17 +29,20 @@
     <!-- Tab content -->
     <div id="photo" class="tabcontent">
         <form action="/take_a_photo" method="POST">
-        <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" name="exposure_photo" type="number"></p>
-        <input type="submit" class="button" value="Prendre la photo"/>
+            <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" name="exposure_photo" type="number"></p>
+            <input type="submit" class="button" value="Prendre la photo"/>
         </form>
     </div>
     
     <div id="timelapse" class="tabcontent">
-        <p><label for="exposure_timelapse">Temps d'ouverture (en secondes)</label> <input id="exposure_timelapse" type="number"></p>
-        <p><label for="time_between_each_photo">Temps entre chaque photo</label> <input id="time_between_each_photo" type="number"></p>
-        <p><label for="number_of_photos">Nombres de photos à prendre</label> <input id="number_of_photos" type="number"></p>
-        <p>Temps total (calculé) => {Insert smthg}</p>
-        <a class="button" href="#">Commencer le timelapse !</a>
+        <form action="" method="POST" novalidate>
+            {{ timelapse_form.hidden_tag() }}
+            <p>{{ timelapse_form.exposure_time.label }} {{ timelapse_form.exposure_time }}</p>
+            <p>{{ timelapse_form.time_between_each_photo. label }} {{ timelapse_form.time_between_each_photo }}</p>
+            <p>{{ timelapse_form.number_of_photos.label }} {{ timelapse_form.number_of_photos }}</p>
+            <p>Temps total (calculé) => {Insert smthg}</p>
+            <p>{{ timelapse_form.submit(class_="button") }}</p>
+        </form>
     </div>
     
     <div id="video" class="tabcontent">
