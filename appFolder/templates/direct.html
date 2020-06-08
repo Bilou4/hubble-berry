@@ -11,7 +11,7 @@
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>
     <video controls width="250">
-        <source src="/media/bilou/stockage/ligo20160211v2.m4v" type="video/mp4">
+        <source src="{{url_for('static', filename='video/ligo20160211v2.m4v')}}" type="video/mp4">
     </video>
     
     <p><label for="path">Place to save it</label> <input id="path" type="text" placeholder="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
@@ -29,7 +29,7 @@
     <!-- Tab content -->
     <div id="photo" class="tabcontent">
         <p><label for="exposure_photo">Temps d'ouverture (en secondes)</label> <input id="exposure_photo" type="number"></p>
-        <a class="button" href="#">Prendre la photo !</a>
+        <a class="button" href="/take_a_photo">Prendre la photo !</a>
     </div>
     
     <div id="timelapse" class="tabcontent">

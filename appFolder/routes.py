@@ -60,3 +60,9 @@ def register():
 @login_required
 def direct():
     return render_template('direct.html', title=PROJECT_NAME + '- Direct')
+
+@app.route('/take_a_photo')
+@login_required
+def take_a_photo():
+    print("you clicked on the button")
+    return redirect(url_for('direct'))
