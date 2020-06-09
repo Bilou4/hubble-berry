@@ -17,4 +17,30 @@ function openTab(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "inline-block";
     evt.currentTarget.className += " active";
-} 
+}
+
+$(document).ready(function(){
+	
+	$("#start_video").click(function(e){
+		e.preventDefault();
+		$.ajax({
+			url:'/start_video',
+			type:'POST',
+			dataType:"json",
+			data:'path='+$("#path").val(),
+			
+			success : function(codeJson, status){
+				if(codeJson.length!=0){
+					console.log("if " + Object.values(codeJson));	
+				}
+				else{
+					console.log("else");
+				}
+			},
+			error : function(resultat, statut, erreur){
+				console.log(resultat,statut,erreur);
+			},
+
+		});
+	});
+});

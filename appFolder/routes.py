@@ -82,3 +82,10 @@ def take_timelapse():
     return redirect(url_for('direct'))
 
 # put take timelapse and take photo in direct
+
+@app.route('/start_video', methods=['POST'])
+@login_required
+def start_video():
+    test = request.form['path']
+    print("valeu reçu pour test "+test)
+    return {test:"bonjour"}
