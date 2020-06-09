@@ -79,7 +79,6 @@ def take_timelapse():
     number_photos = request.form['number_photos']
     return {"status": "ok"}
 
-# put take timelapse and take photo in direct
 
 @app.route('/start_video', methods=['POST'])
 @login_required
