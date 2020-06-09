@@ -1,6 +1,6 @@
 from appFolder import app, db
 from appFolder.models import User
-from appFolder.forms import LoginForm, RegistrationForm, TimelapseForm
+from appFolder.forms import LoginForm, RegistrationForm
 
 from flask import render_template, flash, redirect,\
      url_for, request
@@ -59,33 +59,31 @@ def register():
 @app.route('/direct', methods=['GET','POST'])
 @login_required
 def direct():
-    timelapse_form = TimelapseForm()
-    return render_template('direct.html', title=PROJECT_NAME + '- Direct', timelapse_form=timelapse_form)
+    return render_template('direct.html', title=PROJECT_NAME + '- Direct')
 
 
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
-    exposure_time = request.form['exposure_photo']
-    print("you clicked on the button " + exposure_time)
-    return redirect(url_for('direct'))
+    path = request.form['path']
+    exposure_photo = request.form['exposure_photo']
+    return {"status": "ok"}
 
 
-@app.route('/take_timelapse', methods=['GET','POST'])
+@app.route('/take_timelapse', methods=['POST'])
 @login_required
 def take_timelapse():
-    form = TimelapseForm()
-    print("over here")
-    if form.validate_on_submit() :
-        exposure_time = form.exposure_time.data #request.form['exposure_timelapse']
-        print("Timelapse => " + exposure_time)
-    return redirect(url_for('direct'))
+    path = request.form['path']
+    exposure_photo = request.form['exposure_photo']
+    time_between_photos = request.form['time_between_photos']
+    number_photos = request.form['number_photos']
+    return {"status": "ok"}
 
 # put take timelapse and take photo in direct
 
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
-    test = request.form['path']
-    print("valeu reçu pour test "+test)
-    return {test:"bonjour"}
+    path = request.form['path']
+    print("valeur reçu pour path "+path)
+    return {"status": "ok"}
