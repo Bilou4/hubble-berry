@@ -32,8 +32,3 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('This email address is already taken.')
 
 
-class TimelapseForm(FlaskForm):
-    exposure_time = IntegerField("Temps d'ouverture (en secondes)", default=1, validators=[NumberRange(min=1, max=15, message="La valeur doit être comprise entre %(min)s et %(max)s")])
-    time_between_each_photo = IntegerField("Temps entre chaque photo", default=1)
-    number_of_photos = IntegerField("Nombres de photos à prendre", default=1)
-    submit = SubmitField("Commencer le timelapse")
