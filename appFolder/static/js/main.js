@@ -119,4 +119,9 @@ $(document).ready(function(){
 			},
 		});
 	});
+
+	$("#exposure_photo_timelapse, #number_photos, #time_between_photos").change(function() {
+		var time = ($('#exposure_photo').val() + $('#time_between_photos').val() ) * $('#number_photos').val();
+		$("#calculated_time").text("Temps total (calculé) => " + time + " secondes");
+	});
 });
