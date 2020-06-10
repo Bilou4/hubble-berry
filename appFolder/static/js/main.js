@@ -26,12 +26,6 @@ $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
 	$("#stop_video").hide();
 
-	$("#stop_video").click(function(e){
-		$("#start_video").show();
-		$("#stop_video").hide();
-		$("#message").text("");
-	});
-
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
 		$.ajax({
@@ -91,6 +85,30 @@ $(document).ready(function(){
 					$("#message").text(codeJson.text + " " +codeJson.name);
 					$("#start_video").hide();
 					$("#stop_video").show();	
+				}
+				else{
+					console.log("else");
+				}
+			},
+			error : function(result, status, error){
+				console.log(result,status,error);
+			},
+		});
+	});
+
+	$("#stop_video").click(function(e){
+		e.preventDefault();
+		$.ajax({
+			url:'/stop_video',
+			type:'POST',
+			dataType:"json",
+			data:'video_name='+$("#message").text(),
+			
+			success : function(codeJson){
+				if(codeJson.length!=0){
+					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#start_video").show();
+					$("#stop_video").hide();
 				}
 				else{
 					console.log("else");

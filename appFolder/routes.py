@@ -90,3 +90,10 @@ def start_video():
     path = request.form['path']
     print(path)
     return {"text":"Vidéo en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+
+@app.route('/stop_video', methods=['POST'])
+@login_required
+def stop_video():
+    video_name = request.form['video_name']
+    video_name = video_name.split('Vidéo en cours')[1]
+    return {"text":"Vidéo terminée","name": video_name}
