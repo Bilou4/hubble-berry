@@ -8,6 +8,8 @@ from flask_login import current_user, login_user, logout_user,\
     login_required
 from werkzeug.urls import url_parse
 
+from datetime import datetime
+
 PROJECT_NAME = 'Hubble-Berry'
 
 
@@ -67,7 +69,8 @@ def direct():
 def take_a_photo():
     path = request.form['path']
     exposure_photo = request.form['exposure_photo']
-    return {"status": "ok"}
+    print(path + exposure_photo)
+    return {"text":"photo prise!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -77,12 +80,13 @@ def take_timelapse():
     exposure_photo = request.form['exposure_photo']
     time_between_photos = request.form['time_between_photos']
     number_photos = request.form['number_photos']
-    return {"status": "ok"}
+    print(path + " " + exposure_photo + " " + time_between_photos + " " +number_photos)
+    return {"text":"Timelapse en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
 
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
     path = request.form['path']
-    print("valeur reçu pour path "+path)
-    return {"status": "ok"}
+    print(path)
+    return {"text":"Vidéo en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}

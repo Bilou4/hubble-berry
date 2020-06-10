@@ -16,7 +16,9 @@ function openTab(evt, tabName) {
   
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "inline-block";
-    evt.currentTarget.className += " active";
+	evt.currentTarget.className += " active";
+	
+	$("#message").text(""); // deleting text in message paragraph to do hide previous text
 }
 
 
@@ -32,16 +34,16 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'path='+$("#path").val()+'&exposure_photo='+$('#exposure_photo').val(),
 			
-			success : function(codeJson, status){
+			success : function(codeJson){
 				if(codeJson.length!=0){
-					console.log("if " + codeJson.status);	
+					$("#message").text(codeJson.text + " " +codeJson.name);	
 				}
 				else{
 					console.log("else");
 				}
 			},
-			error : function(resultat, statut, erreur){
-				console.log(resultat,statut,erreur);
+			error : function(result, status, error){
+				console.log(result,status,error);
 			},
 		});
 	});
@@ -56,16 +58,16 @@ $(document).ready(function(){
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val(),
 			
-			success : function(codeJson, status){
+			success : function(codeJson){
 				if(codeJson.length!=0){
-					console.log("if " + Object.values(codeJson));	
+					$("#message").text(codeJson.text + " " +codeJson.name);	
 				}
 				else{
 					console.log("else");
 				}
 			},
-			error : function(resultat, statut, erreur){
-				console.log(resultat,statut,erreur);
+			error : function(result, status, error){
+				console.log(result,status,error);
 			},
 		});
 	});
@@ -78,16 +80,16 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'path='+$("#path").val(),
 			
-			success : function(codeJson, status){
+			success : function(codeJson){
 				if(codeJson.length!=0){
-					console.log("if " + Object.values(codeJson));	
+					$("#message").text(codeJson.text + " " +codeJson.name);	
 				}
 				else{
 					console.log("else");
 				}
 			},
-			error : function(resultat, statut, erreur){
-				console.log(resultat,statut,erreur);
+			error : function(result, status, error){
+				console.log(result,status,error);
 			},
 		});
 	});
