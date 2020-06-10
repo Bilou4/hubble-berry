@@ -24,7 +24,13 @@ function openTab(evt, tabName) {
 
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
+	$("#stop_video").hide();
 
+	$("#stop_video").click(function(e){
+		$("#start_video").show();
+		$("#stop_video").hide();
+		$("#message").text("");
+	});
 
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
@@ -82,7 +88,9 @@ $(document).ready(function(){
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);	
+					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#start_video").hide();
+					$("#stop_video").show();	
 				}
 				else{
 					console.log("else");
