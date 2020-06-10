@@ -54,7 +54,7 @@ $(document).ready(function(){
 			url:'/take_timelapse',
 			type:'POST',
 			dataType:"json",
-			data:'path='+$("#path").val()+'&exposure_photo='+$('#exposure_photo').val()
+			data:'path='+$("#path").val()+'&exposure_photo='+$('#exposure_photo_timelapse').val()
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val(),
 			
@@ -121,7 +121,9 @@ $(document).ready(function(){
 	});
 
 	$("#exposure_photo_timelapse, #number_photos, #time_between_photos").change(function() {
-		var time = ($('#exposure_photo').val() + $('#time_between_photos').val() ) * $('#number_photos').val();
+		var time = (parseFloat($('#exposure_photo_timelapse').val())
+					+ parseFloat($('#time_between_photos').val()) ) 
+					* parseFloat($('#number_photos').val());
 		$("#calculated_time").text("Temps total (calculé) => " + time + " secondes");
 	});
 });
