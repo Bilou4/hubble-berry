@@ -97,3 +97,6 @@ def stop_video():
     video_name = request.form['video_name']
     video_name = video_name.split('Vidéo en cours')[1]
     return {"text":"Vidéo terminée","name": video_name}
+
+
+# commencer le timelapse (ou photo avec ouverture) ==> temps d'attente
