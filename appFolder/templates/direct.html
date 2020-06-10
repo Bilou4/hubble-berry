@@ -20,7 +20,7 @@
         <source src="{{url_for('static', filename='video/ligo20160211v2.m4v')}}" type="video/mp4">
     </video>
     
-    <p><label for="path">Place to save it</label> <input id="path" type="text" placeholder="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
+    <p><label for="path">Place to save it</label> <input id="path" type="text" value="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
 
 
     <br><br><br>
@@ -62,8 +62,9 @@
     <div id="video" class="tabcontent">
         <a class="button" id="start_video" href="#">Commencer la vidéo !</a>
         <a class="button" href="#">Arrêter la vidéo !</a>
-    </div> 
-
+    </div>
+    
+    <p id="message"></p>
 
 {% endblock %}
 
