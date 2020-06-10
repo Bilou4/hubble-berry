@@ -21,6 +21,13 @@ function openTab(evt, tabName) {
 	$("#message").text(""); // deleting text in message paragraph to hide previous text
 }
 
+function disable_tables(){
+	$(".tablinks").prop('disabled', true);
+}
+
+function enable_tables(){
+	$(".tablinks").prop('disabled', false);
+}
 
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
@@ -84,7 +91,8 @@ $(document).ready(function(){
 				if(codeJson.length!=0){
 					$("#message").text(codeJson.text + " " +codeJson.name);
 					$("#start_video").hide();
-					$("#stop_video").show();	
+					$("#stop_video").show();
+					disable_tables();
 				}
 				else{
 					console.log("else");
@@ -109,6 +117,7 @@ $(document).ready(function(){
 					$("#message").text(codeJson.text + " " +codeJson.name);
 					$("#start_video").show();
 					$("#stop_video").hide();
+					enable_tables();
 				}
 				else{
 					console.log("else");
