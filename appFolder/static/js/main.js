@@ -18,7 +18,7 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "inline-block";
 	evt.currentTarget.className += " active";
 	
-	$("#message").text(""); // deleting text in message paragraph to do hide previous text
+	$("#message").text(""); // deleting text in message paragraph to hide previous text
 }
 
 
