@@ -16,9 +16,11 @@
 
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>
-    <video controls width="250">
+    <!--    <video controls width="250">
         <source src="{{url_for('static', filename='video/ligo20160211v2.m4v')}}" type="video/mp4">
-    </video>
+    </video>-->
+    <img src="{{ url_for('video_feed') }}">
+
     
     <p><label for="path">Place to save it</label> <input id="path" type="text" value="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
 

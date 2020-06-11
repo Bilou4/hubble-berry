@@ -3,15 +3,27 @@ from appFolder.models import User
 from appFolder.forms import LoginForm, RegistrationForm
 
 from flask import render_template, flash, redirect,\
-     url_for, request
+     url_for, request, Response
 from flask_login import current_user, login_user, logout_user,\
     login_required
 from werkzeug.urls import url_parse
 
 from datetime import datetime
+from camera import Camera
 
 PROJECT_NAME = 'Hubble-Berry'
 
+
+def gen(camera):
+	while True:
+		frame = camera.get_frame()
+		yield (b'--frame\r\n'
+			   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/')
