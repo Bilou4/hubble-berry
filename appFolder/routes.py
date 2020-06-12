@@ -9,7 +9,7 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from camera import Camera
+from appFolder.camera import Camera
 
 PROJECT_NAME = 'Hubble-Berry'
 
