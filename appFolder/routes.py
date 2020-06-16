@@ -9,7 +9,7 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 
 PROJECT_NAME = 'Hubble-Berry'
 
@@ -63,6 +63,7 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
+        #user.set_default_role()
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
@@ -73,7 +74,7 @@ def register():
 @app.route('/direct', methods=['GET','POST'])
 @login_required
 def direct():
-    return render_template('direct.html', title=PROJECT_NAME + '- Direct')
+    return render_template('direct.html', role=current_user.roles[0].name, title=PROJECT_NAME + '- Direct')
 
 
 @app.route('/take_a_photo', methods=['POST'])
@@ -112,3 +113,4 @@ def stop_video():
 
 
 # commencer le timelapse (ou photo avec ouverture) ==> temps d'attente
+# Admin vs non admin => error register
