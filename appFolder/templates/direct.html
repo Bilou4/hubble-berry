@@ -21,7 +21,7 @@
     </video>-->
     <img src="{{ url_for('video_feed') }}">
 
-    
+    {% if role == "admin" %}
     <p><label for="path">Place to save it</label> <input id="path" type="text" value="/path/to/file"> <a class="button" href="#">Apply changes</a></p>
 
 
@@ -67,6 +67,7 @@
     </div>
     
     <p id="message"></p>
+    {%endif%}
 
 {% endblock %}
 
