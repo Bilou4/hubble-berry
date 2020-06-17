@@ -97,6 +97,13 @@ def take_timelapse():
     return {"text":"Timelapse en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
 
+@app.route('/stop_timelapse', methods=['POST'])
+@login_required
+def stop_timelapse():
+    timelapse_name = request.form['timelapse_name']
+    timelapse_name = timelapse_name.split('Timelapse en cours')[1]
+    return {"text":"Timelapse terminé","name": timelapse_name}
+
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
@@ -114,3 +121,5 @@ def stop_video():
 
 # commencer le timelapse (ou photo avec ouverture) ==> temps d'attente
 # Admin vs non admin => error register
+# in <p id="message"> add a filename span to avoid split('Timelapse en cours') 
+# cancel timeout if stop timelapse is clicked
