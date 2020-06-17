@@ -119,4 +119,3 @@ def stop_video():
 
 # commencer la photo avec ouverture ==> temps d'attente
 # Admin vs non admin => error register
-# in <p id="message"> add a filename span to avoid split('Timelapse en cours') 
