@@ -67,7 +67,9 @@ $(document).ready(function(){
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);	
+					$("#message").text(codeJson.text + " " +codeJson.name);
+					disable_tables();
+					setTimeout(enable_tables, parseFloat($("#calculated_time").text())*1000);
 				}
 				else{
 					console.log("else");
