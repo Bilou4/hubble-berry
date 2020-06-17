@@ -19,6 +19,7 @@ function openTab(evt, tabName) {
 	evt.currentTarget.className += " active";
 	
 	$("#message").text(""); // deleting text in message paragraph to hide previous text
+	$("#filename").text("");
 }
 
 function disable_tables(){
@@ -46,8 +47,8 @@ $(document).ready(function(){
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);	
-				}
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);				}
 				else{
 					console.log("else");
 				}
@@ -70,7 +71,8 @@ $(document).ready(function(){
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);
 					disable_tables();
 					$("#take_timelapse").hide();
 					$("#stop_timelapse").show();
@@ -96,11 +98,12 @@ $(document).ready(function(){
 			url:'/stop_timelapse',
 			type:'POST',
 			dataType:"json",
-			data:'timelapse_name='+$("#message").text(),
+			data:'timelapse_name='+$("#filename").text(),
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);
 					$("#take_timelapse").show();
 					$("#stop_timelapse").hide();
 					enable_tables();
@@ -128,7 +131,8 @@ $(document).ready(function(){
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);
 					$("#start_video").hide();
 					$("#stop_video").show();
 					disable_tables();
@@ -149,11 +153,12 @@ $(document).ready(function(){
 			url:'/stop_video',
 			type:'POST',
 			dataType:"json",
-			data:'video_name='+$("#message").text(),
+			data:'video_name='+$("#filename").text(),
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
-					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);
 					$("#start_video").show();
 					$("#stop_video").hide();
 					enable_tables();
