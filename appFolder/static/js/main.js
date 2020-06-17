@@ -29,10 +29,13 @@ function enable_tables(){
 	$(".tablinks").prop('disabled', false);
 }
 
+var the_timeout_handler = null;
+
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
 	$("#stop_video").hide();
-
+	$("#stop_timelapse").hide();
+	
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
 		$.ajax({
@@ -69,7 +72,13 @@ $(document).ready(function(){
 				if(codeJson.length!=0){
 					$("#message").text(codeJson.text + " " +codeJson.name);
 					disable_tables();
-					setTimeout(enable_tables, parseFloat($("#calculated_time").text())*1000);
+					$("#take_timelapse").hide();
+					$("#stop_timelapse").show();
+					the_timeout_handler = setTimeout( () => {
+						enable_tables();
+						$("#stop_timelapse").click();
+						the_timeout_handler = null;
+					}, parseFloat($("#calculated_time").text())*1000);
 				}
 				else{
 					console.log("else");
@@ -77,6 +86,34 @@ $(document).ready(function(){
 			},
 			error : function(result, status, error){
 				console.log(result,status,error);
+			},
+		});
+	});
+
+	$("#stop_timelapse").click(function(e){
+		e.preventDefault();
+		$.ajax({
+			url:'/stop_timelapse',
+			type:'POST',
+			dataType:"json",
+			data:'timelapse_name='+$("#message").text(),
+			
+			success : function(codeJson){
+				if(codeJson.length!=0){
+					$("#message").text(codeJson.text + " " +codeJson.name);
+					$("#take_timelapse").show();
+					$("#stop_timelapse").hide();
+					enable_tables();
+					if(the_timeout_handler!=null){
+						clearTimeout(the_timeout_handler);
+					}
+				}
+				else{
+					console.log("else");
+				}
+			},
+			error : function(result, status, error){
+				console.log(result, status, error);
 			},
 		});
 	});
