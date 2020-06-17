@@ -122,4 +122,3 @@ def stop_video():
 # commencer le timelapse (ou photo avec ouverture) ==> temps d'attente
 # Admin vs non admin => error register
 # in <p id="message"> add a filename span to avoid split('Timelapse en cours') 
-# cancel timeout if stop timelapse is clicked
