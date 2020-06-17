@@ -133,6 +133,6 @@ $(document).ready(function(){
 		var time = (parseFloat($('#exposure_photo_timelapse').val())
 					+ parseFloat($('#time_between_photos').val()) ) 
 					* parseFloat($('#number_photos').val());
-		$("#calculated_time").text("Temps total (calculé) => " + time + " secondes");
+		$("#calculated_time").text(time);
 	});
 });
