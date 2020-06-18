@@ -30,6 +30,34 @@ function enable_tables(){
 	$(".tablinks").prop('disabled', false);
 }
 
+function stop_photo(cancel_was_clicked){
+	$.ajax({
+		url:'/stop_photo',
+		type:'POST',
+		dataType:"json",
+		data:'photo_name='+$("#filename").text()+'&cancel='+cancel_was_clicked,
+		
+		success : function(codeJson){
+			if(codeJson.length!=0){
+				$("#message").text(codeJson.text);
+				$("#filename").text(codeJson.name);
+				$("#take_a_photo").show();
+				$("#cancel_photo").hide();
+				enable_tables();
+				if(the_timeout_handler!=null){
+					clearTimeout(the_timeout_handler);
+					the_timeout_handler = null;
+				}
+			}
+			else{
+				console.log("else");
+			}
+		},
+		error : function(result, status, error){
+			console.log(result, status, error);
+		},	
+	});
+}
 var the_timeout_handler = null;
 
 $(document).ready(function(){
@@ -57,7 +85,7 @@ $(document).ready(function(){
 					$("#cancel_photo").show();
 					the_timeout_handler = setTimeout( () => {
 						enable_tables();
-						$("#cancel_photo").click(); // change by another one to get differents behaviors 
+						stop_photo(false);
 						the_timeout_handler = null;
 					}, parseFloat($('#exposure_photo').val())*1000);				
 				}
@@ -73,32 +101,7 @@ $(document).ready(function(){
 
 	$("#cancel_photo").click( (e) =>{
 		e.preventDefault();
-		$.ajax({
-			url:'/cancel_photo',
-			type:'POST',
-			dataType:"json",
-			data:'photo_name='+$("#filename").text(),
-			
-			success : function(codeJson){
-				if(codeJson.length!=0){
-					$("#message").text(codeJson.text);
-					$("#filename").text(codeJson.name);
-					$("#take_a_photo").show();
-					$("#cancel_photo").hide();
-					enable_tables();
-					if(the_timeout_handler!=null){
-						clearTimeout(the_timeout_handler);
-						the_timeout_handler = null;
-					}
-				}
-				else{
-					console.log("else");
-				}
-			},
-			error : function(result, status, error){
-				console.log(result, status, error);
-			},	
-		});
+		stop_photo(true);
 	});
 
 	// ############ Timelapse ############
