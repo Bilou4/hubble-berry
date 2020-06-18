@@ -24,10 +24,12 @@ function openTab(evt, tabName) {
 
 function disable_tables(){
 	$(".tablinks").prop('disabled', true);
+	$("#validate_path").hide();
 }
 
 function enable_tables(){
 	$(".tablinks").prop('disabled', false);
+	$("#validate_path").show();
 }
 
 function stop_photo(cancel_was_clicked){
