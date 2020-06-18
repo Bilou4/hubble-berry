@@ -127,8 +127,5 @@ def stop_video():
     return {"text":"Vidéo terminée","name": video_name}
 
 
-# commencer la photo avec ouverture ==> temps d'attente
 # Admin vs non admin => error register
-# handle button 'Apply changes' when a video/timelapse/photo is running
 # transfert photos sur clé
-# default timelapse values
