@@ -85,11 +85,16 @@ def take_a_photo():
     print(path + exposure_photo)
     return {"text":"photo en cours!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
-@app.route('/cancel_photo', methods=['POST'])
+@app.route('/stop_photo', methods=['POST'])
 @login_required
-def cancel_photo():
+def stop_photo():
     photo_name = request.form['photo_name']
-    return {"text":"photo annulée", "name": photo_name}
+    photo_is_canceled = request.form['cancel']
+    # cannot use python boolean type because the request sent a string
+    if photo_is_canceled == 'true':
+        return {"text":"photo annulée", "name": "-- supprimée --"}
+    else:
+        return {"text":"photo prise!","name":photo_name}
 
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
