@@ -109,6 +109,7 @@ $(document).ready(function(){
 					enable_tables();
 					if(the_timeout_handler!=null){
 						clearTimeout(the_timeout_handler);
+						the_timeout_handler = null;
 					}
 				}
 				else{
