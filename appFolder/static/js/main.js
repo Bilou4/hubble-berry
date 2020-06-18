@@ -36,7 +36,10 @@ $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
 	$("#stop_video").hide();
 	$("#stop_timelapse").hide();
+	$("#cancel_photo").hide();
 	
+	// ############ Photo ############
+
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
 		$.ajax({
@@ -48,7 +51,16 @@ $(document).ready(function(){
 			success : function(codeJson){
 				if(codeJson.length!=0){
 					$("#message").text(codeJson.text);
-					$("#filename").text(codeJson.name);				}
+					$("#filename").text(codeJson.name);
+					disable_tables();
+					$("#take_a_photo").hide();
+					$("#cancel_photo").show();
+					the_timeout_handler = setTimeout( () => {
+						enable_tables();
+						$("#cancel_photo").click(); // change by another one to get differents behaviors 
+						the_timeout_handler = null;
+					}, parseFloat($('#exposure_photo').val())*1000);				
+				}
 				else{
 					console.log("else");
 				}
@@ -58,6 +70,38 @@ $(document).ready(function(){
 			},
 		});
 	});
+
+	$("#cancel_photo").click( (e) =>{
+		e.preventDefault();
+		$.ajax({
+			url:'/cancel_photo',
+			type:'POST',
+			dataType:"json",
+			data:'photo_name='+$("#filename").text(),
+			
+			success : function(codeJson){
+				if(codeJson.length!=0){
+					$("#message").text(codeJson.text);
+					$("#filename").text(codeJson.name);
+					$("#take_a_photo").show();
+					$("#cancel_photo").hide();
+					enable_tables();
+					if(the_timeout_handler!=null){
+						clearTimeout(the_timeout_handler);
+						the_timeout_handler = null;
+					}
+				}
+				else{
+					console.log("else");
+				}
+			},
+			error : function(result, status, error){
+				console.log(result, status, error);
+			},	
+		});
+	});
+
+	// ############ Timelapse ############
 
 	$("#take_timelapse").click(function(e){
 		e.preventDefault();
@@ -122,6 +166,8 @@ $(document).ready(function(){
 		});
 	});
 
+	// ############ Video ############
+
 	$("#start_video").click(function(e){
 		e.preventDefault();
 		$.ajax({
@@ -173,6 +219,9 @@ $(document).ready(function(){
 			},
 		});
 	});
+
+
+ 	// ############ Calculated time ############
 
 	$("#exposure_photo_timelapse, #number_photos, #time_between_photos").change(function() {
 		var time = (parseFloat($('#exposure_photo_timelapse').val())
