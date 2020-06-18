@@ -83,8 +83,13 @@ def take_a_photo():
     path = request.form['path']
     exposure_photo = request.form['exposure_photo']
     print(path + exposure_photo)
-    return {"text":"photo prise!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+    return {"text":"photo en cours!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
+@app.route('/cancel_photo', methods=['POST'])
+@login_required
+def cancel_photo():
+    photo_name = request.form['photo_name']
+    return {"text":"photo annulée", "name": photo_name}
 
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
@@ -119,3 +124,6 @@ def stop_video():
 
 # commencer la photo avec ouverture ==> temps d'attente
 # Admin vs non admin => error register
+# handle button 'Apply changes' when a video/timelapse/photo is running
+# transfert photos sur clé
+# default timelapse values
