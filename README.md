@@ -43,14 +43,10 @@ deactivate
 
 ```sql
 -- SQLite
-INSERT INTO `user` (id, username, email, password_hash)
-VALUES (1, 'test','bonjour@mail.fr', 'pbkdf2:sha256:150000$E7IKksJJ$7efee81204352ecfe031ae666716a9475cfd0a550658097e8181f388e6050e54');
+INSERT INTO `user` (id, username, email, password_hash, role_id)
+VALUES (1, 'test','bonjour@mail.fr', 'pbkdf2:sha256:150000$E7IKksJJ$7efee81204352ecfe031ae666716a9475cfd0a550658097e8181f388e6050e54', 1);
 INSERT INTO `role` (id, name)
 VALUES (1,"admin");
 INSERT INTO `role` (id, name)
 VALUES (2,"user");
-INSERT INTO `user_roles` (id, user_id, role_id)
-VALUES (1,1,1);
-INSERT INTO `user_roles` (id, user_id, role_id)
-VALUES (2,2,2);
 ```
