@@ -11,6 +11,7 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from appFolder.camera import Camera
 from shutil import copyfile
+import os
 
 PROJECT_NAME = 'Hubble-Berry'
 
@@ -129,14 +130,17 @@ def stop_video():
     return {"text":"Vidéo terminée","name": video_name}
 
 
-@app.route('/save_usb')
+@app.route('/save_usb', methods=['POST'])
 @login_required
 def save_usb():
-    print("click on save ")
-    save_path = "/media/bilou/HUBBLE_SAVE/2.jpg"
-    copyfile(src="1.jpg",dst=save_path)
-    return ('', 204)
+    filename = "2.jpg"
+    path_to_usb = "/media/bilou/HUBBLE_SAVE/"
+    # shutil.move(src, dst, copy_function=copy2) # src & dst = directories
+    if os.path.exists(path=path_to_usb):
+        copyfile(src="1.jpg",dst=path_to_usb+filename)
+        return {"text": "fichiers transférés"}
+    else:
+        return {"text": "Aucune clé trouvée"}
 
-    
 # transfert photos sur clé
-# camera intergration
+# camera integration
