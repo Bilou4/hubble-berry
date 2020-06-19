@@ -11,8 +11,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     # Relationships
-    roles = db.relationship('Role', secondary='user_roles',
-                backref=db.backref('blabla', lazy=True))
+    role_id = db.Column(db.Integer(), db.ForeignKey('role.id')) 
 
     def __repr__(self):
         return '<User {}>'.format(self.username)    
@@ -24,18 +23,13 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def set_default_role(self):
-        self.roles.append(UserRoles(user_id=self.id, role_id=2)) #1=admin, 2=user
+        self.role_id = 2
 
+#1=admin, 2=user
 # Define the Role data model
 class Role(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
-
-# Define the UserRoles data model
-class UserRoles(db.Model):
-    id = db.Column(db.Integer(), primary_key=True)
-    user_id = db.Column(db.Integer(), db.ForeignKey('user.id', ondelete='CASCADE'))
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id', ondelete='CASCADE'))
 
 
 
