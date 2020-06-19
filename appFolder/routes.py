@@ -10,6 +10,7 @@ from werkzeug.urls import url_parse
 
 from datetime import datetime
 from appFolder.camera import Camera
+from shutil import copyfile
 
 PROJECT_NAME = 'Hubble-Berry'
 
@@ -128,5 +129,14 @@ def stop_video():
     return {"text":"Vidéo terminée","name": video_name}
 
 
-# Admin vs non admin => error register
+@app.route('/save_usb')
+@login_required
+def save_usb():
+    print("click on save ")
+    save_path = "/media/bilou/HUBBLE_SAVE/2.jpg"
+    copyfile(src="1.jpg",dst=save_path)
+    return ('', 204)
+
+    
 # transfert photos sur clé
+# camera intergration

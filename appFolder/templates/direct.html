@@ -22,55 +22,55 @@
     <img src="{{ url_for('video_feed') }}">
 
     {% if role == "admin" %}
-    <p><label for="path">Place to save it</label> <input id="path" type="text" value="/path/to/file"> <a id="validate_path" class="button" href="#">Apply changes</a></p>
+        <p><label for="path">Place to save it</label> <input id="path" type="text" value="/path/to/file"> <a id="validate_path" class="button" href="#">Apply changes</a></p>
+        <p><a id="save_in_usb" class="button" href="{{ url_for('save_usb') }}">Save in USB Key</a></p>
 
+        <br><br><br>
 
-    <br><br><br>
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'photo')" id="default_open">Photo</button>
+            <button class="tablinks" onclick="openTab(event, 'timelapse')">Timelapse</button>
+            <button class="tablinks" onclick="openTab(event, 'video')">Video</button>
+        </div>
+        
+        <!-- Tab content -->
+        <div id="photo" class="tabcontent">
+                <p>
+                    <label for="exposure_photo">Temps d'ouverture (en secondes)</label> 
+                    <input id="exposure_photo" name="exposure_photo" type="number" min="0" step="0.01" max="100" value="0">
+                </p>
+                <a class="button" id="take_a_photo" href="#">Prendre la photo</a>
+                <a class="button" id="cancel_photo" href="#">Annuler la photo</a>
 
-     <!-- Tab links -->
-    <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'photo')" id="default_open">Photo</button>
-        <button class="tablinks" onclick="openTab(event, 'timelapse')">Timelapse</button>
-        <button class="tablinks" onclick="openTab(event, 'video')">Video</button>
-    </div>
-    
-    <!-- Tab content -->
-    <div id="photo" class="tabcontent">
-            <p>
-                <label for="exposure_photo">Temps d'ouverture (en secondes)</label> 
-                <input id="exposure_photo" name="exposure_photo" type="number" min="0" step="0.01" max="100" value="0">
-            </p>
-            <a class="button" id="take_a_photo" href="#">Prendre la photo</a>
-            <a class="button" id="cancel_photo" href="#">Annuler la photo</a>
+        </div>
+        
+        <div id="timelapse" class="tabcontent">
+                <p>
+                    <label for="exposure_photo_timelapse">Temps d'ouverture (en secondes)</label> 
+                    <input id="exposure_photo_timelapse" name="exposure_photo_timelapse" type="number" min="0" step="0.01" max="100" value="1">
+                </p>
+                <p>
+                    <label for="time_between_photos">Temps entre chaque photo</label> 
+                    <input id="time_between_photos" name="time_between_photos" type="number" min="0" step="0.01" max="100" value="5">
+                </p>
+                <p>
+                    <label for="number_photos">Nombres de photos à prendre<label> 
+                    <input id="number_photos" name="number_photos" type="number" min="1" max="100" value="10">
+                </p>
+                
+                <p>Temps total (calculé) => <span id="calculated_time">60</span> secondes</p>
+                <a class="button" id="take_timelapse" href="#">Commencer le timelapse</a>
+                <a class="button" id="stop_timelapse" href="#">Arrêter le timelapse</a>
 
-    </div>
-    
-    <div id="timelapse" class="tabcontent">
-            <p>
-                <label for="exposure_photo_timelapse">Temps d'ouverture (en secondes)</label> 
-                <input id="exposure_photo_timelapse" name="exposure_photo_timelapse" type="number" min="0" step="0.01" max="100" value="1">
-            </p>
-            <p>
-                <label for="time_between_photos">Temps entre chaque photo</label> 
-                <input id="time_between_photos" name="time_between_photos" type="number" min="0" step="0.01" max="100" value="5">
-            </p>
-            <p>
-                <label for="number_photos">Nombres de photos à prendre<label> 
-                <input id="number_photos" name="number_photos" type="number" min="1" max="100" value="10">
-            </p>
-            
-            <p>Temps total (calculé) => <span id="calculated_time">60</span> secondes</p>
-            <a class="button" id="take_timelapse" href="#">Commencer le timelapse</a>
-            <a class="button" id="stop_timelapse" href="#">Arrêter le timelapse</a>
-
-    </div>
-    
-    <div id="video" class="tabcontent">
-        <a class="button" id="start_video" href="#">Commencer la vidéo !</a>
-        <a class="button" id="stop_video" href="#">Arrêter la vidéo !</a>
-    </div>
-    
-    <p> <span id="message"></span> <span id="filename"></span></p>
+        </div>
+        
+        <div id="video" class="tabcontent">
+            <a class="button" id="start_video" href="#">Commencer la vidéo !</a>
+            <a class="button" id="stop_video" href="#">Arrêter la vidéo !</a>
+        </div>
+        
+        <p> <span id="message"></span> <span id="filename"></span></p>
     {%endif%}
 
 {% endblock %}
