@@ -1,5 +1,5 @@
 from appFolder import app, db
-from appFolder.models import User
+from appFolder.models import User, Role
 from appFolder.forms import LoginForm, RegistrationForm
 
 from flask import render_template, flash, redirect,\
@@ -63,7 +63,7 @@ def register():
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
         user.set_password(form.password.data)
-        #user.set_default_role()
+        user.set_default_role()
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
@@ -74,7 +74,8 @@ def register():
 @app.route('/direct', methods=['GET','POST'])
 @login_required
 def direct():
-    return render_template('direct.html', role=current_user.roles[0].name, title=PROJECT_NAME + '- Direct')
+    user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
+    return render_template('direct.html', role=user_role[0], title=PROJECT_NAME + '- Direct')
 
 
 @app.route('/take_a_photo', methods=['POST'])
