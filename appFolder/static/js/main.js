@@ -234,4 +234,29 @@ $(document).ready(function(){
 					* parseFloat($('#number_photos').val());
 		$("#calculated_time").text(time);
 	});
+
+	
+	// ############ Save in USB ############
+
+	$("#save_in_usb").click( (e) => {
+		e.preventDefault();
+		$.ajax({
+			url:'/save_usb',
+			type:'POST',
+			dataType:"json",
+			data:'',
+			
+			success : function(codeJson){
+				if(codeJson.length!=0){
+					$("#usb_status").text(codeJson.text);
+				}
+				else{
+					console.log("else");
+				}
+			},
+			error : function(result, status, error){
+				console.log(result,status,error);
+			},
+		});
+	});
 });
