@@ -27,6 +27,9 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@app.route('/test')
+def test():
+    return render_template("test.html")
 
 @app.route('/')
 @app.route('/index')
