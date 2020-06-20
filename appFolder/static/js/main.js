@@ -25,11 +25,13 @@ function openTab(evt, tabName) {
 function disable_tables(){
 	$(".tablinks").prop('disabled', true);
 	$("#validate_path").hide();
+	$("#save_in_usb").hide();
 }
 
 function enable_tables(){
 	$(".tablinks").prop('disabled', false);
 	$("#validate_path").show();
+	$("#save_in_usb").show();
 }
 
 function stop_photo(cancel_was_clicked){
