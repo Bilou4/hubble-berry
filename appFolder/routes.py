@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera import Camera
-from shutil import copyfile
+from appFolder.camera_pi import Camera
+from shutil import copyfile, move
 import os
-#import picamera
+import picamera
 from time import sleep
 
 PROJECT_NAME = 'Hubble-Berry'
@@ -107,9 +107,10 @@ def stop_photo():
     if photo_is_canceled == 'true':
         return {"text":"photo annulée", "name": "-- supprimée --"}
     else:
-        # with picamera.PiCamera() as camera:
-        #     sleep(2)
-        #     camera.capture('/home/pi/Bureau/1.jpg')
+        with picamera.PiCamera() as camera:
+            camera.resolution = (1280,720)
+            sleep(2)
+            camera.capture('./camera/pictures/'+photo_name,format='png')
         return {"text":"photo prise!","name":photo_name}
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -146,14 +147,20 @@ def stop_video():
 @app.route('/save_usb', methods=['POST'])
 @login_required
 def save_usb():
-    filename = "2.jpg"
-    path_to_usb = "/media/bilou/HUBBLE_SAVE/"
-    # shutil.move(src, dst, copy_function=copy2) # src & dst = directories
+    path_to_usb = "/media/pi/HUBBLE_SAVE/camera/"
     if os.path.exists(path=path_to_usb):
-        copyfile(src="1.jpg",dst=path_to_usb+filename)
+        move_files('./camera/pictures/', path_to_usb+'pictures')
+        move_files('./camera/timelapse/', path_to_usb+'timelapse')
+        move_files('./camera/video/', path_to_usb+'video')
         return {"text": "fichiers transférés"}
     else:
         return {"text": "Aucune clé trouvée"}
+
+def move_files(src, dst):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        move(src=s, dst=d)
 
 # transfert photos sur clé
 # camera integration
