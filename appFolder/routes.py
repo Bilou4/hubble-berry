@@ -9,9 +9,11 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera import Camera
+from appFolder.camera_pi import Camera
 from shutil import copyfile
 import os
+import picamera
+from time import sleep
 
 PROJECT_NAME = 'Hubble-Berry'
 
@@ -100,6 +102,9 @@ def stop_photo():
     if photo_is_canceled == 'true':
         return {"text":"photo annulée", "name": "-- supprimée --"}
     else:
+        with picamera.PiCamera() as camera:
+            sleep(2)
+            camera.capture('/home/pi/Bureau/1.jpg')
         return {"text":"photo prise!","name":photo_name}
 
 @app.route('/take_timelapse', methods=['POST'])
