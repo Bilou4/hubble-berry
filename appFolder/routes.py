@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile
 import os
-import picamera
+#import picamera
 from time import sleep
 
 PROJECT_NAME = 'Hubble-Berry'
@@ -29,15 +29,12 @@ def video_feed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/test')
-def test():
-    return render_template("test.html")
 
 @app.route('/')
 @app.route('/index')
 def index():
     if current_user.is_authenticated:
-        return redirect(url_for('direct'))
+        return redirect(url_for('preview'))
     return render_template('index.html', title=PROJECT_NAME + '- Index')
 
 @app.route('/logout')
@@ -48,7 +45,7 @@ def logout():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('direct'))
+        return redirect(url_for('preview'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -58,7 +55,7 @@ def login():
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
-            next_page = url_for('direct')
+            next_page = url_for('preview')
         return redirect(next_page)
     return render_template('login.html', title=PROJECT_NAME + '- Sign In', form=form)
 
@@ -78,12 +75,20 @@ def register():
     return render_template('register.html', title=PROJECT_NAME + '- Register', form=form)
 
 
-@app.route('/direct', methods=['GET','POST'])
+@app.route('/functionalities', methods=['GET','POST'])
 @login_required
-def direct():
+def functionalities():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
-    return render_template('direct.html', role=user_role[0], title=PROJECT_NAME + '- Direct')
-
+    if user_role[0] == 'admin':
+        return render_template('functionalities.html', role=user_role[0], title=PROJECT_NAME + '- Direct')
+    else:
+        return redirect(url_for('preview'))
+        
+@app.route('/preview')
+@login_required
+def preview():
+    user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
+    return render_template("preview.html", title=PROJECT_NAME + '- Preview', role=user_role[0])
 
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
@@ -152,3 +157,6 @@ def save_usb():
 
 # transfert photos sur clé
 # camera integration
+# 1 page de preview (couper connexions si photo en cours / bientot en cours)
+# 1 page de functionnalities (redirection pour les nons admin)
+# 

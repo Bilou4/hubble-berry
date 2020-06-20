@@ -12,8 +12,9 @@
   
 {% endblock %}
 
-{% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>{% endblock %}
-
+{% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="button" href="{{ url_for('preview') }}">Preview</a>
+{% endblock %}
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>
     <!--    <video controls width="250">
