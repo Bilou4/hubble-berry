@@ -24,13 +24,11 @@ function openTab(evt, tabName) {
 
 function disable_tables(){
 	$(".tablinks").prop('disabled', true);
-	$("#validate_path").hide();
 	$("#save_in_usb").hide();
 }
 
 function enable_tables(){
 	$(".tablinks").prop('disabled', false);
-	$("#validate_path").show();
 	$("#save_in_usb").show();
 }
 
@@ -78,7 +76,7 @@ $(document).ready(function(){
 			url:'/take_a_photo',
 			type:'POST',
 			dataType:"json",
-			data:'path='+$("#path").val()+'&exposure_photo='+$('#exposure_photo').val(),
+			data:'exposure_photo='+$('#exposure_photo').val(),
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
@@ -116,7 +114,7 @@ $(document).ready(function(){
 			url:'/take_timelapse',
 			type:'POST',
 			dataType:"json",
-			data:'path='+$("#path").val()+'&exposure_photo='+$('#exposure_photo_timelapse').val()
+			data:'exposure_photo='+$('#exposure_photo_timelapse').val()
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val(),
 			
@@ -181,7 +179,7 @@ $(document).ready(function(){
 			url:'/start_video',
 			type:'POST',
 			dataType:"json",
-			data:'path='+$("#path").val(),
+			data:'',
 			
 			success : function(codeJson){
 				if(codeJson.length!=0){
