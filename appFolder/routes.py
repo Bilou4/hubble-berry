@@ -80,7 +80,7 @@ def register():
 def functionalities():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     if user_role[0] == 'admin':
-        return render_template('functionalities.html', role=user_role[0], title=PROJECT_NAME + '- Direct')
+        return render_template('functionalities.html', title=PROJECT_NAME + '- Direct')
     else:
         return redirect(url_for('preview'))
         
@@ -107,9 +107,9 @@ def stop_photo():
     if photo_is_canceled == 'true':
         return {"text":"photo annulée", "name": "-- supprimée --"}
     else:
-        with picamera.PiCamera() as camera:
-            sleep(2)
-            camera.capture('/home/pi/Bureau/1.jpg')
+        # with picamera.PiCamera() as camera:
+        #     sleep(2)
+        #     camera.capture('/home/pi/Bureau/1.jpg')
         return {"text":"photo prise!","name":photo_name}
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -158,5 +158,4 @@ def save_usb():
 # transfert photos sur clé
 # camera integration
 # 1 page de preview (couper connexions si photo en cours / bientot en cours)
-# 1 page de functionnalities (redirection pour les nons admin)
-# 
+# => ajax appelle preview et délivre 404 
