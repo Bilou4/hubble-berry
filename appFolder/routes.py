@@ -176,4 +176,14 @@ def move_files(src, dst):
         d = os.path.join(dst, item)
         move(src=s, dst=d)
 
-# camera integration
+# TODO ==> camera integration
+# The Raspberry Pi High Quality Camera’s maximum resolution is 4056 x 3040 pixels
+# (5K) and this produces an image of around 6MB in size. 
+# Images are typically saved as JPG, but we can also select
+#    RAW, GIF, BMP, PNG, YUV420, RG8888 file formats.
+
+# video, best = 1080p at 30 fps
+# https://raspberrypi.stackexchange.com/questions/32397/how-to-increase-the-camera-exposure-time
+# https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
+
+# TODO ==> add conf elements
