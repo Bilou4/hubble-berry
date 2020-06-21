@@ -17,11 +17,6 @@
 {% endblock %}
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>
-    <!--    <video controls width="250">
-        <source src="{{url_for('static', filename='video/ligo20160211v2.m4v')}}" type="video/mp4">
-    </video>-->
-    <!-- <img src="{{ url_for('video_feed') }}"> -->
-
 
     <p><span id="usb_status"></span> <a id="save_in_usb" class="button" href="">Save in USB Key</a></p>
 
@@ -41,7 +36,6 @@
                 <input id="exposure_photo" name="exposure_photo" type="number" min="0" step="0.01" max="100" value="0">
             </p>
             <a class="button" id="take_a_photo" href="#">Prendre la photo</a>
-            <a class="button" id="cancel_photo" href="#">Annuler la photo</a>
 
     </div>
     
@@ -61,13 +55,15 @@
             
             <p>Temps total (calculé) => <span id="calculated_time">60</span> secondes</p>
             <a class="button" id="take_timelapse" href="#">Commencer le timelapse</a>
-            <a class="button" id="stop_timelapse" href="#">Arrêter le timelapse</a>
 
     </div>
     
     <div id="video" class="tabcontent">
+        <p>
+            <label for="video_time">Temps de la vidéo<label> 
+            <input id="video_time" name="video_time" type="number" min="1" max="100" value="10">
+        </p>
         <a class="button" id="start_video" href="#">Commencer la vidéo !</a>
-        <a class="button" id="stop_video" href="#">Arrêter la vidéo !</a>
     </div>
     
     <p> <span id="message"></span> <span id="filename"></span></p>

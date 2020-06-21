@@ -93,65 +93,49 @@ def preview():
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
-    path = request.form['path']
-    print(path + exposure_photo)
-    return {"text":"photo en cours!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
-
-@app.route('/stop_photo', methods=['POST'])
-@login_required
-def stop_photo():
-    photo_name = request.form['photo_name']
-    photo_is_canceled = request.form['cancel']
-    #exposure_photo = request.form['exposure_photo']
+    photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+    #exposure_photo = int(request.form['exposure_photo'])
     # cannot use python boolean type because the request sent a string
-    if photo_is_canceled == 'true':
-        return {"text":"photo annulée", "name": "-- supprimée --"}
-    else:
+    try:
         with picamera.PiCamera() as camera:
             #camera.shutter_speed = exposure_photo
             #camera.iso = 
-            camera.resolution = (1280,720)
+            camera.resolution = (1920,1080)
             sleep(2)
             camera.capture('./camera/pictures/'+photo_name,format='png')
         return {"text":"photo prise!","name":photo_name}
+    except:
+        return {"text":"Erreur prise de photo", "name":"NULL"}
+
 
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
 def take_timelapse():
-    path = request.form['path']
-    exposure_photo = request.form['exposure_photo']
-    time_between_photos = request.form['time_between_photos']
-    number_photos = request.form['number_photos']
-    with picamera.PiCamera() as camera:
-        camera.resolution = (1024, 768)
-        camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
-        sleep(2)
-        for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{counter:02d}.png')):
-            sleep(time_between_photos)
-            if i == number_photos:
-                break
-    print(path + " " + exposure_photo + " " + time_between_photos + " " +number_photos)
-    return {"text":"Timelapse en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+    exposure_photo = int(request.form['exposure_photo'])
+    time_between_photos = int(request.form['time_between_photos'])
+    number_photos = int(request.form['number_photos'])
+    try:
+        with picamera.PiCamera() as camera:
+            camera.resolution = (1024, 768)
+            camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
+            sleep(2)
+            for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{counter:02d}.png')):
+                sleep(time_between_photos)
+                if i == number_photos:
+                    break
+        return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+    except:
+        return {"text":"Erreur prise de timelapse", "name":"NULL"}
 
 
-@app.route('/stop_timelapse', methods=['POST'])
-@login_required
-def stop_timelapse():
-    timelapse_name = request.form['timelapse_name']
-    return {"text":"Timelapse terminé","name": timelapse_name}
 
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
-    path = request.form['path']
-    print(path)
-    return {"text":"Vidéo en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
-
-@app.route('/stop_video', methods=['POST'])
-@login_required
-def stop_video():
-    video_name = request.form['video_name']
+    video_time = request.form['video_time']
+    video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     return {"text":"Vidéo terminée","name": video_name}
+
 
 
 @app.route('/save_usb', methods=['POST'])
