@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile, move
 import os
-import picamera
+#import picamera
 from time import sleep
 
 PROJECT_NAME = 'Hubble-Berry'
@@ -94,7 +94,6 @@ def preview():
 @login_required
 def take_a_photo():
     path = request.form['path']
-    exposure_photo = request.form['exposure_photo']
     print(path + exposure_photo)
     return {"text":"photo en cours!","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
@@ -103,11 +102,14 @@ def take_a_photo():
 def stop_photo():
     photo_name = request.form['photo_name']
     photo_is_canceled = request.form['cancel']
+    #exposure_photo = request.form['exposure_photo']
     # cannot use python boolean type because the request sent a string
     if photo_is_canceled == 'true':
         return {"text":"photo annulée", "name": "-- supprimée --"}
     else:
         with picamera.PiCamera() as camera:
+            #camera.shutter_speed = exposure_photo
+            #camera.iso = 
             camera.resolution = (1280,720)
             sleep(2)
             camera.capture('./camera/pictures/'+photo_name,format='png')
@@ -120,6 +122,14 @@ def take_timelapse():
     exposure_photo = request.form['exposure_photo']
     time_between_photos = request.form['time_between_photos']
     number_photos = request.form['number_photos']
+    with picamera.PiCamera() as camera:
+        camera.resolution = (1024, 768)
+        camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
+        sleep(2)
+        for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{counter:02d}.png')):
+            sleep(time_between_photos)
+            if i == number_photos:
+                break
     print(path + " " + exposure_photo + " " + time_between_photos + " " +number_photos)
     return {"text":"Timelapse en cours","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
 
