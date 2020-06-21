@@ -105,8 +105,9 @@ def take_a_photo():
             sleep(2)
             camera.capture('./camera/pictures/'+photo_name,format='png')
         return {"text":"photo prise!","name":photo_name}
-    except:
-        return {"text":"Erreur prise de photo", "name":"NULL"}
+    except Exception as e:
+        message_error = "[ERROR] " + e
+        return {"text": message_error, "name":"NULL"}
 
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -130,8 +131,8 @@ def take_timelapse():
                     break
         return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
     except Exception as e:
-        print("[ERROR] ",e)
-        return {"text":"Erreur prise de timelapse", "name":"NULL"}
+        message_error = "[ERROR] " + e
+        return {"text": message_error, "name":"NULL"}
 
 
 
@@ -140,8 +141,15 @@ def take_timelapse():
 def start_video():
     video_time = request.form['video_time']
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    return {"text":"Vidéo terminée","name": video_name}
-
+    try:
+        with picamera.PiCamera() as camera:
+            camera.start_recording()
+            camera.wait_recording(video_time)
+            camera.stop_recording()
+        return {"text":"Vidéo terminée","name": video_name}
+    except Exception as e:
+        message_error = "[ERROR] " + e
+        return {"text":message_error, "name":"NULL"}
 
 
 @app.route('/save_usb', methods=['POST'])
