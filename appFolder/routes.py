@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera import Camera
+from appFolder.camera_pi import Camera
 from shutil import copyfile, move
 import os
-#import picamera
+import picamera
 from time import sleep
 
 
@@ -122,16 +122,13 @@ def take_timelapse():
     exposure_photo = float(request.form['exposure_photo'])
     time_between_photos = float(request.form['time_between_photos'])
     number_photos = int(request.form['number_photos'])
-    print(exposure_photo,type(exposure_photo))
-    print(time_between_photos,type(time_between_photos))
-    print(number_photos,type(number_photos))
     try:
         with picamera.PiCamera() as camera:
             camera.resolution = (1024, 768)
             #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
             sleep(2)
-            for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{counter:02d}.png')):
-                print(i,type(i))
+            for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
+                print(filename)
                 sleep(time_between_photos)
                 if i == number_photos:
                     break

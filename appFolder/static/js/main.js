@@ -34,7 +34,7 @@ function enable_tables(){
 
 
 var the_timeout_handler = null;
-const default_time_camera_warmup = 2;
+const default_time_camera_warmup = 5;
 
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
@@ -47,11 +47,6 @@ $(document).ready(function(){
 
 		disable_tables();
 		$("#take_a_photo").hide();
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#take_a_photo").show();
-			the_timeout_handler = null;
-		}, (parseFloat($('#exposure_photo').val())+default_time_camera_warmup)*1000);
 
 		$.ajax({
 			url:'/take_a_photo',
@@ -72,6 +67,12 @@ $(document).ready(function(){
 				console.log(result,status,error);
 			},
 		});
+
+		the_timeout_handler = setTimeout( () => {
+			enable_tables();
+			$("#take_a_photo").show();
+			the_timeout_handler = null;
+		}, (parseFloat($('#exposure_photo').val())+default_time_camera_warmup)*1000);
 	});
 
 
@@ -83,12 +84,6 @@ $(document).ready(function(){
 		disable_tables();
 		$("#take_timelapse").hide();
 		$("#message").text("Timelapse en cours");
-
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#take_timelapse").show();
-			the_timeout_handler = null;
-		}, (parseFloat($("#calculated_time").text())+default_time_camera_warmup)*1000);
 
 		$.ajax({
 			url:'/take_timelapse',
@@ -111,6 +106,12 @@ $(document).ready(function(){
 				console.log(result,status,error);
 			},
 		});
+
+		the_timeout_handler = setTimeout( () => {
+			enable_tables();
+			$("#take_timelapse").show();
+			the_timeout_handler = null;
+		}, (parseFloat($("#calculated_time").text())+default_time_camera_warmup)*1000);
 	});
 
 	// ############ Video ############
@@ -121,13 +122,6 @@ $(document).ready(function(){
 		disable_tables();
 		$("#start_video").hide();
 		$("#message").text("Vidéo en cours");
-		
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#start_video").show();
-			the_timeout_handler = null;
-		}, (parseFloat($("#video_time").val())+default_time_camera_warmup)*1000);
-		
 		
 		$.ajax({
 			url:'/start_video',
@@ -148,6 +142,12 @@ $(document).ready(function(){
 				console.log(result,status,error);
 			},
 		});
+
+		the_timeout_handler = setTimeout( () => {
+			enable_tables();
+			$("#start_video").show();
+			the_timeout_handler = null;
+		}, (parseFloat($("#video_time").val())+default_time_camera_warmup)*1000);
 	});
 
  	// ############ Calculated time ############
