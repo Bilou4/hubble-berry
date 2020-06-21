@@ -104,10 +104,10 @@ def take_a_photo():
             camera.resolution = (1920,1080)
             sleep(2)
             camera.capture('./camera/pictures/'+photo_name,format='png')
-        return {"text":"photo prise!","name":photo_name}
+        return {"text":"photo prise!","name":photo_name, "status":"ok"}
     except Exception as e:
         message_error = "[ERROR] " + e
-        return {"text": message_error, "name":"NULL"}
+        return {"text": message_error, "name":"NULL", "status":"error"}
 
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -129,10 +129,10 @@ def take_timelapse():
                 sleep(time_between_photos)
                 if i == number_photos:
                     break
-        return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+        return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), "status":"ok"}
     except Exception as e:
         message_error = "[ERROR] " + e
-        return {"text": message_error, "name":"NULL"}
+        return {"text": message_error, "name":"NULL", "status":"error"}
 
 
 
@@ -146,10 +146,10 @@ def start_video():
             camera.start_recording()
             camera.wait_recording(video_time)
             camera.stop_recording()
-        return {"text":"Vidéo terminée","name": video_name}
+        return {"text":"Vidéo terminée","name": video_name, "status":"ok"}
     except Exception as e:
         message_error = "[ERROR] " + e
-        return {"text":message_error, "name":"NULL"}
+        return {"text":message_error, "name":"NULL", "status":"error"}
 
 
 @app.route('/save_usb', methods=['POST'])

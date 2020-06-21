@@ -59,13 +59,13 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'exposure_photo='+$('#exposure_photo').val(),
 			
-			success : function(codeJson){
-				if(codeJson.length!=0){
-					$("#message").text(codeJson.text);
-					$("#filename").text(codeJson.name);
+			success : function(response){
+				if(response.length!=0){
+					$("#message").text(response.text);
+					$("#filename").text(response.name);
 				}
-				else{
-					console.log("else");
+				if(response.status === "error"){
+					clearTimeout(the_timeout_handler);
 				}
 			},
 			error : function(result, status, error){
@@ -98,13 +98,13 @@ $(document).ready(function(){
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val(),
 			
-			success : function(codeJson){
-				if(codeJson.length!=0){
-					$("#message").text(codeJson.text);
-					$("#filename").text(codeJson.name);
+			success : function(response){
+				if(response.length!=0){
+					$("#message").text(response.text);
+					$("#filename").text(response.name);
 				}
-				else{
-					console.log("else");
+				if(response.status === "error"){
+					clearTimeout(the_timeout_handler);
 				}
 			},
 			error : function(result, status, error){
@@ -135,13 +135,13 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'video_time='+$("#video_time").val(),
 			
-			success : function(codeJson){
-				if(codeJson.length!=0){
-					$("#message").text(codeJson.text);
-					$("#filename").text(codeJson.name);
+			success : function(response){
+				if(response.length!=0){
+					$("#message").text(response.text);
+					$("#filename").text(response.name);
 				}
-				else{
-					console.log("else");
+				if(response.status === "error"){
+					clearTimeout(the_timeout_handler);
 				}
 			},
 			error : function(result, status, error){
@@ -170,12 +170,9 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'',
 			
-			success : function(codeJson){
-				if(codeJson.length!=0){
-					$("#usb_status").text(codeJson.text);
-				}
-				else{
-					console.log("else");
+			success : function(response){
+				if(response.length!=0){
+					$("#usb_status").text(response.text);
 				}
 			},
 			error : function(result, status, error){
