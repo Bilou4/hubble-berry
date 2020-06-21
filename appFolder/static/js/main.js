@@ -34,6 +34,7 @@ function enable_tables(){
 
 
 var the_timeout_handler = null;
+const default_time_camera_warmup = 2;
 
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
@@ -47,8 +48,9 @@ $(document).ready(function(){
 		$("#take_a_photo").hide();
 		the_timeout_handler = setTimeout( () => {
 			enable_tables();
+			$("#take_a_photo").show();
 			the_timeout_handler = null;
-		}, parseFloat($('#exposure_photo').val())*1000);
+		}, (parseFloat($('#exposure_photo').val())+default_time_camera_warmup)*1000);
 
 		$.ajax({
 			url:'/take_a_photo',
@@ -81,8 +83,9 @@ $(document).ready(function(){
 		$("#take_timelapse").hide();
 		the_timeout_handler = setTimeout( () => {
 			enable_tables();
+			$("#take_timelapse").show();
 			the_timeout_handler = null;
-		}, parseFloat($("#calculated_time").text())*1000);
+		}, (parseFloat($("#calculated_time").text())+default_time_camera_warmup)*1000);
 
 		$.ajax({
 			url:'/take_timelapse',
@@ -118,8 +121,9 @@ $(document).ready(function(){
 		
 		the_timeout_handler = setTimeout( () => {
 			enable_tables();
+			$("#start_video").show();
 			the_timeout_handler = null;
-		}, parseFloat($("#video_time").val())*1000);
+		}, (parseFloat($("#video_time").val())+default_time_camera_warmup)*1000);
 		
 		
 		$.ajax({
