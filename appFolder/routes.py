@@ -122,6 +122,7 @@ def take_timelapse():
     exposure_photo = float(request.form['exposure_photo'])
     time_between_photos = float(request.form['time_between_photos'])
     number_photos = int(request.form['number_photos'])
+    print(time_between_photos)
     try:
         with picamera.PiCamera() as camera:
             camera.resolution = (1024, 768)
@@ -142,11 +143,11 @@ def take_timelapse():
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
-    video_time = request.form['video_time']
+    video_time = int(request.form['video_time'])
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     try:
         with picamera.PiCamera() as camera:
-            camera.start_recording()
+            camera.start_recording("./camera/video/"+video_name,format='h264')
             camera.wait_recording(video_time)
             camera.stop_recording()
         return {"text":"Vidéo terminée","name": video_name, "status":"ok"}
