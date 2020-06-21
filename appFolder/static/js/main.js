@@ -43,6 +43,7 @@ $(document).ready(function(){
 
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
+		$("#message").text("Photo en cours");
 
 		disable_tables();
 		$("#take_a_photo").hide();
@@ -81,6 +82,8 @@ $(document).ready(function(){
 		
 		disable_tables();
 		$("#take_timelapse").hide();
+		$("#message").text("Timelapse en cours");
+
 		the_timeout_handler = setTimeout( () => {
 			enable_tables();
 			$("#take_timelapse").show();
