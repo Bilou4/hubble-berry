@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile, move
 import os
-import picamera
+#import picamera
 from time import sleep
 
 
@@ -91,6 +91,12 @@ def preview():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("preview.html", title=PROJECT_NAME + '- Preview', role=user_role[0])
 
+
+@app.errorhandler(404)
+def page_not_found(error):
+    # note that we set the 404 status explicitly
+    return render_template('404.html', title=PROJECT_NAME + '- ERROR'), 404
+
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
@@ -104,9 +110,10 @@ def take_a_photo():
             camera.resolution = (1920,1080)
             sleep(2)
             camera.capture('./camera/pictures/'+photo_name,format='png')
-        return {"text":"photo prise!","name":photo_name}
-    except:
-        return {"text":"Erreur prise de photo", "name":"NULL"}
+        return {"text":"photo prise!","name":photo_name, "status":"ok"}
+    except Exception as e:
+        message_error = "[ERROR] " + e
+        return {"text": message_error, "name":"NULL", "status":"error"}
 
 
 @app.route('/take_timelapse', methods=['POST'])
@@ -128,10 +135,10 @@ def take_timelapse():
                 sleep(time_between_photos)
                 if i == number_photos:
                     break
-        return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S')}
+        return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), "status":"ok"}
     except Exception as e:
-        print("[ERROR] ",e)
-        return {"text":"Erreur prise de timelapse", "name":"NULL"}
+        message_error = "[ERROR] " + e
+        return {"text": message_error, "name":"NULL", "status":"error"}
 
 
 
@@ -140,8 +147,15 @@ def take_timelapse():
 def start_video():
     video_time = request.form['video_time']
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    return {"text":"Vidéo terminée","name": video_name}
-
+    try:
+        with picamera.PiCamera() as camera:
+            camera.start_recording()
+            camera.wait_recording(video_time)
+            camera.stop_recording()
+        return {"text":"Vidéo terminée","name": video_name, "status":"ok"}
+    except Exception as e:
+        message_error = "[ERROR] " + e
+        return {"text":message_error, "name":"NULL", "status":"error"}
 
 
 @app.route('/save_usb', methods=['POST'])
@@ -162,7 +176,14 @@ def move_files(src, dst):
         d = os.path.join(dst, item)
         move(src=s, dst=d)
 
-# transfert photos sur clé
-# camera integration
-# 1 page de preview (couper connexions si photo en cours / bientot en cours)
-# => ajax appelle preview et délivre 404 
+# TODO ==> camera integration
+# The Raspberry Pi High Quality Camera’s maximum resolution is 4056 x 3040 pixels
+# (5K) and this produces an image of around 6MB in size. 
+# Images are typically saved as JPG, but we can also select
+#    RAW, GIF, BMP, PNG, YUV420, RG8888 file formats.
+
+# video, best = 1080p at 30 fps
+# https://raspberrypi.stackexchange.com/questions/32397/how-to-increase-the-camera-exposure-time
+# https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
+
+# TODO ==> add conf elements

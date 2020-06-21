@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+{% block container %}
+    <h1>Tu pensais aller où comme ça?</h1>
+    <p><a class="button" href="{{ url_for('index') }}">Retrouve ton chemin!</a></p>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}
