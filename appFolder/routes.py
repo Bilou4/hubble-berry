@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile, move
 import os
-import picamera
+#import picamera
 from time import sleep
 
 
@@ -90,6 +90,12 @@ def functionalities():
 def preview():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("preview.html", title=PROJECT_NAME + '- Preview', role=user_role[0])
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    # note that we set the 404 status explicitly
+    return render_template('404.html', title=PROJECT_NAME + '- ERROR'), 404
 
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
@@ -170,7 +176,4 @@ def move_files(src, dst):
         d = os.path.join(dst, item)
         move(src=s, dst=d)
 
-# transfert photos sur clé
 # camera integration
-# 1 page de preview (couper connexions si photo en cours / bientot en cours)
-# => ajax appelle preview et délivre 404 
