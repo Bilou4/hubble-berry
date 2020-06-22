@@ -33,7 +33,7 @@ function enable_tables(){
 }
 
 
-var the_timeout_handler = null;
+// var the_timeout_handler = null;
 const default_time_camera_warmup = 5;
 
 $(document).ready(function(){
@@ -58,21 +58,22 @@ $(document).ready(function(){
 				if(response.length!=0){
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
+					enable_tables();
+					$("#take_a_photo").show();
 				}
-				if(response.status === "error"){
-					clearTimeout(the_timeout_handler);
-				}
+				// if(response.status === "error"){
+				// 	clearTimeout(the_timeout_handler);
+				// }
 			},
 			error : function(result, status, error){
 				console.log(result,status,error);
 			},
 		});
 
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#take_a_photo").show();
-			the_timeout_handler = null;
-		}, (parseFloat($('#exposure_photo').val())+default_time_camera_warmup)*1000);
+		// the_timeout_handler = setTimeout( () => {
+
+		// 	the_timeout_handler = null;
+		// }, (parseFloat($('#exposure_photo').val())+default_time_camera_warmup)*1000);
 	});
 
 
@@ -97,21 +98,23 @@ $(document).ready(function(){
 				if(response.length!=0){
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
+					enable_tables();
+					$("#take_timelapse").show();
 				}
-				if(response.status === "error"){
-					clearTimeout(the_timeout_handler);
-				}
+				// if(response.status === "error"){
+				// 	clearTimeout(the_timeout_handler);
+				// }
 			},
 			error : function(result, status, error){
 				console.log(result,status,error);
 			},
 		});
 
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#take_timelapse").show();
-			the_timeout_handler = null;
-		}, (parseFloat($("#calculated_time").text())+default_time_camera_warmup)*1000);
+		// the_timeout_handler = setTimeout( () => {
+		// 	enable_tables();
+		// 	$("#take_timelapse").show();
+		// 	the_timeout_handler = null;
+		// }, (parseFloat($("#calculated_time").text())+default_time_camera_warmup)*1000);
 	});
 
 	// ############ Video ############
@@ -133,21 +136,22 @@ $(document).ready(function(){
 				if(response.length!=0){
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
+					enable_tables();
+					$("#start_video").show();
 				}
-				if(response.status === "error"){
-					clearTimeout(the_timeout_handler);
-				}
+				// if(response.status === "error"){
+				// 	clearTimeout(the_timeout_handler);
+				// }
 			},
 			error : function(result, status, error){
 				console.log(result,status,error);
 			},
 		});
 
-		the_timeout_handler = setTimeout( () => {
-			enable_tables();
-			$("#start_video").show();
-			the_timeout_handler = null;
-		}, (parseFloat($("#video_time").val())+default_time_camera_warmup)*1000);
+		// the_timeout_handler = setTimeout( () => {
+		// 	
+		// 	the_timeout_handler = null;
+		// }, (parseFloat($("#video_time").val())+default_time_camera_warmup)*1000);
 	});
 
  	// ############ Calculated time ############
