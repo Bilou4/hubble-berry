@@ -108,8 +108,8 @@ def take_a_photo():
             #camera.shutter_speed = exposure_photo
             #camera.iso = 
             camera.resolution = (1920,1080)
-            sleep(2)
-            camera.capture('./camera/pictures/'+photo_name,format='png')
+            sleep(2) # warmup
+            camera.capture('./camera/pictures/'+photo_name+'.png',format='png')
         return {"text":"photo prise!","name":photo_name, "status":"ok"}
     except Exception as e:
         message_error = "[ERROR] " + e
@@ -127,7 +127,7 @@ def take_timelapse():
         with picamera.PiCamera() as camera:
             camera.resolution = (1024, 768)
             #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
-            sleep(2)
+            sleep(2) # warmup
             for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
                 sleep(time_between_photos)
@@ -147,7 +147,8 @@ def start_video():
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     try:
         with picamera.PiCamera() as camera:
-            camera.start_recording("./camera/video/"+video_name,format='h264')
+            sleep(2) # warmup
+            camera.start_recording("./camera/video/"+video_name+".h264",format='h264')
             camera.wait_recording(video_time)
             camera.stop_recording()
         return {"text":"Vidéo terminée","name": video_name, "status":"ok"}
@@ -184,4 +185,11 @@ def move_files(src, dst):
 # https://raspberrypi.stackexchange.com/questions/32397/how-to-increase-the-camera-exposure-time
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
 
+
+#https://picamera.readthedocs.io/en/release-1.10/api_camera.html
+#https://stackoverflow.com/questions/60110742/picamera-capture-a-frame-while-continuous-capture-in-background
+#https://picamera.readthedocs.io/en/release-1.10/recipes1.html
 # TODO ==> add conf elements
+# TODO ==> cf splitter (plusieurs ports)
+# TODO timelaps => probleme de temps 
+# TODO pictures => quality
