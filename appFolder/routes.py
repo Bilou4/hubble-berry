@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile, move
 import os
-import picamera
+# import picamera
 from time import sleep
 
 
@@ -128,6 +128,7 @@ def take_timelapse():
             camera.resolution = (1024, 768)
             #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
             sleep(2) # warmup
+            # essayer avec camera.capture()
             for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
                 sleep(time_between_photos)
@@ -180,15 +181,73 @@ def move_files(src, dst):
 # (5K) and this produces an image of around 6MB in size. 
 # Images are typically saved as JPG, but we can also select
 #    RAW, GIF, BMP, PNG, YUV420, RG8888 file formats.
-
-# video, best = 1080p at 30 fps
-# https://raspberrypi.stackexchange.com/questions/32397/how-to-increase-the-camera-exposure-time
+#
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
 
+"""
+ISO = 800 || 1600 si shutter = 1/60 ||
+brightness
+contrast (increase noise)
 
-#https://picamera.readthedocs.io/en/release-1.10/api_camera.html
-#https://stackoverflow.com/questions/60110742/picamera-capture-a-frame-while-continuous-capture-in-background
-#https://picamera.readthedocs.io/en/release-1.10/recipes1.html
+
+video, best = 1080p at 30 fps
+
+camera.brightness = 50 (0 to 100)
+camera.sharpness = 0 (-100 to 100)
+camera.contrast = 0 (-100 to 100)
+camera.saturation = 0 (-100 to 100)
+camera.iso = 0 (auto), 100, 200, 320, 400, 500, 640, or 800.
+camera.exposure_compensation = 0 (-25 to 25)
+camera.exposure_mode = 'auto'
+camera.meter_mode = 'average'
+camera.awb_mode = 'auto'
+camera.rotation = 0
+camera.hflip = False
+camera.vflip = False
+camera.crop = (0.0, 0.0, 1.0, 1.0)
+
+camera.resolution = (1024, 768)
+4056 × 3040
+2028 × 1520
+2028 × 1080
+1012 × 760
+The maximum resolution for photos is 4056 × 3040 (HQ Camera)
+
+camera.image_effect = [none (the default), negative,
+solarize, sketch, denoise, emboss, oilpaint, hatch, gpen (graphite sketch effect), pastel,
+watercolor, film, blur, saturation, colorswap, washedout, posterise, colorpoint,
+colorbalance, cartoon, deinterlace1, deinterlace2]
+
+exposure_mode = ['off', 'auto' (default),
+'night', 'nightpreview', 'backlight', 'spotlight', 'sports', 'snow', 'beach',
+'verylong', 'fixedfps', 'antishake', 'fireworks'.]
+"""
+
+
+"""3.7. Capturing in low light
+from picamera import PiCamera
+from time import sleep
+from fractions import Fraction
+
+# Force sensor mode 3 (the long exposure mode), set
+# the framerate to 1/6fps, the shutter speed to 6s,
+# and ISO to 800 (for maximum gain)
+camera = PiCamera(
+    resolution=(1280, 720),
+    framerate=Fraction(1, 6),
+    sensor_mode=3)
+camera.shutter_speed = 6000000
+camera.iso = 800
+# Give the camera a good long time to set gains and
+# measure AWB (you may wish to use fixed AWB instead)
+sleep(30)
+camera.exposure_mode = 'off'
+# Finally, capture an image with a 6s exposure. Due
+# to mode switching on the still port, this will take
+# longer than 6 seconds
+camera.capture('dark.jpg')
+
+"""
 # TODO ==> add conf elements
 # TODO ==> cf splitter (plusieurs ports)
 # TODO timelaps => probleme de temps 
