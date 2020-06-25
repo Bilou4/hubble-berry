@@ -161,6 +161,12 @@ def start_video():
         message_error = "[ERROR] " + e
         return {"text":message_error, "name":"NULL", "status":"error"}
 
+@app.route('/get_list_of_photos')
+@login_required
+def get_list_of_photos():
+    return os.listdir("{{ url_for('static', filename='camera/pictures') }}") + \
+            os.listdir("{{ url_for('static', filename='camera/timelapse') }}") + \
+            os.listdir("{{ url_for('static', filename='camera/video') }}")
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
