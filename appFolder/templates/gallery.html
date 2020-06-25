@@ -3,18 +3,19 @@
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/galleria_style.css') }}">
+    
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script src="{{ url_for('static',  filename='galleria/src/galleria.js') }}"></script>
-    <style>
-        .galleria{ width: 700px; height: 400px; background: #000 }
-    </style>
+    
+
     <script>
         (function() {
             Galleria.loadTheme("{{ url_for('static',  filename='galleria/src/themes/classic/galleria.classic.js') }}");
             Galleria.run('.galleria');
-    }());
-</script>
+        }());
+    </script>
 {% endblock %}
 
 {% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
@@ -27,7 +28,6 @@
  
     <!-- https://galleriajs.github.io/docs/#references-guides -->
     <!-- TODO : utiliser Azur comme theme + voir les options -->
-    <!-- TODO : regrouper dans plusieurs fichiers-->
     <!-- TODO : fonction pour load une liste d'images depuis le serveur-->
     <!-- TODO : séparer pictures / timelapse / vidéos-->
     <div class="galleria">
