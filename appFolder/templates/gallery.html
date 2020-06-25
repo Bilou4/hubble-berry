@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="{{ url_for('static',  filename='galleria/src/galleria.js') }}"></script>
+    <style>
+        .galleria{ width: 700px; height: 400px; background: #000 }
+    </style>
+    <script>
+        (function() {
+            Galleria.loadTheme("{{ url_for('static',  filename='galleria/src/themes/classic/galleria.classic.js') }}");
+            Galleria.run('.galleria');
+    }());
+</script>
+{% endblock %}
+
+{% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
+{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">Functionalities</a>{%endif%}
+<a class="button" href="{{ url_for('preview') }}">Logout</a>
+{% endblock %}
+
+{% block container %}
+    <h1>You are now connected as {{ current_user.username }}!</h1>
+ 
+    <!-- https://galleriajs.github.io/docs/#references-guides -->
+    <!-- TODO : utiliser Azur comme theme + voir les options -->
+    <!-- TODO : regrouper dans plusieurs fichiers-->
+    <!-- TODO : fonction pour load une liste d'images depuis le serveur-->
+    <!-- TODO : séparer pictures / timelapse / vidéos-->
+    <div class="galleria">
+        <img src="{{ url_for('static',  filename='img/2020-06-21-15-51-01') }}">
+        <img src="{{ url_for('static',  filename='img/hubble_berry_logo.jpg') }}">
+    </div>
+
+
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}

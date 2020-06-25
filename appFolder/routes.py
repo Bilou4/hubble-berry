@@ -91,6 +91,10 @@ def preview():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("preview.html", title=PROJECT_NAME + '- Preview', role=user_role[0])
 
+@app.route('/gallery')
+@login_required
+def gallery():
+    return render_template("gallery.html", title=PROJECT_NAME + '- Gallery', role="admin")
 
 @app.errorhandler(404)
 def page_not_found(error):
