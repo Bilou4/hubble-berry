@@ -1,5 +1,6 @@
 .galleria{
-    width: 700px;
-    height: 400px;
+    display: flex;
+    justify-content: center;
+    height: 65vh;
     background: #000; 
 }
