@@ -26,7 +26,7 @@
 
 {% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
 {% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">Functionalities</a>{%endif%}
-<a class="button" href="{{ url_for('preview') }}">Logout</a>
+<a class="button" href="{{ url_for('preview') }}">Preview</a>
 {% endblock %}
 
 {% block container %}
