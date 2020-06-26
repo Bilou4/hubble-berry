@@ -9,15 +9,17 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera import Camera
+from appFolder.camera_pi import Camera
 from shutil import copyfile, move
 import os
-# import picamera
+import picamera
 from time import sleep
 
 
 PROJECT_NAME = 'Hubble-Berry'
-
+picture_directory="./appFolder/static/camera/pictures/"
+timelapse_directory="./appFolder/static/camera/timelapse/"
+video_directory="./appFolder/static/camera/video/"
 
 def gen(camera):
 	while True:
@@ -113,7 +115,7 @@ def take_a_photo():
             #camera.iso = 
             camera.resolution = (1920,1080)
             sleep(2) # warmup
-            camera.capture("{{ url_for('static', filename='camera/pictures') }}"+photo_name+'.png',format='png')
+            camera.capture(picture_directory+photo_name+'.png',format='png')
         return {"text":"photo prise!","name":photo_name, "status":"ok"}
     except Exception as e:
         message_error = "[ERROR] " + e
@@ -132,7 +134,7 @@ def take_timelapse():
             camera.resolution = (1024, 768)
             #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
             sleep(2) # warmup
-            # essayer avec camera.capture("{{ url_for('static', filename='camera/timelapse') }}"+photo_name+counter+".png")
+            # essayer avec camera.capture(timelapse_directory+photo_name+counter+".png")
             for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
                 sleep(time_between_photos)
@@ -153,7 +155,7 @@ def start_video():
     try:
         with picamera.PiCamera() as camera:
             sleep(2) # warmup
-            camera.start_recording("{{ url_for('static', filename='camera/video') }}"+video_name+".h264",format='h264')
+            camera.start_recording(video_directory+video_name+".h264",format='h264')
             camera.wait_recording(video_time)
             camera.stop_recording()
         return {"text":"Vidéo terminée","name": video_name, "status":"ok"}
@@ -164,18 +166,18 @@ def start_video():
 @app.route('/get_list_of_photos')
 @login_required
 def get_list_of_photos():
-    return os.listdir("{{ url_for('static', filename='camera/pictures') }}") + \
-            os.listdir("{{ url_for('static', filename='camera/timelapse') }}") + \
-            os.listdir("{{ url_for('static', filename='camera/video') }}")
+    return os.listdir(picture_directory) + \
+            os.listdir(timelapse_directory) + \
+            os.listdir(video_directory)
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
 def save_usb():
     path_to_usb = "/media/pi/HUBBLE_SAVE/camera/"
     if os.path.exists(path=path_to_usb):
-        move_files("{{ url_for('static', filename='camera/pictures') }}", path_to_usb+'pictures') # './camera/pictures/'
-        move_files("{{ url_for('static', filename='camera/timelapse') }}", path_to_usb+'timelapse') # './camera/timelapse/'
-        move_files("{{ url_for('static', filename='camera/video') }}", path_to_usb+'video') # './camera/video/'
+        move_files(picture_directory, path_to_usb+'pictures')
+        move_files(timelapse_directory, path_to_usb+'timelapse')
+        move_files(video_directory, path_to_usb+'video')
         return {"text": "fichiers transférés"}
     else:
         return {"text": "Aucune clé trouvée"}
