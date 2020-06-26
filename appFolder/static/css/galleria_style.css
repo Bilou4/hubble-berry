@@ -1,0 +1,9 @@
+.galleria{
+    display: flex;
+    max-width: 100vh;
+    justify-content: center;
+    height: 65vh;
+    background: #000; 
+    margin-left: 25%;
+    margin-right: 25%;
+}

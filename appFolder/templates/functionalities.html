@@ -14,6 +14,7 @@
 
 {% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
                     <a class="button" href="{{ url_for('preview') }}">Preview</a>
+                    <a class="button" href="{{ url_for('gallery') }}">Gallery</a>
 {% endblock %}
 {% block container %}
     <h1>You are now connected as {{ current_user.username }}!</h1>
