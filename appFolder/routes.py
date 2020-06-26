@@ -134,11 +134,10 @@ def take_timelapse():
             camera.resolution = (1024, 768)
             #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
             sleep(2) # warmup
-            # essayer avec camera.capture(timelapse_directory+photo_name+counter+".png")
-            for i, filename in enumerate(camera.capture_continuous('./camera/timelapse/{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
+            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
-                sleep(time_between_photos)
-                if i == number_photos:
+                sleep(time_between_photos-3.0)
+                if i == number_photos-1:
                     break
         return {"text":"Timelapse terminé","name": datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), "status":"ok"}
     except Exception as e:
