@@ -39,6 +39,17 @@ footer{
     /* border: 3px solid green;    */
 }
 
+input{
+  background-color: black;
+  border: black;
+  color:white;
+}
+
+select{
+  background-color: black;
+  border-width: .5px;
+  color: white;
+}
 
 /* ##################### Tabs ##################### */
 
