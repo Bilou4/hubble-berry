@@ -33,8 +33,9 @@
     <h1>You are now connected as {{ current_user.username }}!</h1>
  
     <!-- https://galleriajs.github.io/docs/#references-guides -->
-    <!-- TODO : fonction pour load une liste d'images depuis le serveur-->
     <!-- TODO : séparer pictures / timelapse / vidéos-->
+    <hr>
+    <h4>Photos</h4>
     {% if photo_file %}
         <div class="galleria">
             {% for filename in photo_file %}
@@ -43,7 +44,9 @@
             {%endfor%}
         </div>
     {% endif %}
-
+    
+    <hr>
+    <h4>Timelapse</h4>
     {% if timelapse_file %}
         <div class="galleria">
             {% for filename in timelapse_file %}
@@ -52,7 +55,9 @@
             {%endfor%}
         </div>
     {% endif %}
-
+    
+    <hr>
+    <h4>Video</h4>
     {% if video_file %}
         {% for filename in video_file %}
             <li>{{ filename }}</li>
