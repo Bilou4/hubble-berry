@@ -97,8 +97,9 @@ def preview():
 @login_required
 def gallery():
     dic_of_files = get_dic_of_files()
+    user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("gallery.html", title=PROJECT_NAME + '- Gallery', 
-            role="admin", photo_files=dic_of_files["photos"], 
+            role=user_role[0], photo_files=dic_of_files["photos"], 
             timelapse_file=dic_of_files["timelapse"], video_file=dic_of_files["video"])
 
 @app.errorhandler(404)
