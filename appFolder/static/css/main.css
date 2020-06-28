@@ -41,7 +41,7 @@ footer{
 
 input{
   background-color: black;
-  border: black;
+  border-width: .5px;
   color:white;
 }
 
