@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera import Camera
+from appFolder.camera_pi import Camera
 from shutil import copyfile, move
 import os
-# import picamera
+import picamera
 from time import sleep
 
 
@@ -115,9 +115,9 @@ def take_a_photo():
     # cannot use python boolean type because the request sent a string
     try:
         with picamera.PiCamera() as camera:
-            #camera.shutter_speed = exposure_photo
-            #camera.iso = 
-            camera.resolution = (1920,1080)
+            #camera.shutter_speed = 6000000
+            #camera.iso = 200
+            camera.resolution = (1024, 768)
             sleep(2) # warmup
             camera.capture(picture_directory+photo_name+'.png',format='png')
         return {"text":"photo prise!","name":photo_name, "status":"ok"}
