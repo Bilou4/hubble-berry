@@ -9,10 +9,10 @@ from flask_login import current_user, login_user, logout_user,\
 from werkzeug.urls import url_parse
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
+from appFolder.camera import Camera
 from shutil import copyfile, move
 import os
-import picamera
+# import picamera
 from time import sleep
 
 
@@ -96,7 +96,10 @@ def preview():
 @app.route('/gallery')
 @login_required
 def gallery():
-    return render_template("gallery.html", title=PROJECT_NAME + '- Gallery', role="admin")
+    dic_of_files = get_dic_of_files()
+    return render_template("gallery.html", title=PROJECT_NAME + '- Gallery', 
+            role="admin", photo_files=dic_of_files["photos"], 
+            timelapse_file=dic_of_files["timelapse"], video_file=dic_of_files["video"])
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -162,12 +165,12 @@ def start_video():
         message_error = "[ERROR] " + e
         return {"text":message_error, "name":"NULL", "status":"error"}
 
-@app.route('/get_list_of_photos')
+@app.route('/get_dic_of_files')
 @login_required
-def get_list_of_photos():
-    return os.listdir(picture_directory) + \
-            os.listdir(timelapse_directory) + \
-            os.listdir(video_directory)
+def get_dic_of_files():
+    return {"photos":os.listdir(picture_directory),
+            "timelapse":os.listdir(timelapse_directory),
+            "video":os.listdir(video_directory)}
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
@@ -261,5 +264,5 @@ camera.capture('dark.jpg')
 """
 # TODO ==> add conf elements
 # TODO ==> cf splitter (plusieurs ports)
-# TODO timelaps => probleme de temps 
 # TODO pictures => quality
+# TODO gallery => chargement des images
