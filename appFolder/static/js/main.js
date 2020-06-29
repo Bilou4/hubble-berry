@@ -52,7 +52,21 @@ $(document).ready(function(){
 			url:'/take_a_photo',
 			type:'POST',
 			dataType:"json",
-			data:'exposure_photo='+$('#exposure_photo').val(),
+			data:'exposure_photo='+$('#exposure_photo').val()+
+				'&resolution_photo='+$('#resolution_photo').val()+
+				'&iso_photo='+$('#iso_photo').val()+
+				'&advanced_options_checkbox='+$('#advanced_options_checkbox').is(":checked")+
+				'&brightness_photo='+$('#brightness_photo').val()+
+				'&contrast_photo='+$('#contrast_photo').val()+
+				'&sharpness_photo='+$('#sharpness_photo').val()+
+				'&saturation_photo='+$('#saturation_photo').val()+
+				'&rotation_photo='+$('#rotation_photo').val()+
+				'&hflip_photo='+$('#hflip_photo').val()+
+				'&vflip_photo='+$('#vflip_photo').val()+
+				'&exposure_compensation_photo='+$('#exposure_compensation_photo').val()+
+				'&exposure_mode_photo='+$('#exposure_mode_photo').val()+
+				'&image_effect_photo='+$('#image_effect_photo').val(),
+
 			
 			success : function(response){
 				if(response.length!=0){
@@ -160,6 +174,7 @@ $(document).ready(function(){
 		});
 	});
 
+	// ############ Advanced options panel ############
 
 	$('#advanced_options').hide();
 	$('#advanced_options_checkbox').change(function() {

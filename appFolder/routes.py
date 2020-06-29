@@ -111,8 +111,22 @@ def page_not_found(error):
 @login_required
 def take_a_photo():
     photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    #exposure_photo = int(request.form['exposure_photo'])
+    exposure_photo = int(request.form['exposure_photo'])
+    resolution = request.form['resolution_photo']
+    iso = request.form['iso_photo']
+    advanced_options = request.form['advanced_options_checkbox']
     # cannot use python boolean type because the request sent a string
+    if advanced_options == "true":
+        brightness = request.form['brightness_photo']
+        contrast = request.form['contrast_photo']
+        sharpness = request.form['sharpness_photo']
+        saturation = request.form['saturation_photo']
+        rotation = request.form['rotation_photo']
+        hflip = request.form['hflip_photo']
+        vflip = request.form['vflip_photo']
+        exposure_compensation = request.form['exposure_compensation_photo']
+        exposure_mode = request.form['exposure_mode_photo']
+        image_effect = request.form['image_effect_photo']
     try:
         with picamera.PiCamera() as camera:
             #camera.shutter_speed = 6000000
