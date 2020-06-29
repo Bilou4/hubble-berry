@@ -112,26 +112,26 @@ def page_not_found(error):
 def take_a_photo():
     photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     exposure_photo = int(request.form['exposure_photo'])
-    resolution = request.form['resolution_photo']
-    iso = request.form['iso_photo']
-    advanced_options = request.form['advanced_options_checkbox']
+    resolution = (int(request.form['resolution_photo'].split(',')[0]),int(request.form['resolution_photo'].split(',')[1]))
+    iso = int(request.form['iso_photo'])
+    advanced_options_is_checked = True if request.form['advanced_options_checkbox']=='true' else False
     # cannot use python boolean type because the request sent a string
-    if advanced_options == "true":
-        brightness = request.form['brightness_photo']
-        contrast = request.form['contrast_photo']
-        sharpness = request.form['sharpness_photo']
-        saturation = request.form['saturation_photo']
-        rotation = request.form['rotation_photo']
-        hflip = request.form['hflip_photo']
-        vflip = request.form['vflip_photo']
-        exposure_compensation = request.form['exposure_compensation_photo']
+    if advanced_options_is_checked:
+        brightness = int(request.form['brightness_photo'])
+        contrast = int(request.form['contrast_photo'])
+        sharpness = int(request.form['sharpness_photo'])
+        saturation = int(request.form['saturation_photo'])
+        rotation = int(request.form['rotation_photo'])
+        hflip = True if request.form['hflip_photo']=='true' else False
+        vflip = True if request.form['vflip_photo']=='true' else False
+        exposure_compensation = int(request.form['exposure_compensation_photo'])
         exposure_mode = request.form['exposure_mode_photo']
         image_effect = request.form['image_effect_photo']
     try:
         with picamera.PiCamera() as camera:
             #camera.shutter_speed = 6000000
-            #camera.iso = 200
-            camera.resolution = (1024, 768)
+            camera.iso = iso
+            camera.resolution = resolution
             sleep(2) # warmup
             camera.capture(picture_directory+photo_name+'.png',format='png')
         return {"text":"photo prise!","name":photo_name, "status":"ok"}
@@ -146,7 +146,18 @@ def take_timelapse():
     exposure_photo = float(request.form['exposure_photo'])
     time_between_photos = float(request.form['time_between_photos'])
     number_photos = int(request.form['number_photos'])
-    print(time_between_photos)
+    # print(exposure_photo, type(exposure_photo))
+    # print(resolution, type(resolution))
+    # print(iso, type(iso))
+    # print(brightness, type(brightness))
+    # print(contrast, type(contrast))
+    # print(sharpness, type(sharpness))
+    # print(rotation, type(rotation))
+    # print(hflip, type(hflip))
+    # print(vflip, type(vflip))
+    # print(exposure_compensation, type(exposure_compensation))
+    # print(exposure_mode, type(exposure_mode))
+    # print(image_effect, type(image_effect))
     try:
         with picamera.PiCamera() as camera:
             camera.resolution = (1024, 768)
@@ -214,8 +225,9 @@ ISO = 800 || 1600 si shutter = 1/60 ||
 video, best = 1080p at 30 fps
 
 
-camera.meter_mode = 'average'
-camera.awb_mode = 'auto'
+camera.meter_mode = 'average' (default), 'spot', 'backlit', 'matrix'
+camera.awb_mode = 'off', 'auto' (default), ‘sunlight', 'cloudy', 'shade', 'tungsten', 'fluorescent',
+'incandescent', 'flash', 'horizon'.
 camera.crop = (0.0, 0.0, 1.0, 1.0)
 """
 
