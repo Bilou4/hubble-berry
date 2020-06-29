@@ -159,4 +159,18 @@ $(document).ready(function(){
 			},
 		});
 	});
+
+
+	$('#advanced_options').hide();
+	$('#advanced_options_checkbox').change(function() {
+		// this will contain a reference to the checkbox   
+		if (this.checked) {
+			// the checkbox is now checked 
+			$('#advanced_options').slideDown();
+		} else {
+			// the checkbox is now no longer checked
+			$('#advanced_options').slideUp();
+		}
+		
+	});
 });

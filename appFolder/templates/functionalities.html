@@ -37,25 +37,6 @@
                 <input id="exposure_photo" size="4" name="exposure_photo" type="number" min="0" step="0.01" max="100" value="0">
             </p>
             <p>
-                <label for="brightness_photo">Luminosité = </label> 
-                <input id="brightness_photo" size="4" name="brightness_photo" type="number" min="0" max="100" value="50">
-            </p>
-            <p>
-                <label for="contrast_photo">Contrast (increase noise) = </label> 
-                <input id="contrast_photo" size="4" name="contrast_photo" type="number" min="-100" max="100" value="0">
-            </p>
-            <p>
-                <label for="sharpness_photo">Netteté = </label> 
-                <input id="sharpness_photo" size="4" name="sharpness_photo" type="number" min="-100" max="100" value="0">
-            ||||
-                <label for="saturation_photo">Saturation = </label> 
-                <input id="saturation_photo" size="4" name="saturation_photo" type="number" min="-100" max="100" value="0">
-            </p>
-            <p>
-                <label for="exposure_compensation_photo">Exposure compensation = </label> 
-                <input id="exposure_compensation_photo" size="4" name="exposure_compensation_photo" type="number" min="-25" max="25" value="0">
-            </p>
-            <p>
                 <label for="resolution_photo">Résolution = </label>
                 <select name="resolution_photo" id="resolution_photo">
                     <option value="4056,3040">4056 × 3040</option>
@@ -76,73 +57,98 @@
                     <option value="640">640</option>
                     <option value="800">800</option>
                 </select>
-            ||||
-                <label for="rotation_photo">Rotation = </label>
-                <select name="rotation_photo" id="rotation_photo">
-                    <option default value="0">0</option>
-                    <option value="90">90</option>
-                    <option value="180">180</option>
-                    <option value="270">270</option>
-
-                </select>
-            </p> 
-            <p>
-                <label for="hflip_photo">Horizontal flip = </label>
-                <select name="hflip_photo" id="hflip_photo">
-                    <option default value="false">False</option>
-                    <option value="true">True</option>
-                </select>
-            ||||
-                <label for="vflip_photo">Vertical flip = </label>
-                <select name="vflip_photo" id="vflip_photo">
-                    <option default value="false">False</option>
-                    <option value="true">True</option>
-                </select>
             </p>
             <p>
-                <label for="exposure_mode_photo">Exposure mode = </label>
-                <select name="exposure_mode_photo" id="exposure_mode_photo">
-                    <option value="off">off</option>
-                    <option default value="auto">auto</option>
-                    <option value="night">night</option>
-                    <option value="nightpreview">nightpreview</option>
-                    <option value="backlight">backlight</option>
-                    <option value="spotlight">spotlight</option>
-                    <option value="sports">sports</option>
-                    <option value="snow">snow</option>
-                    <option value="beach">beach</option>
-                    <option value="verylong">verylong</option>
-                    <option value="fixedfps">fixedfps</option>
-                    <option value="antishake">antishake</option>
-                    <option value="fireworks">fireworks</option>
-                </select>
-            ||||
-                <label for="image_effect_photo">Image effect = </label>
-                <select name="image_effect_photo" id="image_effect_photo">
-                    <option default value="none">none</option>
-                    <option value="negative">negative</option>
-                    <option value="solarize">solarize</option>
-                    <option value="sketch">sketch</option>
-                    <option value="denoise">denoise</option>
-                    <option value="emboss">emboss</option>
-                    <option value="oilpaint">oilpaint</option>
-                    <option value="hatch">hatch</option>
-                    <option value="gpen">gpen (graphite sketch effect)</option>
-                    <option value="pastel">pastel</option>
-                    <option value="watercolor">watercolor</option>
-                    <option value="film">film</option>
-                    <option value="blur">blur</option>
-                    <option value="saturation">saturation</option>
-                    <option value="colorswap">colorswap</option>
-                    <option value="washedout">washedout</option>
-                    <option value="posterise">posterise</option>
-                    <option value="colorpoint">colorpoint</option>
-                    <option value="colorbalance">colorbalance</option>
-                    <option value="cartoon">cartoon</option>
-                    <option value="deinterlace1">deinterlace1</option>
-                    <option value="deinterlace2">deinterlace2</option>
-                </select>
-            </p> 
+                <label for="check1">Advanced options</label>
+                <input type="checkbox" id="advanced_options_checkbox" name="check1" value="check1">
+            </p>
+            <div id='advanced_options'>
+                <p>
+                    <label for="brightness_photo">Luminosité = </label> 
+                    <input id="brightness_photo" size="4" name="brightness_photo" type="number" min="0" max="100" value="50">
+                </p>
+                <p>
+                    <label for="contrast_photo">Contrast (increase noise) = </label> 
+                    <input id="contrast_photo" size="4" name="contrast_photo" type="number" min="-100" max="100" value="0">
+                </p>
+                <p>
+                    <label for="sharpness_photo">Netteté = </label> 
+                    <input id="sharpness_photo" size="4" name="sharpness_photo" type="number" min="-100" max="100" value="0">
+                ||||
+                    <label for="saturation_photo">Saturation = </label> 
+                    <input id="saturation_photo" size="4" name="saturation_photo" type="number" min="-100" max="100" value="0">
+                </p>
+                <p>
+                    <label for="rotation_photo">Rotation = </label>
+                    <select name="rotation_photo" id="rotation_photo">
+                        <option default value="0">0</option>
+                        <option value="90">90</option>
+                        <option value="180">180</option>
+                        <option value="270">270</option>
+
+                    </select>
+                ||||
+                    <label for="hflip_photo">Horizontal flip = </label>
+                    <select name="hflip_photo" id="hflip_photo">
+                        <option default value="false">False</option>
+                        <option value="true">True</option>
+                    </select>
+                ||||
+                    <label for="vflip_photo">Vertical flip = </label>
+                    <select name="vflip_photo" id="vflip_photo">
+                        <option default value="false">False</option>
+                        <option value="true">True</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="exposure_compensation_photo">Exposure compensation = </label> 
+                    <input id="exposure_compensation_photo" size="4" name="exposure_compensation_photo" type="number" min="-25" max="25" value="0">
+                </p>
+                <p>
+                    <label for="exposure_mode_photo">Exposure mode = </label>
+                    <select name="exposure_mode_photo" id="exposure_mode_photo">
+                        <option value="off">off</option>
+                        <option default value="auto">auto</option>
+                        <option value="night">night</option>
+                        <option value="nightpreview">nightpreview</option>
+                        <option value="backlight">backlight</option>
+                        <option value="spotlight">spotlight</option>
+                        <option value="sports">sports</option>
+                        <option value="snow">snow</option>
+                        <option value="beach">beach</option>
+                        <option value="verylong">verylong</option>
+                        <option value="fixedfps">fixedfps</option>
+                        <option value="antishake">antishake</option>
+                        <option value="fireworks">fireworks</option>
+                    </select>
+                ||||
+                    <label for="image_effect_photo">Image effect = </label>
+                    <select name="image_effect_photo" id="image_effect_photo">
+                        <option default value="none">none</option>
+                        <option value="negative">negative</option>
+                        <option value="solarize">solarize</option>
+                        <option value="sketch">sketch</option>
+                        <option value="denoise">denoise</option>
+                        <option value="emboss">emboss</option>
+                        <option value="oilpaint">oilpaint</option>
+                        <option value="hatch">hatch</option>
+                        <option value="gpen">gpen (graphite sketch effect)</option>
+                        <option value="pastel">pastel</option>
+                        <option value="watercolor">watercolor</option>
+                        <option value="film">film</option>
+                        <option value="blur">blur</option>
+                        <option value="saturation">saturation</option>
+                        <option value="colorswap">colorswap</option>
+                        <option value="washedout">washedout</option>
+                        <option value="posterise">posterise</option>
+                        <option value="colorpoint">colorpoint</option>
+                        <option value="colorbalance">colorbalance</option>
+                        <option value="cartoon">cartoon</option>
+                        <option value="deinterlace1">deinterlace1</option>
+                        <option value="deinterlace2">deinterlace2</option>
+                    </select>
+                </p> 
+            </div>
             <a class="button" id="take_a_photo" href="#">Prendre la photo</a>
 
     </div>
