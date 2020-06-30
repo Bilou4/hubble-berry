@@ -63,6 +63,30 @@
             </p>
             <div id='advanced_options'>
                 <p>
+                    <label for="meter_mode_photo">Meter Mode = </label>
+                    <select name="meter_mode_photo" id="meter_mode_photo">
+                        <option default value="average">average</option>
+                        <option value="spot">spot</option>
+                        <option value="backlit">backlit</option>
+                        <option value="matrix">matrix</option>
+                    </select>
+                ||||
+                    <label for="awb_mode_photo">AWB Mode = </label>
+                    <select name="awb_mode_photo" id="awb_mode_photo">
+                        <option value="off">off</option>
+                        <option default value="auto">auto</option>
+                        <option value="sunlight">sunlight</option>
+                        <option value="cloudy">cloudy</option>
+                        <option value="shade">shade</option>
+                        <option value="tungsten">tungsten</option>
+                        <option value="fluorescent">fluorescent</option>
+                        <option value="incandescent">incandescent</option>
+                        <option value="flash">flash</option>
+                        <option value="horizon">horizon</option>
+                    </select>
+                
+                </p>
+                <p>
                     <label for="brightness_photo">Luminosité = </label> 
                     <input id="brightness_photo" size="4" name="brightness_photo" type="number" min="0" max="100" value="50">
                 </p>

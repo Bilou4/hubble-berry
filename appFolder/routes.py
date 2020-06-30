@@ -127,6 +127,8 @@ def take_a_photo():
         exposure_compensation = int(request.form['exposure_compensation_photo'])
         exposure_mode = request.form['exposure_mode_photo']
         image_effect = request.form['image_effect_photo']
+        meter_mode = request.form['meter_mode_photo']
+        awb_mode = request.form['awb_mode_photo']
     try:
         with picamera.PiCamera() as camera:
             #camera.shutter_speed = 6000000
@@ -225,9 +227,6 @@ ISO = 800 || 1600 si shutter = 1/60 ||
 video, best = 1080p at 30 fps
 
 
-camera.meter_mode = 'average' (default), 'spot', 'backlit', 'matrix'
-camera.awb_mode = 'off', 'auto' (default), ‘sunlight', 'cloudy', 'shade', 'tungsten', 'fluorescent',
-'incandescent', 'flash', 'horizon'.
 camera.crop = (0.0, 0.0, 1.0, 1.0)
 """
 
@@ -256,5 +255,4 @@ camera.exposure_mode = 'off'
 camera.capture('dark.jpg')
 
 """
-# TODO ==> add conf elements
 # TODO ==> cf splitter (plusieurs ports)

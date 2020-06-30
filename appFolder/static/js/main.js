@@ -65,7 +65,10 @@ $(document).ready(function(){
 				'&vflip_photo='+$('#vflip_photo').val()+
 				'&exposure_compensation_photo='+$('#exposure_compensation_photo').val()+
 				'&exposure_mode_photo='+$('#exposure_mode_photo').val()+
-				'&image_effect_photo='+$('#image_effect_photo').val(),
+				'&image_effect_photo='+$('#image_effect_photo').val()+
+				'&awb_mode_photo='+$('#awb_mode_photo').val()+
+				'&meter_mode_photo='+$('#meter_mode_photo').val(),
+				
 
 			
 			success : function(response){
