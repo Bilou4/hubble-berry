@@ -189,7 +189,15 @@
                 <label for="number_photos">Nombres de photos à prendre = <label> 
                 <input id="number_photos" size="4" name="number_photos" type="number" min="1" max="100" value="10">
             </p>
-            
+            <p>
+                <label for="resolution_timelapse">Résolution = </label>
+                <select name="resolution_timelapse" id="resolution_timelapse">
+                    <option value="4056,3040">4056 × 3040</option>
+                    <option value="2028,1520">2028 × 1520</option>
+                    <option value="2028,1080">2028 × 1080</option>
+                    <option value="1012,760">1012 × 760</option>
+                </select>
+            </p>
             <p>Temps total (calculé) => <span id="calculated_time">60</span> secondes</p>
             <a class="button" id="take_timelapse" href="#">Commencer le timelapse</a>
 
@@ -199,6 +207,13 @@
         <p>
             <label for="video_time">Temps de la vidéo = <label> 
             <input id="video_time" size="4" name="video_time" type="number" min="1" max="100" value="10">
+        </p>
+        <p>
+            <label for="resolution_video">Résolution = </label>
+            <select name="resolution_video" id="resolution_video">
+                <option value="1920,1080">1920 × 1080</option>
+                <option value="1012,760">1012 × 760</option>
+            </select>
         </p>
         <a class="button" id="start_video" href="#">Commencer la vidéo !</a>
     </div>

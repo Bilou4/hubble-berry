@@ -148,6 +148,8 @@ def take_timelapse():
     exposure_photo = float(request.form['exposure_photo'])
     time_between_photos = float(request.form['time_between_photos'])
     number_photos = int(request.form['number_photos'])
+    resolution = (int(request.form['resolution_timelapse'].split(',')[0]),int(request.form['resolution_timelapse'].split(',')[1]))
+
     # print(exposure_photo, type(exposure_photo))
     # print(resolution, type(resolution))
     # print(iso, type(iso))
@@ -182,6 +184,9 @@ def take_timelapse():
 def start_video():
     video_time = int(request.form['video_time'])
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+    resolution = (int(request.form['resolution_video'].split(',')[0]),int(request.form['resolution_video'].split(',')[1]))
+    # print(resolution, type(resolution))
+
     try:
         with picamera.PiCamera() as camera:
             sleep(2) # warmup
@@ -222,36 +227,34 @@ def move_files(src, dst):
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
 
 """
-ISO = 800 || 1600 si shutter = 1/60 ||
-
-video, best = 1080p at 30 fps
-
-
 camera.crop = (0.0, 0.0, 1.0, 1.0)
 """
 
 
 """3.7. Capturing in low light
-from picamera import PiCamera
-from time import sleep
 from fractions import Fraction
 
 # Force sensor mode 3 (the long exposure mode), set
 # the framerate to 1/6fps, the shutter speed to 6s,
 # and ISO to 800 (for maximum gain)
+
 camera = PiCamera(
     resolution=(1280, 720),
     framerate=Fraction(1, 6),
     sensor_mode=3)
 camera.shutter_speed = 6000000
 camera.iso = 800
+
 # Give the camera a good long time to set gains and
 # measure AWB (you may wish to use fixed AWB instead)
+
 sleep(30)
 camera.exposure_mode = 'off'
+
 # Finally, capture an image with a 6s exposure. Due
 # to mode switching on the still port, this will take
 # longer than 6 seconds
+
 camera.capture('dark.jpg')
 
 """

@@ -101,7 +101,9 @@ $(document).ready(function(){
 			dataType:"json",
 			data:'exposure_photo='+$('#exposure_photo_timelapse').val()
 					+'&time_between_photos=' + $('#time_between_photos').val()
-					+'&number_photos=' + $('#number_photos').val(),
+					+'&number_photos=' + $('#number_photos').val()
+					+'&resolution_timelapse='+$('#resolution_timelapse').val(),
+					
 			
 			success : function(response){
 				if(response.length!=0){
@@ -130,7 +132,8 @@ $(document).ready(function(){
 			url:'/start_video',
 			type:'POST',
 			dataType:"json",
-			data:'video_time='+$("#video_time").val(),
+			data:'video_time='+$("#video_time").val()+
+				'&resolution_video='+$('#resolution_video').val(),
 			
 			success : function(response){
 				if(response.length!=0){
