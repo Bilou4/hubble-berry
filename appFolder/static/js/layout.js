@@ -41,14 +41,22 @@ function switchOffNightMode(){
 }
 
 $(document).ready(function(){
-
+    // set the mode day/night permanent - pages transition
+	if(localStorage.getItem('mode') === 'night'){
+        switchOnNightMode();
+        $('#night_mode').click();
+    }else{
+        switchOffNightMode();
+    }
     // ############ Night Mode ############
     $('#night_mode').change( function() {
 		if(this.checked){
-			switchOnNightMode();
+            switchOnNightMode();
+            localStorage.setItem('mode', 'night');
         }
 		else{
             switchOffNightMode();
+            localStorage.setItem('mode','day');
 		}
     });
 });
