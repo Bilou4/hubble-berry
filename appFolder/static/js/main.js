@@ -17,6 +17,14 @@ function openTab(evt, tabName) {
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(tabName).style.display = "inline-block";
 	evt.currentTarget.className += " active";
+	if($('#night_mode')[0].checked){
+		//for the night mode to work properly
+		$('.tab button').css('background-color', '#e57373'); 
+		$('.tab button.active').css('background-color', '#d32f2f');
+	}else{
+		$('.tab button').css('background-color', '#f1f1f1'); 
+		$('.tab button.active').css('background-color', '#ccc'); 	
+	}
 	
 	$("#message").text(""); // deleting text in message paragraph to hide previous text
 	$("#filename").text("");
