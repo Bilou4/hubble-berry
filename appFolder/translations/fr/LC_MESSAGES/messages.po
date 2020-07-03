@@ -1,0 +1,493 @@
+# French translations for PROJECT.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-07-03 18:58+0200\n"
+"PO-Revision-Date: 2020-07-03 18:04+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: appFolder/forms.py:10
+msgid "Who are you?"
+msgstr "Qui êtes vous?"
+
+#: appFolder/forms.py:11
+msgid "What is your password?"
+msgstr "Quel est votre mot de passe?"
+
+#: appFolder/forms.py:12
+msgid "Remember Me"
+msgstr "Se souvenir de moi"
+
+#: appFolder/forms.py:13
+msgid "Go!"
+msgstr "C'est parti!"
+
+#: appFolder/forms.py:19
+msgid "How may I call you?"
+msgstr "Comment dois-je vous appeler?"
+
+#: appFolder/forms.py:20
+msgid "How may I reach you?"
+msgstr "Comment puis-je vous joindre?"
+
+#: appFolder/forms.py:21
+msgid "Choose a strong password"
+msgstr "Choisissez un mot de passe difficile"
+
+#: appFolder/forms.py:23
+msgid "Repeat Password"
+msgstr "Répéter votre mot de passe"
+
+#: appFolder/forms.py:24 appFolder/templates/register.html:11
+msgid "Register"
+msgstr "S'enregistrer"
+
+#: appFolder/forms.py:29
+msgid "This username is already taken."
+msgstr "Ce nom d'utilisateur est déjà pris."
+
+#: appFolder/forms.py:34
+msgid "This email address is already taken."
+msgstr "Cette adresse mail existe déjà."
+
+#: appFolder/routes.py:42
+msgid "- Index"
+msgstr "- Accueil"
+
+#: appFolder/routes.py:57
+msgid "Invalid username or password"
+msgstr "Nom d'utilisateur ou mot de passe incorrect"
+
+#: appFolder/routes.py:64
+msgid "- Sign In"
+msgstr "- Connexion"
+
+#: appFolder/routes.py:77
+msgid "Congratulations, you are now a registered user!"
+msgstr "Félicitations, vous êtes désormais enregistré!"
+
+#: appFolder/routes.py:79
+msgid "- Register"
+msgstr "- S'enregistrer"
+
+#: appFolder/routes.py:87
+msgid "- Direct"
+msgstr "- Direct"
+
+#: appFolder/routes.py:95
+msgid "- Preview"
+msgstr "- Aperçu"
+
+#: appFolder/routes.py:102
+msgid "- Gallery"
+msgstr "- Galerie"
+
+#: appFolder/routes.py:109
+msgid "- ERROR"
+msgstr "- ERREUR"
+
+#: appFolder/routes.py:140
+msgid "Photo was taken!"
+msgstr "Photo prise!"
+
+#: appFolder/routes.py:176
+msgid "Timelapse is over"
+msgstr "Timelapse terminé"
+
+#: appFolder/routes.py:197
+msgid "Video is over"
+msgstr "Vidéo terminée"
+
+#: appFolder/routes.py:217
+msgid "Files have been transferred"
+msgstr "Les fichiers ont été transférés"
+
+#: appFolder/routes.py:219
+msgid "No USB key detected"
+msgstr "Aucune clé USB n'a été détectée"
+
+#: appFolder/templates/404.html:11
+msgid "Where did you think you were going?"
+msgstr "Où pensais-tu aller comme ça?"
+
+#: appFolder/templates/404.html:12
+msgid "Find your way back!"
+msgstr "Retrouve ton chemin!"
+
+#: appFolder/templates/functionalities.html:15
+#: appFolder/templates/gallery.html:28 appFolder/templates/preview.html:9
+msgid "Logout"
+msgstr "Se déconnecter"
+
+#: appFolder/templates/functionalities.html:16
+#: appFolder/templates/gallery.html:30
+msgid "Preview"
+msgstr "Aperçu"
+
+#: appFolder/templates/functionalities.html:17
+#: appFolder/templates/preview.html:11
+msgid "Gallery"
+msgstr "Galerie"
+
+#: appFolder/templates/functionalities.html:22
+msgid "Save in USB Key"
+msgstr "Sauvegarder dans la clé USB"
+
+#: appFolder/templates/functionalities.html:28
+msgid "Photo"
+msgstr "Photo"
+
+#: appFolder/templates/functionalities.html:29
+#: appFolder/templates/gallery.html:49
+msgid "Timelapse"
+msgstr "Timelapse"
+
+#: appFolder/templates/functionalities.html:30
+#: appFolder/templates/gallery.html:60
+msgid "Video"
+msgstr "Vidéo"
+
+#: appFolder/templates/functionalities.html:36
+#: appFolder/templates/functionalities.html:182
+msgid "Exposure time (seconds)"
+msgstr "Temps d'exposition (en secondes)"
+
+#: appFolder/templates/functionalities.html:40
+#: appFolder/templates/functionalities.html:196
+#: appFolder/templates/functionalities.html:215
+msgid "Resolution"
+msgstr "Résolution"
+
+#: appFolder/templates/functionalities.html:48
+msgid "ISO"
+msgstr "ISO"
+
+#: appFolder/templates/functionalities.html:61
+msgid "Advanced options"
+msgstr "Options avancées"
+
+#: appFolder/templates/functionalities.html:66
+msgid "Meter Mode"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:68
+msgid "average"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:69
+msgid "spot"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:70
+msgid "backlit"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:71
+msgid "matrix"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:74
+msgid "AWB Mode"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:76
+#: appFolder/templates/functionalities.html:134
+msgid "off"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:77
+#: appFolder/templates/functionalities.html:135
+msgid "auto"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:78
+msgid "sunlight"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:79
+msgid "cloudy"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:80
+msgid "shade"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:81
+msgid "tungsten"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:82
+msgid "fluorescent"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:83
+msgid "incandescent"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:84
+msgid "flash"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:85
+msgid "horizon"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:90
+msgid "Brightness"
+msgstr "Luminosité"
+
+#: appFolder/templates/functionalities.html:94
+msgid "Contrast (increase noise)"
+msgstr "Contraste (augmente le bruit)"
+
+#: appFolder/templates/functionalities.html:98
+msgid "Sharpness"
+msgstr "Netteté"
+
+#: appFolder/templates/functionalities.html:101
+msgid "Saturation"
+msgstr "Saturation"
+
+#: appFolder/templates/functionalities.html:105
+msgid "Rotation"
+msgstr "Rotation"
+
+#: appFolder/templates/functionalities.html:114
+msgid "Horizontal flip"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:116
+#: appFolder/templates/functionalities.html:122
+msgid "False"
+msgstr "Faux"
+
+#: appFolder/templates/functionalities.html:117
+#: appFolder/templates/functionalities.html:123
+msgid "True"
+msgstr "Vrai"
+
+#: appFolder/templates/functionalities.html:120
+msgid "Vertical flip"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:127
+msgid "Exposure compensation"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:132
+msgid "Exposure mode"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:136
+msgid "night"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:137
+msgid "nightpreview"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:138
+msgid "backlight"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:139
+msgid "spotlight"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:140
+msgid "sports"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:141
+msgid "snow"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:142
+msgid "beach"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:143
+msgid "verylong"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:144
+msgid "fixedfps"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:145
+msgid "antishake"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:146
+msgid "fireworks"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:149
+msgid "Image effect"
+msgstr "Effet d'image"
+
+#: appFolder/templates/functionalities.html:151
+msgid "none"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:152
+msgid "negative"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:153
+msgid "solarize"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:154
+msgid "sketch"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:155
+msgid "denoise"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:156
+msgid "emboss"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:157
+msgid "oilpaint"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:158
+msgid "hatch"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:159
+msgid "gpen (graphite sketch effect)"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:160
+msgid "pastel"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:161
+msgid "watercolor"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:162
+msgid "film"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:163
+msgid "blur"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:164
+msgid "saturation"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:165
+msgid "colorswap"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:166
+msgid "washedout"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:167
+msgid "posterise"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:168
+msgid "colorpoint"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:169
+msgid "colorbalance"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:170
+msgid "cartoon"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:171
+msgid "deinterlace1"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:172
+msgid "deinterlace2"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:176
+msgid "Take a photo"
+msgstr "Prendre une photo"
+
+#: appFolder/templates/functionalities.html:187
+msgid "Time between each photo"
+msgstr "Temps entre chaque photo"
+
+#: appFolder/templates/functionalities.html:192
+msgid "Number of photo to be taken"
+msgstr "Nombre de photo à prendre"
+
+#: appFolder/templates/functionalities.html:204
+msgid "Total time (calculated)"
+msgstr "Temps total (calculé)"
+
+#: appFolder/templates/functionalities.html:204
+msgid "seconds"
+msgstr "secondes"
+
+#: appFolder/templates/functionalities.html:205
+msgid "Start the timelapse"
+msgstr "Commencer le timelapse"
+
+#: appFolder/templates/functionalities.html:211
+msgid "Video time"
+msgstr "Temps de la vidéo"
+
+#: appFolder/templates/functionalities.html:221
+msgid "Start the video"
+msgstr "Commencer la vidéo"
+
+#: appFolder/templates/gallery.html:29 appFolder/templates/preview.html:10
+msgid "Functionalities"
+msgstr "Fonctionnalités"
+
+#: appFolder/templates/gallery.html:38
+msgid "Photos"
+msgstr "Photos"
+
+#: appFolder/templates/index.html:10 appFolder/templates/layout.html:41
+msgid "by"
+msgstr "par"
+
+#: appFolder/templates/index.html:11
+msgid "Login"
+msgstr "Se connecter"
+
+#: appFolder/templates/index.html:12
+msgid "Sign up"
+msgstr "S'enregistrer"
+
+#: appFolder/templates/layout.html:22
+msgid "You are now connected as"
+msgstr "Vous êtes désormais connecté en tant que"
+
+#: appFolder/templates/login.html:8 appFolder/templates/register.html:8
+msgid "Index"
+msgstr "Accueil"
+
+#: appFolder/templates/login.html:11
+msgid "Sign In"
+msgstr "Se connecter"
+
+
