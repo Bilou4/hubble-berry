@@ -1,153 +1,153 @@
 body{
-    background-color: black;
-    display: flex;
-    min-height: 95vh;
-    flex-direction: column;
+	background-color: black;
+	display: flex;
+	min-height: 95vh;
+	flex-direction: column;
 }
 
 .container{
-    color: white;
-    flex: 1;
-    margin-top: 2vh;
-    margin-bottom: 2vh;
-    padding-top: 7vh;
-    /* border: 3px solid pink; */
-    text-align: center;
+	color: white;
+	flex: 1;
+	margin-top: 2vh;
+	margin-bottom: 2vh;
+	padding-top: 7vh;
+	/* border: 3px solid pink; */
+	text-align: center;
 }
 
 .button{
-    background-color: blueviolet;
-    text-decoration: none;
-    color: white;
-    border-radius: 0.2em;
-    margin-top: .5em;
-    padding: .5em;
+	background-color: blueviolet;
+	text-decoration: none;
+	color: white;
+	border-radius: 0.2em;
+	margin-top: .5em;
+	padding: .5em;
 }
 
 .messagesError{
-    color:white;
+	color:white;
 }
 
 nav{
-    /* border: 3px solid blue; */
-    padding-top: 1vh;  
-    padding-bottom: 1vh;  
+	/* border: 3px solid blue; */
+	padding-top: 1vh;  
+	padding-bottom: 1vh;  
 }
 
 footer{
-    color:white;
-    /* border: 3px solid green;    */
+	color:white;
+	/* border: 3px solid green;    */
 }
 
 input{
-  background-color: black;
-  border-width: .5px;
-  color:white;
+	background-color: black;
+	border-width: .5px;
+	color:white;
 }
 
 select{
-  background-color: black;
-  border-width: .5px;
-  color: white;
+	background-color: black;
+	border-width: .5px;
+	color: white;
 }
 
 /* ##################### Tabs ##################### */
 
  /* Style the tab */
  .tab {
-    /* background-color: #f1f1f1; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
+	/* background-color: #f1f1f1; */
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
   
-  /* Style the buttons that are used to open the tab content */
-  .tab button {
-    background-color: #f1f1f1;
-    border: none;
-    cursor: pointer;
-    padding: 1em 1em;
-    transition: 0.3s;
-  }
+/* Style the buttons that are used to open the tab content */
+.tab button {
+	background-color: #f1f1f1;
+	border: none;
+	cursor: pointer;
+	padding: 1em 1em;
+	transition: 0.3s;
+}
   
-  /* Change background color of buttons on hover */
-  .tab button:hover {
-    background-color: #ddd;
-  }
+/* Change background color of buttons on hover */
+.tab button:hover {
+	background-color: #ddd;
+}
   
-  /* Create an active/current tablink class */
-  .tab button.active {
-    background-color: #ccc;
-  }
+/* Create an active/current tablink class */
+.tab button.active {
+	background-color: #ccc;
+}
   
-  /* Style the tab content */
-  .tabcontent {
-    display: none;
-    padding: 1em 1em;
-    /* border: 10px solid #ccc; */
-    border-top: none;
-  } 
+/* Style the tab content */
+.tabcontent {
+	display: none;
+	padding: 1em 1em;
+	/* border: 10px solid #ccc; */
+	border-top: none;
+} 
 
 /* ##################### Toggle Button ##################### */
- /* The switch - the box around the slider */
- .switch {
-  position: relative;
-  display: inline-block;
-  width: 3.8em;
-  height: 2em;
-  margin-top: 1em;
+/* The switch - the box around the slider */
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 3.8em;
+	height: 2em;
+	margin-top: 1em;
 }
 
 /* Hide default HTML checkbox */
 .switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+	opacity: 0;
+	width: 0;
+	height: 0;
 }
 
 /* The slider */
 .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #e57373;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #e57373;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 .slider:before {
-  position: absolute;
-  content: url("./moon.png");
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  -webkit-transition: .4s;
-  transition: .4s;
+	position: absolute;
+	content: url("./moon.png");
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	-webkit-transition: .4s;
+	transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #d32f2f;
+	background-color: #d32f2f;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #d32f2f;
+	box-shadow: 0 0 1px #d32f2f;
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
 }
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+	border-radius: 34px;
 }
 
 .slider.round:before {
-  border-radius: 50%;
-} 
+	border-radius: 50%;
+}
