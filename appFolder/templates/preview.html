@@ -2,23 +2,21 @@
 
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
-  {{ super() }}
-  
+	{{ super() }}
 {% endblock %}
 
-{% block navbar %}<a class="button" href="{{ url_for('logout') }}">Logout</a>
-{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">Functionalities</a>{%endif%}
-<a class="button" href="{{ url_for('gallery') }}">Gallery</a>
+{% block navbar %}
+	<a class="button" href="{{ url_for('logout') }}">Logout</a>
+	{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">Functionalities</a>{%endif%}
+	<a class="button" href="{{ url_for('gallery') }}">Gallery</a>
 {% endblock %}
 
 {% block container %}
-    <h1>You are now connected as {{ current_user.username }}!</h1>
 
-    <img src="{{ url_for('video_feed') }}">
-
+	<img src="{{ url_for('video_feed') }}">
 
 {% endblock %}
 
 {% block footer %}
-    {{ super() }}
+	{{ super() }}
 {% endblock %}

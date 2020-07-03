@@ -2,16 +2,16 @@
 
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
-  {{ super() }}
+	{{ super() }}
 {% endblock %}
 
 {% block container %}
-    <h1>HUBLLE-BERRY</h1>
-    <h3>by BILOU</h3>
-    <a class="button" href="{{ url_for('login') }}">login</a>
-    <a class="button" href="{{ url_for('register') }}">sign up</a>
+	<h1>HUBLLE-BERRY</h1>
+	<h3>by BILOU</h3>
+	<a class="button" href="{{ url_for('login') }}">login</a>
+	<a class="button" href="{{ url_for('register') }}">sign up</a>
 {% endblock %}
 
 {% block footer %}
-    {{ super() }}
+	{{ super() }}
 {% endblock %}

@@ -2,16 +2,16 @@
 
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
-  {{ super() }}
+	{{ super() }}
 {% endblock %}
 
 {% block navbar %}{% endblock %}
 
 {% block container %}
-    <h1>Tu pensais aller où comme ça?</h1>
-    <p><a class="button" href="{{ url_for('index') }}">Retrouve ton chemin!</a></p>
+	<h1>Where did you think you were going?</h1>
+	<p><a class="button" href="{{ url_for('index') }}">Find your way back!</a></p>
 {% endblock %}
 
 {% block footer %}
-    {{ super() }}
+	{{ super() }}
 {% endblock %}
