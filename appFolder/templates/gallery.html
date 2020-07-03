@@ -25,9 +25,9 @@
 {% endblock %}
 
 {% block navbar %}
-	<a class="button" href="{{ url_for('logout') }}">Logout</a>
-	{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">Functionalities</a>{%endif%}
-	<a class="button" href="{{ url_for('preview') }}">Preview</a>
+	<a class="button" href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
+	{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">{{ _("Functionalities") }}</a>{%endif%}
+	<a class="button" href="{{ url_for('preview') }}">{{ _("Preview") }}</a>
 {% endblock %}
 
 {% block container %}
@@ -35,7 +35,7 @@
 	<!-- https://galleriajs.github.io/docs/#references-guides -->
 	<!-- TODO : séparer pictures / timelapse / vidéos-->
 	<hr>
-	<h4>Photos</h4>
+	<h4>{{ _("Photos") }}</h4>
 	{% if photo_file %}
 		<div class="galleria">
 			{% for filename in photo_file %}
@@ -46,7 +46,7 @@
 	{% endif %}
 
 	<hr>
-	<h4>Timelapse</h4>
+	<h4>{{ _("Timelapse") }}</h4>
 	{% if timelapse_file %}
 		<div class="galleria">
 			{% for filename in timelapse_file %}
@@ -57,7 +57,7 @@
 	{% endif %}
 
 	<hr>
-	<h4>Video</h4>
+	<h4>{{ _("Video") }}</h4>
 	{% if video_file %}
 		{% for filename in video_file %}
 			<li>{{ filename }}</li>

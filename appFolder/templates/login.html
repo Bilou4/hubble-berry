@@ -5,10 +5,10 @@
 	{{ super() }}
 {% endblock %}
 
-{% block navbar %}<a class="button" href="{{ url_for('index') }}">index</a>{% endblock %}
+{% block navbar %}<a class="button" href="{{ url_for('index') }}">{{ _("Index") }}</a>{% endblock %}
 
 {% block container %}
-	<h1>Sign In</h1>
+	<h1>{{ _("Sign In") }}</h1>
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>

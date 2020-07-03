@@ -7,9 +7,9 @@
 
 {% block container %}
 	<h1>HUBLLE-BERRY</h1>
-	<h3>by BILOU</h3>
-	<a class="button" href="{{ url_for('login') }}">login</a>
-	<a class="button" href="{{ url_for('register') }}">sign up</a>
+	<h3>{{ _("by") }} BILOU</h3>
+	<a class="button" href="{{ url_for('login') }}">{{ _("Login") }}</a>
+	<a class="button" href="{{ url_for('register') }}">{{ _("Sign up") }}</a>
 {% endblock %}
 
 {% block footer %}

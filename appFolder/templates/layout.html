@@ -19,7 +19,7 @@
 		<span class="slider round"></span>
 	</label>
 	<div class="container">
-		{% if current_user.username %}<h1>You are now connected as {{ current_user.username }}!</h1>{% endif %}
+		{% if current_user.username %}<h1>{{ _("You are now connected as") }} {{ current_user.username }}!</h1>{% endif %}
 
 		{% block container %}{% endblock %}
 		{% block messages %}
@@ -38,7 +38,7 @@
 	</div>
 	<footer>
 		{% block footer %}
-		&copy; Copyright 2020 by <a href="#">BILOU</a>.
+		&copy; Copyright 2020 {{ _("by") }} <a href="#">BILOU</a>.
 		{% endblock %}
 	</footer>
 </body>

@@ -7,6 +7,7 @@ from flask import render_template, flash, redirect,\
 from flask_login import current_user, login_user, logout_user,\
     login_required
 from werkzeug.urls import url_parse
+from flask_babel import _
 
 from datetime import datetime
 from appFolder.camera import Camera
@@ -38,7 +39,7 @@ def video_feed():
 def index():
     if current_user.is_authenticated:
         return redirect(url_for('preview'))
-    return render_template('index.html', title=PROJECT_NAME + "- Index")
+    return render_template('index.html', title=PROJECT_NAME + _("- Index"))
 
 @app.route('/logout')
 def logout():
@@ -53,14 +54,14 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
-            flash("Invalid username or password")
+            flash(_("Invalid username or password"))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
             next_page = url_for('preview')
         return redirect(next_page)
-    return render_template('login.html', title=PROJECT_NAME + "- Sign In", form=form)
+    return render_template('login.html', title=PROJECT_NAME + _("- Sign In"), form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -73,9 +74,9 @@ def register():
         user.set_default_role()
         db.session.add(user)
         db.session.commit()
-        flash("Congratulations, you are now a registered user!")
+        flash(_("Congratulations, you are now a registered user!"))
         return redirect(url_for('login'))
-    return render_template('register.html', title=PROJECT_NAME + "- Register", form=form)
+    return render_template('register.html', title=PROJECT_NAME + _("- Register"), form=form)
 
 
 @app.route('/functionalities', methods=['GET','POST'])
@@ -83,7 +84,7 @@ def register():
 def functionalities():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     if user_role[0] == 'admin':
-        return render_template('functionalities.html', title=PROJECT_NAME + "- Direct")
+        return render_template('functionalities.html', title=PROJECT_NAME + _("- Direct"))
     else:
         return redirect(url_for('preview'))
         
@@ -91,21 +92,21 @@ def functionalities():
 @login_required
 def preview():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
-    return render_template("preview.html", title=PROJECT_NAME + "- Preview", role=user_role[0])
+    return render_template("preview.html", title=PROJECT_NAME + _("- Preview"), role=user_role[0])
 
 @app.route('/gallery')
 @login_required
 def gallery():
     dic_of_files = get_dic_of_files()
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
-    return render_template("gallery.html", title=PROJECT_NAME + "- Gallery", 
+    return render_template("gallery.html", title=PROJECT_NAME + _("- Gallery"), 
             role=user_role[0], photo_file=dic_of_files['photos'], 
             timelapse_file=dic_of_files['timelapse'], video_file=dic_of_files['video'])
 
 @app.errorhandler(404)
 def page_not_found(error):
     # note that we set the 404 status explicitly
-    return render_template('404.html', title=PROJECT_NAME + "- ERROR"), 404
+    return render_template('404.html', title=PROJECT_NAME + _("- ERROR")), 404
 
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
@@ -136,7 +137,7 @@ def take_a_photo():
             camera.resolution = resolution
             sleep(2) # warmup
             camera.capture(picture_directory+photo_name+'.png',format='png')
-        return {'text':"photo prise!", 'name':photo_name, 'status':"ok"}
+        return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         return {'text': message_error, 'name':"NULL", 'status':"error"}
@@ -172,7 +173,7 @@ def take_timelapse():
                 sleep(time_between_photos-3.0)
                 if i == number_photos-1:
                     break
-        return {'text':"Timelapse terminé", 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
+        return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         return {'text': message_error, 'name':"NULL", 'status':"error"}
@@ -193,7 +194,7 @@ def start_video():
             camera.start_recording(video_directory+video_name+".h264",format='h264')
             camera.wait_recording(video_time)
             camera.stop_recording()
-        return {'text':"Vidéo terminée", 'name': video_name, 'status':"ok"}
+        return {'text': _("Video is over"), 'name': video_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         return {'text':message_error, 'name':"NULL", 'status':"error"}
@@ -213,9 +214,9 @@ def save_usb():
         move_files(picture_directory, path_to_usb+'pictures')
         move_files(timelapse_directory, path_to_usb+'timelapse')
         move_files(video_directory, path_to_usb+'video')
-        return {'text': "fichiers transférés"}
+        return {'text': _("Files have been transferred")}
     else:
-        return {'text': "Aucune clé trouvée"}
+        return {'text': _("No USB key detected")}
 
 def move_files(src, dst):
     for item in os.listdir(src):
@@ -259,3 +260,5 @@ camera.capture('dark.jpg')
 
 """
 # TODO ==> cf splitter (plusieurs ports)
+# TODO ==> TESTS
+# TODO ==> languages
