@@ -33,11 +33,11 @@
 	<!-- Tab content -->
 	<div id="photo" class="tabcontent">
 		<p>
-			<label for="exposure_photo">{{ _("Exposure time (seconds - default → 0)") }} = </label>
+			<label title='{{ _("Sets the shutter speed of the camera in microseconds. Default is 0 (auto). Faster shutter times require greater amounts of illumination and vice versa.") }}' for="exposure_photo">{{ _("Exposure time (seconds - default → 0)") }} = </label>
 			<input id="exposure_photo" size="4" name="exposure_photo" type="number" min="0" max="100" value="0">
 		</p>
 		<p>
-			<label for="resolution_photo">{{ _("Resolution") }} = </label>
+			<label title='{{ _("Sets the resolution at which image captures, video recordings, and previews will be captured.") }}' for="resolution_photo">{{ _("Resolution") }} = </label>
 			<select name="resolution_photo" id="resolution_photo">
 				<option selected value="4056,3040">4056 × 3040</option>
 				<option value="2028,1520">2028 × 1520</option>
@@ -45,7 +45,7 @@
 				<option value="1012,760">1012 × 760</option>
 			</select>
 			||||
-			<label for="iso_photo">{{ _("ISO") }} = </label>
+			<label title='{{ _("Sets the apparent ISO setting of the camera, which represents its sensitivity to light. Lower values tend to produce less ‘noisy’ images, but operate poorly in low light conditions.") }}' for="iso_photo">{{ _("ISO") }} = </label>
 			<select name="iso_photo" id="iso_photo">
 				<option selected value="0">0 {{ _("(default)") }}</option>
 				<option value="100">100</option>
@@ -63,7 +63,7 @@
 		</p>
 		<div id='advanced_options'>
 			<p>
-				<label for="meter_mode_photo">{{ _("Meter Mode") }} = </label>
+				<label title='{{ _("Sets the metering mode of the camera.") }}' for="meter_mode_photo">{{ _("Meter Mode") }} = </label>
 				<select name="meter_mode_photo" id="meter_mode_photo">
 					<option selected value="average">{{ _("average (default)") }}</option>
 					<option value="spot">{{ _("spot") }}</option>
@@ -71,7 +71,7 @@
 					<option value="matrix">{{ _("matrix") }}</option>
 				</select>
 				||||
-				<label for="awb_mode_photo">{{ _("AWB Mode") }} = </label>
+				<label title='{{ _("Sets the auto-white-balance mode of the camera.") }}' for="awb_mode_photo">{{ _("AWB Mode") }} = </label>
 				<select name="awb_mode_photo" id="awb_mode_photo">
 					<option value="off">{{ _("off") }}</option>
 					<option selected value="auto">{{ _("auto (default)") }}</option>
@@ -87,22 +87,22 @@
 
 			</p>
 			<p>
-				<label for="brightness_photo">{{ _("Brightness (default → 50)") }} = </label>
+				<label title='{{ _("Sets the brightness setting of the camera, as an integer between 0 and 100.") }}' for="brightness_photo">{{ _("Brightness (default → 50)") }} = </label>
 				<input id="brightness_photo" size="4" name="brightness_photo" type="number" min="0" max="100" value="50">
 			</p>
 			<p>
-				<label for="contrast_photo">{{ _("Contrast (increase noise - default → 0))") }} = </label>
+				<label title='{{ _("Sets the contrast setting of the camera, as an integer between -100 and 100.") }}' for="contrast_photo">{{ _("Contrast (increase noise - default → 0))") }} = </label>
 				<input id="contrast_photo" size="4" name="contrast_photo" type="number" min="-100" max="100" value="0">
 			</p>
 			<p>
-				<label for="sharpness_photo">{{ _("Sharpness (default → 0)") }} = </label>
+				<label title='{{ _("Sets the sharpness setting of the camera as an integer between -100 and 100.") }}' for="sharpness_photo">{{ _("Sharpness (default → 0)") }} = </label>
 				<input id="sharpness_photo" size="4" name="sharpness_photo" type="number" min="-100" max="100" value="0">
 				||||
-				<label for="saturation_photo">{{ _("Saturation (default → 0)") }} = </label>
+				<label title='{{ _("Sets the saturation setting of the camera, as an integer between -100 and 100.") }}' for="saturation_photo">{{ _("Saturation (default → 0)") }} = </label>
 				<input id="saturation_photo" size="4" name="saturation_photo" type="number" min="-100" max="100" value="0">
 			</p>
 			<p>
-				<label for="rotation_photo">{{ _("Rotation") }} = </label>
+				<label title='{{ _("Sets the current rotation of the camera’s image.") }}' for="rotation_photo">{{ _("Rotation") }} = </label>
 				<select name="rotation_photo" id="rotation_photo">
 					<option selected value="0">0 {{ _("(default)") }}</option>
 					<option value="90">90</option>
@@ -111,25 +111,25 @@
 
 				</select>
 				||||
-				<label for="hflip_photo">{{ _("Horizontal flip") }} = </label>
+				<label title='{{ _("Sets whether the camera’s output is horizontally flipped.") }}' for="hflip_photo">{{ _("Horizontal flip") }} = </label>
 				<select name="hflip_photo" id="hflip_photo">
 					<option selected value="false">{{ _("False (default)") }}</option>
 					<option value="true">{{ _("True") }}</option>
 				</select>
 				||||
-				<label for="vflip_photo">{{ _("Vertical flip") }} = </label>
+				<label title='{{ _("Sets whether the camera’s output is vertically flipped.") }}' for="vflip_photo">{{ _("Vertical flip") }} = </label>
 				<select name="vflip_photo" id="vflip_photo">
 					<option selected value="false">{{ _("False (default)") }}</option>
 					<option value="true">{{ _("True") }}</option>
 				</select>
 			</p>
 			<p>
-				<label for="exposure_compensation_photo">{{ _("Exposure compensation (default → 0)") }} = </label>
+				<label title='{{ _("Sets the exposure compensation level of the camera, as an integer between -25 and 25. Each increment represents 1/6th of a stop.") }}' for="exposure_compensation_photo">{{ _("Exposure compensation (default → 0)") }} = </label>
 				<input id="exposure_compensation_photo" size="4" name="exposure_compensation_photo" type="number" min="-25"
 					max="25" value="0">
 			</p>
 			<p>
-				<label for="exposure_mode_photo">{{ _("Exposure mode") }} = </label>
+				<label title='{{ _("Sets the exposure mode of the camera.") }}' for="exposure_mode_photo">{{ _("Exposure mode") }} = </label>
 				<select name="exposure_mode_photo" id="exposure_mode_photo">
 					<option value="off">{{ _("off") }}</option>
 					<option selected value="auto">{{ _("auto (default)") }}</option>
@@ -146,7 +146,7 @@
 					<option value="fireworks">{{ _("fireworks") }}</option>
 				</select>
 				||||
-				<label for="image_effect_photo">{{ _("Image effect") }} = </label>
+				<label title='{{ _("Sets the current image effect applied by the camera.") }}' for="image_effect_photo">{{ _("Image effect") }} = </label>
 				<select name="image_effect_photo" id="image_effect_photo">
 					<option selected value="none">{{ _("none (default)") }}</option>
 					<option value="negative">{{ _("negative") }}</option>
@@ -179,19 +179,19 @@
 
 	<div id="timelapse" class="tabcontent">
 		<p>
-			<label for="exposure_photo_timelapse">{{ _("Exposure time (seconds - default → 0))") }} = </label>
+			<label title='{{ _("Sets the shutter speed of the camera in microseconds. Default is 0 (auto). Faster shutter times require greater amounts of illumination and vice versa.") }}' for="exposure_photo_timelapse">{{ _("Exposure time (seconds - default → 0))") }} = </label>
 			<input id="exposure_photo_timelapse" size="4" name="exposure_photo_timelapse" type="number" max="100" min="0" value="0">
 		</p>
 		<p>
-			<label for="time_between_photos">{{ _("Time between each photo (default → 0)") }} = </label>
+			<label title='{{ _("Time between each photo.") }}' for="time_between_photos">{{ _("Time between each photo (default → 0)") }} = </label>
 			<input id="time_between_photos" size="4" name="time_between_photos" type="number" min="0" step="0.01" value="5">
 		</p>
 		<p>
-			<label for="number_photos">{{ _("Number of photo to be taken") }} = <label>
+			<label title='{{ _("The total number of photos required.") }}' for="number_photos">{{ _("Number of photo to be taken") }} = <label>
 			<input id="number_photos" size="4" name="number_photos" type="number" min="1" value="10">
 		</p>
 		<p>
-			<label for="resolution_timelapse">{{ _("Resolution") }} = </label>
+			<label title='{{ _("Sets the resolution at which image captures, video recordings, and previews will be captured.") }}' for="resolution_timelapse">{{ _("Resolution") }} = </label>
 			<select name="resolution_timelapse" id="resolution_timelapse">
 				<option selected value="4056,3040">4056 × 3040</option>
 				<option value="2028,1520">2028 × 1520</option>
@@ -206,11 +206,11 @@
 
 	<div id="video" class="tabcontent">
 		<p>
-			<label for="video_time">{{ _("Video time") }} = <label>
+			<label title='{{ _("Time required for the video.") }}' for="video_time">{{ _("Video time") }} = <label>
 					<input id="video_time" size="4" name="video_time" type="number" min="1" max="100" value="10">
 		</p>
 		<p>
-			<label for="resolution_video">{{ _("Resolution") }} = </label>
+			<label title='{{ _("Sets the resolution at which image captures, video recordings, and previews will be captured.") }}' for="resolution_video">{{ _("Resolution") }} = </label>
 			<select name="resolution_video" id="resolution_video">
 				<option selected value="1920,1080">1920 × 1080</option>
 				<option value="1012,760">1012 × 760</option>
