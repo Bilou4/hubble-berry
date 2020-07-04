@@ -10,10 +10,13 @@ from werkzeug.urls import url_parse
 from flask_babel import _
 
 from datetime import datetime
-from appFolder.camera_pi import Camera
 from shutil import copyfile, move
 import os
-import picamera
+try:
+    from appFolder.camera_pi import Camera
+    import picamera
+except:
+    from appFolder.camera import Camera
 from time import sleep
 
 
