@@ -52,7 +52,8 @@ $(document).ready(function(){
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
 		$("#message").text("Photo en cours");
-
+		$("#filename").text("");
+		
 		disable_tables();
 		$("#take_a_photo").hide();
 
