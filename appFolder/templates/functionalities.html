@@ -198,6 +198,18 @@
 				<option value="2028,1080">2028 × 1080</option>
 				<option value="1012,760">1012 × 760</option>
 			</select>
+		||||
+			<label title='{{ _("Sets the apparent ISO setting of the camera, which represents its sensitivity to light. Lower values tend to produce less ‘noisy’ images, but operate poorly in low light conditions.") }}' for="iso_timelapse">{{ _("ISO") }} = </label>
+			<select name="iso_timelapse" id="iso_timelapse">
+				<option selected value="0">0 {{ _("(default)") }}</option>
+				<option value="100">100</option>
+				<option value="200">200</option>
+				<option value="320">320</option>
+				<option value="400">400</option>
+				<option value="500">500</option>
+				<option value="640">640</option>
+				<option value="800">800</option>
+			</select>
 		</p>
 		<p>{{ _("Total time (calculated)") }} => <span id="calculated_time">60</span> {{ _("seconds") }}</p>
 		<a class="button" id="take_timelapse" href="#">{{ _("Start the timelapse") }}</a>

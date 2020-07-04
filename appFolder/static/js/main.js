@@ -111,6 +111,7 @@ $(document).ready(function(){
 			data:'exposure_photo='+$('#exposure_photo_timelapse').val()
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val()
+					+'&iso_timelapse='+$('#iso_timelapse').val()
 					+'&resolution_timelapse='+$('#resolution_timelapse').val(),
 					
 			

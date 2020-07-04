@@ -165,11 +165,12 @@ def take_timelapse():
     time_between_photos = float(request.form['time_between_photos'])
     number_photos = int(float(request.form['number_photos'].replace(',','.')))
     resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
+    iso = int(request.form['iso_timelapse'])
 
     try:
         with picamera.PiCamera() as camera:
-            camera.resolution = (1024, 768)
-            #camera.shutter_speed = exposure_photo / 1000000 # from secondes to microseconds
+            camera.resolution = resolution
+            camera.shutter_speed = exposure_photo * 1000000
             sleep(2) # warmup
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
