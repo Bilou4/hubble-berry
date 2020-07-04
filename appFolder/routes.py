@@ -10,10 +10,10 @@ from werkzeug.urls import url_parse
 from flask_babel import _
 
 from datetime import datetime
-from appFolder.camera import Camera
+from appFolder.camera_pi import Camera
 from shutil import copyfile, move
 import os
-# import picamera
+import picamera
 from time import sleep
 
 
@@ -132,9 +132,22 @@ def take_a_photo():
         awb_mode = request.form['awb_mode_photo']
     try:
         with picamera.PiCamera() as camera:
-            #camera.shutter_speed = 6000000
+            camera.shutter_speed = exposure_photo * 1000000
             camera.iso = iso
             camera.resolution = resolution
+            if advanced_options_is_checked:
+                camera.brightness = brightness
+                camera.contrast = contrast
+                camera.sharpness = sharpness
+                camera.saturation = saturation
+                camera.rotation = rotation
+                camera.hflip = hflip
+                camera.vflip = vflip
+                camera.exposure_compensation = exposure_compensation
+                camera.exposure_mode = exposure_mode
+                camera.image_effect = image_effect
+                camera.meter_mode = meter_mode
+                camera.awb_mode = awb_mode            
             sleep(2) # warmup
             camera.capture(picture_directory+photo_name+'.png',format='png')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
