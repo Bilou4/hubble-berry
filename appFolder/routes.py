@@ -162,7 +162,7 @@ def take_a_photo():
 @login_required
 def take_timelapse():
     exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
-    time_between_photos = float(request.form['time_between_photos'])
+    time_between_photos = int(float(request.form['time_between_photos'].replace(',','.')))
     number_photos = int(float(request.form['number_photos'].replace(',','.')))
     resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
     iso = int(request.form['iso_timelapse'])

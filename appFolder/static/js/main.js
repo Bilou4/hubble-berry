@@ -162,10 +162,15 @@ $(document).ready(function(){
  	// ############ Calculated time ############
 
 	$("#exposure_photo_timelapse, #number_photos, #time_between_photos").change(function() {
-		var time = (parseFloat($('#exposure_photo_timelapse').val())
+		var time_seconds = ( parseFloat($('#exposure_photo_timelapse').val())
 					+ parseFloat($('#time_between_photos').val()) ) 
 					* parseFloat($('#number_photos').val());
-		$("#calculated_time").text(time);
+		var minutes = 0;
+		if(time_seconds > 60){
+			minutes = Math.floor(time_seconds/60);
+    		time_seconds -= minutes*60;
+		}
+		$("#calculated_time").text(minutes + " minutes " + time_seconds + " secondes")
 	});
 
 	

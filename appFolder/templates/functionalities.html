@@ -183,8 +183,8 @@
 			<input id="exposure_photo_timelapse" size="4" name="exposure_photo_timelapse" type="number" max="100" min="0" value="0">
 		</p>
 		<p>
-			<label title='{{ _("Time between each photo.") }}' for="time_between_photos">{{ _("Time between each photo (default → 0)") }} = </label>
-			<input id="time_between_photos" size="4" name="time_between_photos" type="number" min="0" step="0.01" value="5">
+			<label title='{{ _("Time between each photo.") }}' for="time_between_photos">{{ _("Time between each photo (default → 5)") }} = </label>
+			<input id="time_between_photos" size="4" name="time_between_photos" type="number" min="0" value="5">
 		</p>
 		<p>
 			<label title='{{ _("The total number of photos required.") }}' for="number_photos">{{ _("Number of photo to be taken") }} = </label>
@@ -211,7 +211,7 @@
 				<option value="800">800</option>
 			</select>
 		</p>
-		<p>{{ _("Total time (calculated)") }} => <span id="calculated_time">60</span> {{ _("seconds") }}</p>
+		<p>{{ _("Total time (calculated)") }} => <span id="calculated_time">50 {{ _("seconds") }}</span></p>
 		<a class="button" id="take_timelapse" href="#">{{ _("Start the timelapse") }}</a>
 
 	</div>
