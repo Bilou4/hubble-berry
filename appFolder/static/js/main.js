@@ -47,11 +47,16 @@ const default_time_camera_warmup = 5;
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
 
+	$("#calculated_time_minutes_txt").hide();
+	$("#running_photo").hide();
+	$("#running_timelapse").hide();
+	$("#running_video").hide();
+
 	// ############ Photo ############
 
 	$("#take_a_photo").click(function(e){
 		e.preventDefault();
-		$("#message").text("Photo en cours");
+		$("#running_photo").show();
 		$("#filename").text("");
 		
 		disable_tables();
@@ -77,11 +82,10 @@ $(document).ready(function(){
 				'&image_effect_photo='+$('#image_effect_photo').val()+
 				'&awb_mode_photo='+$('#awb_mode_photo').val()+
 				'&meter_mode_photo='+$('#meter_mode_photo').val(),
-				
-
 			
 			success : function(response){
 				if(response.length!=0){
+					$("#running_photo").hide();
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
 					enable_tables();
@@ -102,7 +106,8 @@ $(document).ready(function(){
 		
 		disable_tables();
 		$("#take_timelapse").hide();
-		$("#message").text("Timelapse en cours");
+		$("#running_timelapse").show();
+		$("#filename").text("");
 
 		$.ajax({
 			url:'/take_timelapse',
@@ -113,10 +118,10 @@ $(document).ready(function(){
 					+'&number_photos=' + $('#number_photos').val()
 					+'&iso_timelapse='+$('#iso_timelapse').val()
 					+'&resolution_timelapse='+$('#resolution_timelapse').val(),
-					
-			
+
 			success : function(response){
 				if(response.length!=0){
+					$("#running_timelapse").hide();
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
 					enable_tables();
@@ -136,7 +141,8 @@ $(document).ready(function(){
 
 		disable_tables();
 		$("#start_video").hide();
-		$("#message").text("Vidéo en cours");
+		$("#running_video").show();
+		$("#filename").text("");
 		
 		$.ajax({
 			url:'/start_video',
@@ -147,6 +153,7 @@ $(document).ready(function(){
 			
 			success : function(response){
 				if(response.length!=0){
+					$("#running_video").hide();
 					$("#message").text(response.text);
 					$("#filename").text(response.name);
 					enable_tables();
@@ -168,9 +175,17 @@ $(document).ready(function(){
 		var minutes = 0;
 		if(time_seconds >= 60){
 			minutes = Math.floor(time_seconds/60);
-    		time_seconds -= minutes*60;
+			time_seconds -= minutes*60;
+			$("#calculated_time_minutes").text(minutes);
+			$("#calculated_time_minutes_txt").show();
+			$("#calculated_time_seconds").text(time_seconds);
 		}
-		$("#calculated_time").text(minutes + " minutes " + time_seconds + " secondes")
+		else {
+			$("#calculated_time_minutes").text("");
+			$("#calculated_time_minutes_txt").hide();
+			$("#calculated_time_seconds").text(time_seconds);
+		}
+		
 	});
 
 	
