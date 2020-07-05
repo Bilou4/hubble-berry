@@ -34,7 +34,7 @@
 	<div id="photo" class="tabcontent">
 		<p>
 			<label title='{{ _("Sets the shutter speed of the camera in microseconds. Default is 0 (auto). Faster shutter times require greater amounts of illumination and vice versa.") }}' for="exposure_photo">{{ _("Exposure time (seconds - default → 0)") }} = </label>
-			<input id="exposure_photo" size="4" name="exposure_photo" type="number" min="0" max="100" value="0">
+			<input id="exposure_photo" size="4" name="exposure_photo" type="number" min="0" max="200" value="0">
 		</p>
 		<p>
 			<label title='{{ _("Sets the resolution at which image captures, video recordings, and previews will be captured.") }}' for="resolution_photo">{{ _("Resolution") }} = </label>
@@ -180,7 +180,7 @@
 	<div id="timelapse" class="tabcontent">
 		<p>
 			<label title='{{ _("Sets the shutter speed of the camera in microseconds. Default is 0 (auto). Faster shutter times require greater amounts of illumination and vice versa.") }}' for="exposure_photo_timelapse">{{ _("Exposure time (seconds - default → 0)") }} = </label>
-			<input id="exposure_photo_timelapse" size="4" name="exposure_photo_timelapse" type="number" max="100" min="0" value="0">
+			<input id="exposure_photo_timelapse" size="4" name="exposure_photo_timelapse" type="number" max="200" min="0" value="0">
 		</p>
 		<p>
 			<label title='{{ _("Time between each photo.") }}' for="time_between_photos">{{ _("Time between each photo (default → 5)") }} = </label>
