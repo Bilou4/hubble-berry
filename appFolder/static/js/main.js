@@ -166,7 +166,7 @@ $(document).ready(function(){
 					+ parseFloat($('#time_between_photos').val()) ) 
 					* parseFloat($('#number_photos').val());
 		var minutes = 0;
-		if(time_seconds > 60){
+		if(time_seconds >= 60){
 			minutes = Math.floor(time_seconds/60);
     		time_seconds -= minutes*60;
 		}

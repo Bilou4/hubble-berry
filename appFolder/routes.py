@@ -174,7 +174,7 @@ def take_timelapse():
             sleep(2) # warmup
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
                 print(filename)
-                sleep(time_between_photos-3.0)
+                sleep(time_between_photos-3)
                 if i == number_photos-1:
                     break
         return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
