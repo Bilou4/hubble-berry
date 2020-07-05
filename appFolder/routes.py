@@ -205,9 +205,9 @@ def start_video():
 @app.route('/get_dic_of_files')
 @login_required
 def get_dic_of_files():
-    return {'photos':os.listdir(picture_directory),
-            'timelapse':os.listdir(timelapse_directory),
-            'video':os.listdir(video_directory)}
+    return {'photos':os.listdir(picture_directory).sort(),
+            'timelapse':os.listdir(timelapse_directory).sort(),
+            'video':os.listdir(video_directory).sort()}
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
