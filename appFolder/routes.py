@@ -149,7 +149,8 @@ def take_a_photo():
                 camera.exposure_mode = exposure_mode
                 camera.image_effect = image_effect
                 camera.meter_mode = meter_mode
-                camera.awb_mode = awb_mode            
+                camera.awb_mode = awb_mode
+                # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7     
             sleep(2) # warmup
             camera.capture(picture_directory+photo_name+'.png',format='png')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
@@ -205,9 +206,9 @@ def start_video():
 @app.route('/get_dic_of_files')
 @login_required
 def get_dic_of_files():
-    return {'photos':os.listdir(picture_directory).sort(),
-            'timelapse':os.listdir(timelapse_directory).sort(),
-            'video':os.listdir(video_directory).sort()}
+    return {'photos': sorted(os.listdir(picture_directory)),
+            'timelapse':sorted(os.listdir(timelapse_directory)),
+            'video':sorted(os.listdir(video_directory))}
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
