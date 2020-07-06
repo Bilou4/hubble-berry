@@ -58,6 +58,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		$("#running_photo").show();
 		$("#filename").text("");
+		$("#message").text("");
 		
 		disable_tables();
 		$("#take_a_photo").hide();
@@ -108,6 +109,7 @@ $(document).ready(function(){
 		$("#take_timelapse").hide();
 		$("#running_timelapse").show();
 		$("#filename").text("");
+		$("#message").text("");
 
 		$.ajax({
 			url:'/take_timelapse',
@@ -143,6 +145,7 @@ $(document).ready(function(){
 		$("#start_video").hide();
 		$("#running_video").show();
 		$("#filename").text("");
+		$("#message").text("");
 		
 		$.ajax({
 			url:'/start_video',
@@ -224,4 +227,6 @@ $(document).ready(function(){
 		}
 		
 	});
+
+	// https://www.tutorialspoint.com/Getting-Tooltips-for-mobile-browsers-in-HTML
 });
