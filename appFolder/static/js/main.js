@@ -205,6 +205,9 @@ $(document).ready(function(){
 			success : function(response){
 				if(response.length!=0){
 					$("#usb_status").text(response.text);
+					setTimeout(function(){
+						$("#usb_status").text("");
+					}, 5000);
 				}
 			},
 			error : function(result, status, error){
