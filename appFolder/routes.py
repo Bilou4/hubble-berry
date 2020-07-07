@@ -224,9 +224,10 @@ def save_usb():
 
 def move_files(src, dst):
     for item in os.listdir(src):
-        s = os.path.join(src, item)
-        d = os.path.join(dst, item)
-        move(src=s, dst=d)
+        if item != "do_not_remove.txt":
+            s = os.path.join(src, item)
+            d = os.path.join(dst, item)
+            move(src=s, dst=d)
 
 # TODO ==> camera integration
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
