@@ -39,8 +39,10 @@
 	{% if photo_file %}
 		<div class="galleria">
 			{% for filename in photo_file %}
-				<img src="{{ url_for('static',  filename='camera/pictures/' + filename) }}" data-description="photo"
-					data-title="{{ filename }}">
+				{% if filename != "do_not_remove.txt" %}
+					<img src="{{ url_for('static',  filename='camera/pictures/' + filename) }}" data-description="photo"
+						data-title="{{ filename }}">
+				{% endif %}
 			{%endfor%}
 		</div>
 	{% endif %}
@@ -50,8 +52,10 @@
 	{% if timelapse_file %}
 		<div class="galleria">
 			{% for filename in timelapse_file %}
-				<img src="{{ url_for('static',  filename='camera/timelapse/' + filename) }}" data-description="timelapse"
-					data-title="{{ filename }}">
+				{% if filename != "do_not_remove.txt" %}
+					<img src="{{ url_for('static',  filename='camera/timelapse/' + filename) }}" data-description="timelapse"
+						data-title="{{ filename }}">
+				{% endif %}
 			{%endfor%}
 		</div>
 	{% endif %}
@@ -60,9 +64,11 @@
 	<h4>{{ _("Video") }}</h4>
 	{% if video_file %}
 		{% for filename in video_file %}
-			<li>{{ filename }}</li>
-			<!-- <video src="{{ url_for('static',  filename='camera/video/' + filename) }}"
+			{% if filename != "do_not_remove.txt" %}
+				<li>{{ filename }}</li>
+				<!-- <video src="{{ url_for('static',  filename='camera/video/' + filename) }}"
 						data-description="video" data-title="{{ filename }}"> -->
+			{% endif %}
 		{%endfor%}
 	{% endif %}
 
