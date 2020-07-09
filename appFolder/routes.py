@@ -269,3 +269,34 @@ camera.capture('dark.jpg')
 # TODO ==> cf splitter (plusieurs ports)
 # TODO ==> TESTS
 # TODO ==> languages
+
+"""
+https://picamera.readthedocs.io/en/latest/fov.html#hardware-limits
+
+sudo vcgencmd get_camera
+==> supported=1 detected=1
+
+raspistill -v -o test.jpg
+
+Increased the GPU memory available from the default of 128 to 256
+
+/boot/cmdline.txt:
+
+dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1
+ root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait bcm2708.w1_gpio_pin=18
+
+I had the same ENOSPC problem when using picamera in python3 for single (still) images. I found two workarounds:
+1. reduce the resolution -- it failed at 3280x2464, but succeeded at 1024x768
+2. increase the amount of GPU memory. The default is 128 MB; 192MB permits 3280x2464.
+(do this in the Performance tab of the graphical configuration tool)
+
+JPEG format seems to need less GPU memory than the bitmapped formats (PNG, GIF, BMP). 
+Of course the final JPEG file is also smaller.
+
+config.txt
+    dtparam=audio=on
+    start_x=1
+    gpu_mem=160
+    start_debug=1
+
+"""
