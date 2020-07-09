@@ -203,8 +203,10 @@ def start_video():
         message_error = "[ERROR] " + str(e)
         return {'text':message_error, 'name':"NULL", 'status':"error"}
 
-@app.route('/get_dic_of_files')
-@login_required
+def add_exif_tags(camera):
+    camera.exif_tags['IFDO.Artist'] = PROJECT_NAME
+    camera.exif_tags['IFDO.Copyright'] = "Copyright (c) 2020 " + PROJECT_NAME
+
 def get_dic_of_files():
     return {'photos': sorted(os.listdir(picture_directory)),
             'timelapse':sorted(os.listdir(timelapse_directory)),
