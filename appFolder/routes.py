@@ -152,7 +152,7 @@ def take_a_photo():
                 camera.awb_mode = awb_mode
                 # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
             add_exif_tags(camera)
-            sleep(2) # warmup
+            sleep(3) # warmup
             camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
     except Exception as e:
@@ -168,13 +168,12 @@ def take_timelapse():
     number_photos = int(float(request.form['number_photos'].replace(',','.')))
     resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
     iso = int(request.form['iso_timelapse'])
-
     try:
         with picamera.PiCamera() as camera:
             camera.resolution = resolution
             camera.shutter_speed = exposure_photo * 1000000
-            sleep(2) # warmup
-            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png',use_video_port=True)):
+            sleep(3) # warmup
+            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png', use_video_port=True)):
                 print(filename)
                 sleep(time_between_photos-3)
                 if i == number_photos-1:
