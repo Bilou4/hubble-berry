@@ -150,9 +150,10 @@ def take_a_photo():
                 camera.image_effect = image_effect
                 camera.meter_mode = meter_mode
                 camera.awb_mode = awb_mode
-                # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7     
+                # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
+            add_exif_tags(camera)
             sleep(2) # warmup
-            camera.capture(picture_directory+photo_name+'.png',format='png')
+            camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
@@ -204,8 +205,8 @@ def start_video():
         return {'text':message_error, 'name':"NULL", 'status':"error"}
 
 def add_exif_tags(camera):
-    camera.exif_tags['IFDO.Artist'] = PROJECT_NAME
-    camera.exif_tags['IFDO.Copyright'] = "Copyright (c) 2020 " + PROJECT_NAME
+    camera.exif_tags['IFD0.Artist'] = PROJECT_NAME
+    camera.exif_tags['IFD0.Copyright'] = "Copyright (c) 2020 " + PROJECT_NAME
 
 def get_dic_of_files():
     return {'photos': sorted(os.listdir(picture_directory)),
