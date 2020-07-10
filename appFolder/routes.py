@@ -173,11 +173,11 @@ def take_timelapse():
             camera.resolution = resolution
             camera.shutter_speed = exposure_photo * 1000000
             sleep(3) # warmup
-            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.png', use_video_port=True)):
+            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
                 print(filename)
-                sleep(time_between_photos-3)
                 if i == number_photos-1:
                     break
+                sleep(time_between_photos)
         return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
