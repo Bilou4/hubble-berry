@@ -4,8 +4,7 @@
 {% block head %}
 	{{ super() }}
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/galleria_style.css') }}">
-
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="{{url_for('static', filename='js/jquery-1.9.min.js')}}"></script>
 
 	<script src="{{ url_for('static',  filename='galleria/src/galleria.js') }}"></script>
 
