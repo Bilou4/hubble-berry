@@ -12,6 +12,7 @@ from flask_babel import _
 from datetime import datetime
 from shutil import copyfile, move
 import os
+from fractions import Fraction
 try:
     from appFolder.camera_pi import Camera
     import picamera
@@ -133,7 +134,9 @@ def take_a_photo():
         meter_mode = request.form['meter_mode_photo']
         awb_mode = request.form['awb_mode_photo']
     try:
-        with picamera.PiCamera() as camera:
+        print(exposure_photo)
+        with picamera.PiCamera(framerate=Fraction(1,3)) as camera:
+            camera.sensor_mode = 3
             camera.shutter_speed = exposure_photo * 1000000
             camera.iso = iso
             camera.resolution = resolution
@@ -152,6 +155,7 @@ def take_a_photo():
                 camera.awb_mode = awb_mode
                 # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
             add_exif_tags(camera)
+            print(camera.shutter_speed," - ",camera.exposure_speed)
             sleep(3) # warmup
             camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
