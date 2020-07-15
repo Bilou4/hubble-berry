@@ -134,8 +134,7 @@ def take_a_photo():
         meter_mode = request.form['meter_mode_photo']
         awb_mode = request.form['awb_mode_photo']
     try:
-        print(exposure_photo)
-        with picamera.PiCamera(framerate=Fraction(1,3)) as camera:
+        with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
             camera.sensor_mode = 3
             camera.shutter_speed = exposure_photo * 1000000
             camera.iso = iso
@@ -155,9 +154,13 @@ def take_a_photo():
                 camera.awb_mode = awb_mode
                 # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
             add_exif_tags(camera)
-            print(camera.shutter_speed," - ",camera.exposure_speed)
-            sleep(3) # warmup
+            picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
+            sleep(30) # warmup
+            print("end of warmup ",datetime.today())
             camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
+            print("I took the photo ",datetime.today())
+            camera.shutter_speed = 0
+            camera.framerate = 1
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
