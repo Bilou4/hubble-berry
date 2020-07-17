@@ -231,6 +231,12 @@ def save_usb():
     else:
         return {'text': _("No USB key detected")}
 
+@app.route('/messier')
+@login_required
+def messier():
+    return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"))
+
+
 def move_files(src, dst):
     for item in os.listdir(src):
         if item != "do_not_remove.txt":
