@@ -8,7 +8,7 @@
 
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 	<title>{% block title %}{% endblock %}</title>
-	<link rel="icon" href="{{ url_for('static', filename='logo/hubble_berry_logo.jpg') }}">
+	<link rel="icon" href="{{ url_for('static', filename='photos/hubble_berry_logo.jpg') }}">
 	{% endblock %}
 </head>
 
@@ -17,6 +17,7 @@
 			<a class="button" href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
 			<a class="button" href="{{ url_for('preview') }}">{{ _("Preview") }}</a>
 			<a class="button" href="{{ url_for('gallery') }}">{{ _("Gallery") }}</a>
+			<a class="button" href="{{ url_for('messier') }}">{{ _("Messier's catalog") }}</a>
 			{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">{{ _("Functionalities") }}</a>{%endif%}
 		{% endblock %}</nav>
 	<label class="switch">
