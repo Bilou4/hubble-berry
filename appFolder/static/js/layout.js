@@ -59,4 +59,9 @@ $(document).ready(function () {
 			localStorage.setItem('mode', 'day');
 		}
 	});
+
+	$("#bilou").click(function(e){
+		e.preventDefault();
+		$("#player")[0].play();
+	});
 });

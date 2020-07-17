@@ -38,7 +38,8 @@
 	</div>
 	<footer>
 		{% block footer %}
-		&copy; Copyright 2020 {{ _("by") }} <a href="#">BILOU</a>.
+		<audio id="player" src="{{ url_for('static', filename='audio/ligo20160211v2.mp3') }}"></audio>
+		&copy; Copyright 2020 {{ _("by") }} <a id="bilou" href="#">BILOU</a>.
 		{% endblock %}
 	</footer>
 </body>
