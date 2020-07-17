@@ -6,9 +6,7 @@
 {% endblock %}
 
 {% block navbar %}
-	<a class="button" href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
-	{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">{{ _("Functionalities") }}</a>{%endif%}
-	<a class="button" href="{{ url_for('gallery') }}">{{ _("Gallery") }}</a>
+	{{ super() }}
 {% endblock %}
 
 {% block container %}

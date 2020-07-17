@@ -13,7 +13,12 @@
 </head>
 
 <body>
-	<nav>{% block navbar %}{% endblock %}</nav>
+	<nav>{% block navbar %}
+			<a class="button" href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
+			<a class="button" href="{{ url_for('preview') }}">{{ _("Preview") }}</a>
+			<a class="button" href="{{ url_for('gallery') }}">{{ _("Gallery") }}</a>
+			{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">{{ _("Functionalities") }}</a>{%endif%}
+		{% endblock %}</nav>
 	<label class="switch">
 		<input id="night_mode" type="checkbox" name="check_night">
 		<span class="slider round"></span>

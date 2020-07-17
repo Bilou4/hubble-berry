@@ -88,7 +88,7 @@ def register():
 def functionalities():
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     if user_role[0] == 'admin':
-        return render_template('functionalities.html', title=PROJECT_NAME + _("- Direct"))
+        return render_template('functionalities.html', title=PROJECT_NAME + _("- Direct"), role=user_role[0])
     else:
         return redirect(url_for('preview'))
         
