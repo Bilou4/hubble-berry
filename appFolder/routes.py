@@ -1,4 +1,4 @@
-from appFolder import app, db
+from appFolder import app, db, logger
 from appFolder.models import User, Role
 from appFolder.forms import LoginForm, RegistrationForm
 
@@ -61,6 +61,7 @@ def login():
             flash(_("Invalid username or password"))
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
+        logger.info(user.username + ' is now connected')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
             next_page = url_for('preview')
@@ -78,6 +79,7 @@ def register():
         user.set_default_role()
         db.session.add(user)
         db.session.commit()
+        logger.info('A new user is registered => ', user.username)
         flash(_("Congratulations, you are now a registered user!"))
         return redirect(url_for('login'))
     return render_template('register.html', title=PROJECT_NAME + _("- Register"), form=form)
@@ -133,6 +135,7 @@ def take_a_photo():
         image_effect = request.form['image_effect_photo']
         meter_mode = request.form['meter_mode_photo']
         awb_mode = request.form['awb_mode_photo']
+    logger.info('Retrieved information from form')
     try:
         with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
             camera.sensor_mode = 3
@@ -155,15 +158,18 @@ def take_a_photo():
                 # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
             add_exif_tags(camera)
             picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
+            logger.info('Camera set up')
             sleep(30) # warmup
-            print("end of warmup ",datetime.today())
+            logger.info('End of camera warmup')
             camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
-            print("I took the photo ",datetime.today())
+            logger.info('The photo was taken')
             camera.shutter_speed = 0
             camera.framerate = 1
+        logger.info('Everything is closed, sending back the response')
         return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
         return {'text': message_error, 'name':"NULL", 'status':"error"}
 
 
@@ -175,19 +181,24 @@ def take_timelapse():
     number_photos = int(float(request.form['number_photos'].replace(',','.')))
     resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
     iso = int(request.form['iso_timelapse'])
+    logger.info('Retrieved information from form')
     try:
         with picamera.PiCamera() as camera:
             camera.resolution = resolution
             camera.shutter_speed = exposure_photo * 1000000
+            logger.info('Camera set up')
             sleep(3) # warmup
+            logger.info('End of camera warmup')
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
-                print(filename)
+                logger.info('I took a photo => ' + filename)
                 if i == number_photos-1:
                     break
                 sleep(time_between_photos)
+        logger.info('Everything is closed, sending back the response')
         return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
         return {'text': message_error, 'name':"NULL", 'status':"error"}
 
 
@@ -198,16 +209,20 @@ def start_video():
     video_time = int(float(request.form['video_time'].replace(',','.')))
     video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
     resolution = (int(request.form['resolution_video'].split(',')[0]),int(request.form['resolution_video'].split(',')[1]))
-
+    logger.info('Retrieved information from form')
     try:
         with picamera.PiCamera() as camera:
+            logger.info('Camera set up')
             sleep(2) # warmup
+            logger.info('End of camera warmup')
             camera.start_recording(video_directory+video_name+".h264",format='h264')
             camera.wait_recording(video_time)
             camera.stop_recording()
+        logger.info('Everything is closed, sending back the response')
         return {'text': _("Video is over"), 'name': video_name, 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
         return {'text':message_error, 'name':"NULL", 'status':"error"}
 
 def add_exif_tags(camera):
@@ -225,8 +240,11 @@ def save_usb():
     path_to_usb = "/media/pi/HUBBLE_SAVE/camera/"
     if os.path.exists(path=path_to_usb):
         move_files(picture_directory, path_to_usb+'pictures')
+        logger.info('I moved pictures')
         move_files(timelapse_directory, path_to_usb+'timelapse')
+        logger.info('I moved timelapse')
         move_files(video_directory, path_to_usb+'video')
+        logger.info('I moved video')
         return {'text': _("Files have been transferred")}
     else:
         return {'text': _("No USB key detected")}
@@ -290,26 +308,5 @@ sudo vcgencmd get_camera
 ==> supported=1 detected=1
 
 raspistill -v -o test.jpg
-
-Increased the GPU memory available from the default of 128 to 256
-
-/boot/cmdline.txt:
-
-dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1
- root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait bcm2708.w1_gpio_pin=18
-
-I had the same ENOSPC problem when using picamera in python3 for single (still) images. I found two workarounds:
-1. reduce the resolution -- it failed at 3280x2464, but succeeded at 1024x768
-2. increase the amount of GPU memory. The default is 128 MB; 192MB permits 3280x2464.
-(do this in the Performance tab of the graphical configuration tool)
-
-JPEG format seems to need less GPU memory than the bitmapped formats (PNG, GIF, BMP). 
-Of course the final JPEG file is also smaller.
-
-config.txt
-    dtparam=audio=on
-    start_x=1
-    gpu_mem=160
-    start_debug=1
 
 """
