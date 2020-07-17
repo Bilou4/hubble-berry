@@ -5,3 +5,4 @@ pip3 install flask-sqlalchemy
 pip3 install flask-migrate
 pip3 install email-validator
 pip3 install flask-babel
+pip3 install colorlog
