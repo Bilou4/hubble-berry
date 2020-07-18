@@ -183,17 +183,20 @@ def take_timelapse():
     iso = int(request.form['iso_timelapse'])
     logger.info('Retrieved information from form')
     try:
-        with picamera.PiCamera() as camera:
+        with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
+            camera.sensor_mode = 3
             camera.resolution = resolution
             camera.shutter_speed = exposure_photo * 1000000
             logger.info('Camera set up')
-            sleep(3) # warmup
+            sleep(30) # warmup
             logger.info('End of camera warmup')
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
                 logger.info('I took a photo => ' + filename)
                 if i == number_photos-1:
                     break
                 sleep(time_between_photos)
+            camera.shutter_speed = 0
+            camera.framerate = 1
         logger.info('Everything is closed, sending back the response')
         return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
     except Exception as e:
