@@ -16,11 +16,7 @@ class Config(object):
 def init_logger(dunder_name, testing_mode):
     log_format = ('[%(levelname)s] - %(asctime)s - %(message)s')
     bold_seq = '\033[1m'
-    colorlog_format = (
-        f'{bold_seq} '
-        '%(log_color)s '
-        f'{log_format}'
-    )
+    colorlog_format = '{} %(log_color)s {}'.format(bold_seq,log_format)
     colorlog.basicConfig(format=colorlog_format)
     logger = logging.getLogger(dunder_name)
 
