@@ -255,7 +255,8 @@ def save_usb():
 @app.route('/messier')
 @login_required
 def messier():
-    return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"))
+    user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
+    return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"), role=user_role[0])
 
 
 def move_files(src, dst):
