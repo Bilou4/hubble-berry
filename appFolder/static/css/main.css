@@ -63,11 +63,12 @@ select{
   
 /* Style the buttons that are used to open the tab content */
 .tab button {
-	background-color: #f1f1f1;
+	background-color: #354B8C;
 	border: none;
 	cursor: pointer;
 	padding: 1em 1em;
 	transition: 0.3s;
+	color:#F28F38;
 }
   
 /* Change background color of buttons on hover */
@@ -77,7 +78,7 @@ select{
   
 /* Create an active/current tablink class */
 .tab button.active {
-	background-color: #ccc;
+	background-color: #2C3D73;
 }
   
 /* Style the tab content */
