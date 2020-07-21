@@ -19,11 +19,11 @@ function openTab(evt, tabName) {
 	evt.currentTarget.className += " active";
 	if($('#night_mode')[0].checked){
 		//for the night mode to work properly
-		$('.tab button').css('background-color', '#e57373'); 
-		$('.tab button.active').css('background-color', '#d32f2f');
+		$('.tab button').css('background-color', 'black'); 
+		$('.tab button.active').css('background-color', '#131926');
 	}else{
-		$('.tab button').css('background-color', '#f1f1f1'); 
-		$('.tab button.active').css('background-color', '#ccc'); 	
+		$('.tab button').css('background-color', '#354B8C'); 
+		$('.tab button.active').css('background-color', '#2C3D73'); 	
 	}
 	
 	$("#message").text(""); // deleting text in message paragraph to hide previous text

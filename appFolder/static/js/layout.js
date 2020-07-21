@@ -1,18 +1,18 @@
 function switchOnNightMode() {
-	$('.container').css('color', '#e57373');
+	$('.container').css('color', '#F28F38');
 	$('.button').css({
 		'background-color': '#131926',
-		'color': '#e57373'
+		'color': '#F28F38'
 	});
-	$('.messageError').css('color', '#e57373');
-	$('footer').css('color', '#e57373');
+	$('.messageError').css('color', '#F28F38');
+	$('footer').css('color', '#F28F38');
 	$('input').css({
 		'background-color': 'black',
-		'color': '#e57373'
+		'color': '#F28F38'
 	});
 	$('select').css({
 		'background-color': 'black',
-		'color': '#e57373'
+		'color': '#F28F38'
 	});
 	$('.tab button').css('background-color', 'black');
 	// $('.tab button:hover').css('background-color', '#ddd'); 

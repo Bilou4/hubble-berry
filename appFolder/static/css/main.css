@@ -114,7 +114,7 @@ select{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #e57373;
+	background-color: #F28F38;
 	-webkit-transition: .4s;
 	transition: .4s;
 }
@@ -131,11 +131,11 @@ select{
 }
 
 input:checked + .slider {
-	background-color: #d32f2f;
+	background-color: #BF2517;
 }
 
 input:focus + .slider {
-	box-shadow: 0 0 1px #d32f2f;
+	box-shadow: 0 0 1px #BF2517;
 }
 
 input:checked + .slider:before {
