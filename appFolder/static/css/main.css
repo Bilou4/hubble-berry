@@ -6,7 +6,6 @@ body{
 }
 
 .container{
-	color: white;
 	flex: 1;
 	margin-top: 2vh;
 	margin-bottom: 2vh;
@@ -16,17 +15,14 @@ body{
 }
 
 .button{
-	background-color: blueviolet;
 	text-decoration: none;
-	color: white;
 	border-radius: 0.2em;
 	margin-top: .5em;
 	padding: .5em;
 }
 
-.messagesError{
-	color:white;
-}
+/* .messagesError{
+} */
 
 nav{
 	/* border: 3px solid blue; */
@@ -34,21 +30,15 @@ nav{
 	padding-bottom: 1vh;  
 }
 
-footer{
-	color:white;
-	/* border: 3px solid green;    */
-}
+/* footer{
+} */
 
 input{
-	background-color: black;
 	border-width: .5px;
-	color:white;
 }
 
 select{
-	background-color: black;
 	border-width: .5px;
-	color: white;
 }
 
 /* ##################### Tabs ##################### */
@@ -63,12 +53,11 @@ select{
   
 /* Style the buttons that are used to open the tab content */
 .tab button {
-	background-color: #354B8C;
 	border: none;
 	cursor: pointer;
 	padding: 1em 1em;
 	transition: 0.3s;
-	color:#F28F38;
+	color: #F28F38;
 }
   
 /* Change background color of buttons on hover */
@@ -77,9 +66,8 @@ select{
 }
   
 /* Create an active/current tablink class */
-.tab button.active {
-	background-color: #2C3D73;
-}
+/* .tab button.active {
+} */
   
 /* Style the tab content */
 .tabcontent {
