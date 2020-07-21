@@ -137,6 +137,8 @@ def take_a_photo():
         awb_mode = request.form['awb_mode_photo']
     logger.info('Retrieved information from form')
     try:
+        # TODO check when exposure_photo == 0 
+        # TODO set sensor mode dynamically
         with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
             camera.sensor_mode = 3
             camera.shutter_speed = exposure_photo * 1000000
@@ -190,6 +192,7 @@ def take_timelapse():
             logger.info('Camera set up')
             sleep(30) # warmup
             logger.info('End of camera warmup')
+            # TODO : essayer sans use_port_video
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
                 logger.info('I took a photo => ' + filename)
                 if i == number_photos-1:
@@ -270,23 +273,12 @@ def move_files(src, dst):
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
 
 """
-camera.crop = (0.0, 0.0, 1.0, 1.0)
-"""
-
-
-"""3.7. Capturing in low light
-from fractions import Fraction
+Capturing in low light
 
 # Force sensor mode 3 (the long exposure mode), set
 # the framerate to 1/6fps, the shutter speed to 6s,
 # and ISO to 800 (for maximum gain)
 
-camera = PiCamera(
-    resolution=(1280, 720),
-    framerate=Fraction(1, 6),
-    sensor_mode=3)
-camera.shutter_speed = 6000000
-camera.iso = 800
 
 # Give the camera a good long time to set gains and
 # measure AWB (you may wish to use fixed AWB instead)
@@ -294,16 +286,8 @@ camera.iso = 800
 sleep(30)
 camera.exposure_mode = 'off'
 
-# Finally, capture an image with a 6s exposure. Due
-# to mode switching on the still port, this will take
-# longer than 6 seconds
-
-camera.capture('dark.jpg')
-
 """
 # TODO ==> cf splitter (plusieurs ports)
-# TODO ==> TESTS
-# TODO ==> languages
 
 """
 https://picamera.readthedocs.io/en/latest/fov.html#hardware-limits
