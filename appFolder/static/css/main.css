@@ -1,3 +1,10 @@
+/*
+#354B8C
+#2C3D73
+#131926
+#F28F38
+#BF2517
+*/
 body{
 	background-color: black;
 	display: flex;
@@ -57,7 +64,6 @@ select{
 	cursor: pointer;
 	padding: 1em 1em;
 	transition: 0.3s;
-	color: #F28F38;
 }
   
 /* Change background color of buttons on hover */
@@ -102,7 +108,7 @@ select{
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #F28F38;
+	background-color: white;
 	-webkit-transition: .4s;
 	transition: .4s;
 }

@@ -14,28 +14,34 @@ function switchOnNightMode() {
 		'background-color': 'black',
 		'color': '#F28F38'
 	});
-	$('.tab button').css('background-color', 'black');
+	$('.tab button').css({
+		'background-color': 'black',
+		'color': '#F28F38'
+	});
 	// $('.tab button:hover').css('background-color', '#ddd'); 
 	$('.tab button.active').css('background-color', '#131926');
 }
 
 function switchOffNightMode() {
-	$('.container').css('color', '#F28F38');
+	$('.container').css('color', 'white');
 	$('.button').css({
 		'background-color': '#354B8C',
-		'color': '#F28F38'
+		'color': 'white'
 	});
 	$('.messageError').css('color', 'white');
-	$('footer').css('color', '#F28F38');
+	$('footer').css('color', 'white');
 	$('input').css({
 		'background-color': 'black',
-		'color': '#F28F38'
+		'color': 'white'
 	});
 	$('select').css({
 		'background-color': 'black',
-		'color': '#F28F38'
+		'color': 'white'
 	});
-	$('.tab button').css('background-color', '#354B8C');
+	$('.tab button').css({
+		'background-color': '#354B8C',
+		'color': 'white'
+	});
 	$('.tab button.active').css('background-color', '#2C3D73');
 
 }
