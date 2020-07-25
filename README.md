@@ -6,38 +6,43 @@
 ```sh
 . activate
 ```
-## To start the app with Flask
-
-```sh
-FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --with-threads <br>
-FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 --with-threads
-```
-
-## To manage the database after changing models
-
-```sh
-FLASK_APP=main.py flask db migrate -m "<message explicatif>"
-FLASK_APP=main.py flask db upgrade
-```
-
-
-## To see requirements for the env
-
-```sh
-pip3 freeze > requirements.txt
-```
-
-## To leave the env
+or leave the env
 
 ```sh
 deactivate
 ```
 
-## If problem with vscode venv
+If there is a problem with vscode venv
 
 > https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
 
-<br>
+<hr>
+
+## Install dependencies
+```sh
+./installation.sh
+```
+To see requirements for the env
+
+```sh
+pip3 freeze > requirements.txt
+```
+<hr>
+
+## To start the app with Flask
+
+```sh
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --with-threads # just on localhost
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 --with-threads # to all active interfaces
+```
+<hr>
+
+## To manage the database after changing models
+
+```sh
+FLASK_APP=main.py flask db migrate -m "<explicative message>"
+FLASK_APP=main.py flask db upgrade
+```
 
 ## Add user in sqlite
 
@@ -50,6 +55,8 @@ VALUES (1,"admin");
 INSERT INTO `role` (id, name)
 VALUES (2,"user");
 ```
+
+<hr>
 
 ## Manage languages
 
@@ -76,3 +83,13 @@ pybabel init -i messages.pot -d appFolder/translations -l fr
 ```sh
 pybabel compile -d appFolder/translations
 ```
+
+<hr>
+
+## Use of external projects or tutorial
+
+https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+
+https://blog.miguelgrinberg.com/post/video-streaming-with-flask
+
+https://galleriajs.github.io/
