@@ -144,10 +144,15 @@ def take_a_photo():
 
     logger.info('Retrieved information from form')
     try:
-        # TODO check when exposure_photo == 0 
-        # TODO set sensor mode dynamically
-        with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
-            camera.sensor_mode = 3
+        if exposure_photo == 0:
+            framerate = Fraction(0,1)
+        else:
+            framerate = Fraction(1,exposure_photo)
+        with picamera.PiCamera(framerate=framerate) as camera:
+            if resolution == (4056,3040):
+                camera.sensor_mode = 3
+            else:
+                camera.sensor_mode = 0
             camera.shutter_speed = exposure_photo * 1000000
             camera.iso = iso
             camera.resolution = resolution
@@ -164,7 +169,6 @@ def take_a_photo():
                 camera.image_effect = image_effect
                 camera.meter_mode = meter_mode
                 camera.awb_mode = awb_mode
-                # camera.sensor_mode    https://medium.com/@alexellisuk/in-depth-review-and-comparison-of-the-raspberry-pi-high-quality-camera-806490c4aeb7    
             add_exif_tags(camera)
             picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
             logger.info('Camera set up')
@@ -199,10 +203,18 @@ def take_timelapse():
 
     logger.info('Retrieved information from form')
     try:
-        with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
-            camera.sensor_mode = 3
+        if exposure_photo == 0:
+            framerate = Fraction(0,1)
+        else:
+            framerate = Fraction(1,exposure_photo)
+        with picamera.PiCamera(framerate=framerate) as camera:
+            if resolution == (4056,3040):
+                camera.sensor_mode = 3
+            else:
+                camera.sensor_mode = 0
             camera.resolution = resolution
             camera.shutter_speed = exposure_photo * 1000000
+            add_exif_tags(camera)
             logger.info('Camera set up')
             sleep(30) # warmup
             logger.info('End of camera warmup')
