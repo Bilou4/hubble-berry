@@ -117,25 +117,31 @@ def page_not_found(error):
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
-    photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
-    resolution = (int(request.form['resolution_photo'].split(',')[0]), int(request.form['resolution_photo'].split(',')[1]))
-    iso = int(request.form['iso_photo'])
-    file_format = request.form['format_photo']
-    advanced_options_is_checked = True if request.form['advanced_options_checkbox']=='true' else False
-    if advanced_options_is_checked:
-        brightness = int(float(request.form['brightness_photo'].replace(',','.')))
-        contrast = int(float(request.form['contrast_photo'].replace(',','.')))
-        sharpness = int(float(request.form['sharpness_photo'].replace(',','.')))
-        saturation = int(request.form['saturation_photo'])
-        rotation = int(float(request.form['rotation_photo'].replace(',','.')))
-        hflip = True if request.form['hflip_photo']=='true' else False
-        vflip = True if request.form['vflip_photo']=='true' else False
-        exposure_compensation = int(float(request.form['exposure_compensation_photo'].replace(',','.')))
-        exposure_mode = request.form['exposure_mode_photo']
-        image_effect = request.form['image_effect_photo']
-        meter_mode = request.form['meter_mode_photo']
-        awb_mode = request.form['awb_mode_photo']
+    try:
+        photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+        exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
+        resolution = (int(request.form['resolution_photo'].split(',')[0]), int(request.form['resolution_photo'].split(',')[1]))
+        iso = int(request.form['iso_photo'])
+        file_format = request.form['format_photo']
+        advanced_options_is_checked = True if request.form['advanced_options_checkbox']=='true' else False
+        if advanced_options_is_checked:
+            brightness = int(float(request.form['brightness_photo'].replace(',','.')))
+            contrast = int(float(request.form['contrast_photo'].replace(',','.')))
+            sharpness = int(float(request.form['sharpness_photo'].replace(',','.')))
+            saturation = int(request.form['saturation_photo'])
+            rotation = int(float(request.form['rotation_photo'].replace(',','.')))
+            hflip = True if request.form['hflip_photo']=='true' else False
+            vflip = True if request.form['vflip_photo']=='true' else False
+            exposure_compensation = int(float(request.form['exposure_compensation_photo'].replace(',','.')))
+            exposure_mode = request.form['exposure_mode_photo']
+            image_effect = request.form['image_effect_photo']
+            meter_mode = request.form['meter_mode_photo']
+            awb_mode = request.form['awb_mode_photo']
+    except Exception as e:
+        message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
+        return {'text': message_error, 'name':"NULL", 'status':"error"}
+
     logger.info('Retrieved information from form')
     try:
         # TODO check when exposure_photo == 0 
@@ -180,11 +186,17 @@ def take_a_photo():
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
 def take_timelapse():
-    exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
-    time_between_photos = int(float(request.form['time_between_photos'].replace(',','.')))
-    number_photos = int(float(request.form['number_photos'].replace(',','.')))
-    resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
-    iso = int(request.form['iso_timelapse'])
+    try:
+        exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
+        time_between_photos = int(float(request.form['time_between_photos'].replace(',','.')))
+        number_photos = int(float(request.form['number_photos'].replace(',','.')))
+        resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
+        iso = int(request.form['iso_timelapse'])
+    except Exception as e:
+        message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
+        return {'text': message_error, 'name':"NULL", 'status':"error"}
+
     logger.info('Retrieved information from form')
     try:
         with picamera.PiCamera(framerate=Fraction(1,exposure_photo)) as camera:
@@ -214,9 +226,15 @@ def take_timelapse():
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
-    video_time = int(float(request.form['video_time'].replace(',','.')))
-    video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
-    resolution = (int(request.form['resolution_video'].split(',')[0]),int(request.form['resolution_video'].split(',')[1]))
+    try:
+        video_time = int(float(request.form['video_time'].replace(',','.')))
+        video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
+        resolution = (int(request.form['resolution_video'].split(',')[0]),int(request.form['resolution_video'].split(',')[1]))
+    except Exception as e:
+        message_error = "[ERROR] " + str(e)
+        logger.error(message_error)
+        return {'text': message_error, 'name':"NULL", 'status':"error"}
+
     logger.info('Retrieved information from form')
     try:
         with picamera.PiCamera() as camera:
