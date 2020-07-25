@@ -55,6 +55,18 @@
 			</select>
 		</p>
 		<p>
+			<label title='{{ _("Sets the image file format.") }}' for="format_photo">{{ _("Format") }} = </label>
+			<select name="format_photo" id="format_photo">
+				<option selected value="jpg">jpg {{ _("(default)") }}</option>
+				<option value="raw">raw</option>
+				<option value="gif">gif</option>
+				<option value="bmp">bmp</option>
+				<option value="png">png</option>
+				<option value="yuv420">yuv420</option>
+				<option value="rg8888">rg8888</option>
+			</select>
+		</p>
+		<p>
 			<label for="check1">{{ _("Advanced options") }}</label>
 			<input type="checkbox" id="advanced_options_checkbox" name="check1">
 		</p>

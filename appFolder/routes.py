@@ -121,6 +121,7 @@ def take_a_photo():
     exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
     resolution = (int(request.form['resolution_photo'].split(',')[0]), int(request.form['resolution_photo'].split(',')[1]))
     iso = int(request.form['iso_photo'])
+    file_format = request.form['format_photo']
     advanced_options_is_checked = True if request.form['advanced_options_checkbox']=='true' else False
     if advanced_options_is_checked:
         brightness = int(float(request.form['brightness_photo'].replace(',','.')))
@@ -163,7 +164,8 @@ def take_a_photo():
             logger.info('Camera set up')
             sleep(30) # warmup
             logger.info('End of camera warmup')
-            camera.capture(picture_directory+photo_name+'.jpg',format='jpeg')
+            # dans format, jpg peut poser une erreur ==> jpeg
+            camera.capture(picture_directory+photo_name + file_format,format=file_format)
             logger.info('The photo was taken')
             camera.shutter_speed = 0
             camera.framerate = 1

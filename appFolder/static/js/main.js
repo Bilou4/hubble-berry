@@ -70,6 +70,7 @@ $(document).ready(function(){
 			data:'exposure_photo='+$('#exposure_photo').val()+
 				'&resolution_photo='+$('#resolution_photo').val()+
 				'&iso_photo='+$('#iso_photo').val()+
+				'&format_photo='+$('#format_photo').val()+
 				'&advanced_options_checkbox='+$('#advanced_options_checkbox').is(":checked")+
 				'&brightness_photo='+$('#brightness_photo').val()+
 				'&contrast_photo='+$('#contrast_photo').val()+
