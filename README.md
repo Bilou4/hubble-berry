@@ -93,3 +93,10 @@ https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 https://blog.miguelgrinberg.com/post/video-streaming-with-flask
 
 https://galleriajs.github.io/
+
+http://www.astrosurf.com/luxorion/Images/messier-catalog-mike-keith.jpg
+
+https://www.ligo.caltech.edu/video/ligo20160211v2
+
+https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
+
