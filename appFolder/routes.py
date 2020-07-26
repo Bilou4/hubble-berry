@@ -172,10 +172,16 @@ def take_a_photo():
             add_exif_tags(camera)
             picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
             logger.info('Camera set up')
-            sleep(30) # warmup
+            if exposure_photo > 10:
+                sleep(30) # warmup
+            else:
+                sleep(3)
             logger.info('End of camera warmup')
-            # dans format, jpg peut poser une erreur ==> jpeg
-            camera.capture(picture_directory+photo_name + file_format,format=file_format)
+            if file_format == 'jpg':
+                file_format_bis = 'jpeg'
+            else:
+                file_format_bis = file_format
+            camera.capture(picture_directory+photo_name + file_format, format=file_format_bis)
             logger.info('The photo was taken')
             camera.shutter_speed = 0
             camera.framerate = 1
