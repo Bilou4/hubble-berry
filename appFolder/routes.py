@@ -183,7 +183,7 @@ def take_a_photo():
                 file_format_bis = 'jpeg'
             else:
                 file_format_bis = file_format
-            camera.capture(picture_directory+photo_name + file_format, format=file_format_bis)
+            camera.capture(picture_directory + photo_name + '.' + file_format, format=file_format_bis)
             logger.info('The photo was taken')
             camera.shutter_speed = 0
             camera.framerate = 1
