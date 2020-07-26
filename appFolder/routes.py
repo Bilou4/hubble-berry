@@ -146,8 +146,11 @@ def take_a_photo():
     try:
         if exposure_photo == 0:
             framerate = Fraction(0,1)
+            picamera.PiCamera.CAPTURE_TIMEOUT = 60
         else:
             framerate = Fraction(1,exposure_photo)
+            picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
+
         with picamera.PiCamera(framerate=framerate) as camera:
             if resolution == (4056,3040):
                 camera.sensor_mode = 3
@@ -170,7 +173,6 @@ def take_a_photo():
                 camera.meter_mode = meter_mode
                 camera.awb_mode = awb_mode
             add_exif_tags(camera)
-            picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
             logger.info('Camera set up')
             if exposure_photo > 10:
                 sleep(30) # warmup
