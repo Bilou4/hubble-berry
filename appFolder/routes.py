@@ -224,14 +224,17 @@ def take_timelapse():
             camera.shutter_speed = exposure_photo * 1000000
             add_exif_tags(camera)
             logger.info('Camera set up')
-            sleep(30) # warmup
+            if exposure_photo > 10:
+                sleep(30) # warmup
+            else:
+                sleep(3)
             logger.info('End of camera warmup')
             # TODO : essayer sans use_port_video
             for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
                 logger.info('I took a photo => ' + filename)
                 if i == number_photos-1:
                     break
-                sleep(time_between_photos)
+                sleep(time_between_photos - exposure_photo) # essaie en enlevant le temps d'exposition
             camera.shutter_speed = 0
             camera.framerate = 1
         logger.info('Everything is closed, sending back the response')
