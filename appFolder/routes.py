@@ -27,13 +27,30 @@ timelapse_directory='./appFolder/static/camera/timelapse/'
 video_directory='./appFolder/static/camera/video/'
 
 def gen(camera):
-	while True:
-		frame = camera.get_frame()
-		yield (b'--frame\r\n'
-			   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    """It enters a loop where it continuously returns frames from 
+        the camera as response chunks. The function asks the camera 
+        to provide a frame by calling the camera.get_frame() method, and 
+        then it yields with this frame formatted as a response chunk with a content 
+        type of image/jpeg
+
+    Args:
+        camera (picamera.PiCamera): An instance of the camera class
+
+    Yields:
+        bytes: content type of image/jpeg
+    """
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
+    """This stream returns the images that are going to be displayed in the web page
+
+    Returns:
+        Response: The streaming response
+    """
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -41,19 +58,34 @@ def video_feed():
 @app.route('/')
 @app.route('/index')
 def index():
+    """Render the default page for the User
+
+    Returns:
+        template: the default template according if the user is connected or not
+    """
     if current_user.is_authenticated:
         return redirect(url_for('preview'))
     return render_template('index.html', title=PROJECT_NAME + _("- Index"))
 
 @app.route('/logout')
 def logout():
+    """Function to logout a user
+
+    Returns:
+        template: Returns to the default page
+    """
     logout_user()
     return redirect(url_for('index'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    """Function to sign in the User
+
+    Returns:
+        template: The login page if he is not already connected or the index page
+    """
     if current_user.is_authenticated:
-        return redirect(url_for('preview'))
+        return redirect(url_for('preview')) # TODO: change to index
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -64,12 +96,17 @@ def login():
         logger.info(user.username + ' is now connected')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
-            next_page = url_for('preview')
+            next_page = url_for('preview') # TODO: change to index
         return redirect(next_page)
     return render_template('login.html', title=PROJECT_NAME + _("- Sign In"), form=form)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    """Function to allow a new User to register
+
+    Returns:
+        template: The register page or the login page if the registration went well
+    """
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = RegistrationForm()
@@ -88,6 +125,11 @@ def register():
 @app.route('/functionalities', methods=['GET','POST'])
 @login_required
 def functionalities():
+    """Function to redirect to the functionnalities page
+
+    Returns:
+        template: If the User is an admin, he can access the page
+    """
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     if user_role[0] == 'admin':
         return render_template('functionalities.html', title=PROJECT_NAME + _("- Direct"), role=user_role[0])
@@ -97,12 +139,22 @@ def functionalities():
 @app.route('/preview')
 @login_required
 def preview():
+    """Function to redirect to the preview page
+
+    Returns:
+        template: Any user can access the preview page
+    """
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("preview.html", title=PROJECT_NAME + _("- Preview"), role=user_role[0])
 
 @app.route('/gallery')
 @login_required
 def gallery():
+    """Function to redirect to the gallery page
+
+    Returns:
+        template: Send all pictures, timelapse and videos to the page
+    """
     dic_of_files = get_dic_of_files()
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("gallery.html", title=PROJECT_NAME + _("- Gallery"), 
@@ -111,12 +163,25 @@ def gallery():
 
 @app.errorhandler(404)
 def page_not_found(error):
+    """Function to redirect to a 404 error page
+
+    Args:
+        error (404): The server did not find the requested resource. 
+
+    Returns:
+        template: The default 404 page
+    """
     # note that we set the 404 status explicitly
     return render_template('404.html', title=PROJECT_NAME + _("- ERROR")), 404
 
 @app.route('/take_a_photo', methods=['POST'])
 @login_required
 def take_a_photo():
+    """Function to take a photo with the Rpi camera
+
+    Returns:
+        dictionnary: text=a message to display to the User; name=name of the pictures; status=if something went wrong
+    """
     try:
         photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
         exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
@@ -172,7 +237,7 @@ def take_a_photo():
                 camera.image_effect = image_effect
                 camera.meter_mode = meter_mode
                 camera.awb_mode = awb_mode
-            add_exif_tags(camera)
+            add_exif_tags(camera) # TODO: check if exif tags is working with format other than jpg
             logger.info('Camera set up')
             if exposure_photo > 10:
                 sleep(30) # warmup
@@ -194,10 +259,15 @@ def take_a_photo():
         logger.error(message_error)
         return {'text': message_error, 'name':"NULL", 'status':"error"}
 
-
+# TODO: Make something with the name return in the response
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
 def take_timelapse():
+    """Function to take a timelapse with the Rpi camera
+
+    Returns:
+        dictionnary: text=a message to display to the User; name=datetime when timelapse is over; status=if something went wrong
+     """
     try:
         exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
         time_between_photos = int(float(request.form['time_between_photos'].replace(',','.')))
@@ -249,6 +319,11 @@ def take_timelapse():
 @app.route('/start_video', methods=['POST'])
 @login_required
 def start_video():
+    """Function to take a video with the Rpi camera
+
+    Returns:
+        dictionnary: text=a message to display to the User; name=video name; status=if something went wrong
+      """
     try:
         video_time = int(float(request.form['video_time'].replace(',','.')))
         video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
@@ -275,10 +350,21 @@ def start_video():
         return {'text':message_error, 'name':"NULL", 'status':"error"}
 
 def add_exif_tags(camera):
+    """Function used to add some exif tags on each photos.
+
+    Args:
+        camera (picamera.PiCamera): the camera object on which exif tag are needed
+    """
     camera.exif_tags['IFD0.Artist'] = PROJECT_NAME
     camera.exif_tags['IFD0.Copyright'] = "Copyright (c) 2020 " + PROJECT_NAME
 
 def get_dic_of_files():
+    """Function to retrieve files in picture, timelapse and video folder
+
+    Returns:
+        dictionnary: contains a list of files that are in each folder
+    """
+    #TODO: remove the path of 'do_not_remove.txt' file .remove() ==> avoid doing this in web page
     return {'photos': sorted(os.listdir(picture_directory)),
             'timelapse':sorted(os.listdir(timelapse_directory)),
             'video':sorted(os.listdir(video_directory))}
@@ -286,7 +372,13 @@ def get_dic_of_files():
 @app.route('/save_usb', methods=['POST'])
 @login_required
 def save_usb():
+    """Function to save files in the USB key
+
+    Returns:
+        dictionnary: text=a message to inform the User
+    """
     path_to_usb = "/media/pi/HUBBLE_SAVE/camera/"
+    # TODO: check for possibility to mount the usb key
     if os.path.exists(path=path_to_usb):
         move_files(picture_directory, path_to_usb+'pictures')
         logger.info('I moved pictures')
@@ -301,11 +393,22 @@ def save_usb():
 @app.route('/messier')
 @login_required
 def messier():
+    """Function to render the messier's catalog page
+
+    Returns:
+        template: The messier web page
+    """
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"), role=user_role[0])
 
 
 def move_files(src, dst):
+    """Move files between source and destination
+
+    Args:
+        src (string): The source path of files to move
+        dst (string): The destination path of files to move
+    """
     for item in os.listdir(src):
         if item != "do_not_remove.txt":
             s = os.path.join(src, item)
@@ -315,29 +418,5 @@ def move_files(src, dst):
 # TODO ==> camera integration
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
 
-"""
-Capturing in low light
-
-# Force sensor mode 3 (the long exposure mode), set
-# the framerate to 1/6fps, the shutter speed to 6s,
-# and ISO to 800 (for maximum gain)
-
-
-# Give the camera a good long time to set gains and
-# measure AWB (you may wish to use fixed AWB instead)
-
-sleep(30)
-camera.exposure_mode = 'off'
-
-"""
 # TODO ==> cf splitter (plusieurs ports)
 
-"""
-https://picamera.readthedocs.io/en/latest/fov.html#hardware-limits
-
-sudo vcgencmd get_camera
-==> supported=1 detected=1
-
-raspistill -v -o test.jpg
-
-"""
