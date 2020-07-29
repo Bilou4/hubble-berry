@@ -44,7 +44,6 @@ def get_dic_of_files():
     list_timelapse.remove('do_not_remove.txt')
     list_video = sorted(os.listdir(video_directory))
     list_video.remove('do_not_remove.txt')
-    #TODO: remove the path of 'do_not_remove.txt' file .remove() ==> avoid doing this in web page
     return {'photos': list_photos,
             'timelapse': list_timelapse,
             'video': list_video}
