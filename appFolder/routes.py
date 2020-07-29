@@ -1,6 +1,7 @@
 from appFolder import app, db, logger
 from appFolder.models import User, Role
 from appFolder.forms import LoginForm, RegistrationForm
+from appFolder.utils import gen, add_exif_tags, get_dic_of_files, move_files
 
 from flask import render_template, flash, redirect,\
      url_for, request, Response
@@ -13,6 +14,7 @@ from datetime import datetime
 from shutil import copyfile, move
 import os
 from fractions import Fraction
+
 try:
     from appFolder.camera_pi import Camera
     import picamera
@@ -22,27 +24,7 @@ from time import sleep
 
 
 PROJECT_NAME = "Hubble-Berry"
-picture_directory='./appFolder/static/camera/pictures/'
-timelapse_directory='./appFolder/static/camera/timelapse/'
-video_directory='./appFolder/static/camera/video/'
 
-def gen(camera):
-    """It enters a loop where it continuously returns frames from 
-        the camera as response chunks. The function asks the camera 
-        to provide a frame by calling the camera.get_frame() method, and 
-        then it yields with this frame formatted as a response chunk with a content 
-        type of image/jpeg
-
-    Args:
-        camera (picamera.PiCamera): An instance of the camera class
-
-    Yields:
-        bytes: content type of image/jpeg
-    """
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 @app.route('/video_feed')
 def video_feed():
@@ -349,25 +331,7 @@ def start_video():
         logger.error(message_error)
         return {'text':message_error, 'name':"NULL", 'status':"error"}
 
-def add_exif_tags(camera):
-    """Function used to add some exif tags on each photos.
 
-    Args:
-        camera (picamera.PiCamera): the camera object on which exif tag are needed
-    """
-    camera.exif_tags['IFD0.Artist'] = PROJECT_NAME
-    camera.exif_tags['IFD0.Copyright'] = "Copyright (c) 2020 " + PROJECT_NAME
-
-def get_dic_of_files():
-    """Function to retrieve files in picture, timelapse and video folder
-
-    Returns:
-        dictionnary: contains a list of files that are in each folder
-    """
-    #TODO: remove the path of 'do_not_remove.txt' file .remove() ==> avoid doing this in web page
-    return {'photos': sorted(os.listdir(picture_directory)),
-            'timelapse':sorted(os.listdir(timelapse_directory)),
-            'video':sorted(os.listdir(video_directory))}
 
 @app.route('/save_usb', methods=['POST'])
 @login_required
@@ -402,18 +366,7 @@ def messier():
     return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"), role=user_role[0])
 
 
-def move_files(src, dst):
-    """Move files between source and destination
 
-    Args:
-        src (string): The source path of files to move
-        dst (string): The destination path of files to move
-    """
-    for item in os.listdir(src):
-        if item != "do_not_remove.txt":
-            s = os.path.join(src, item)
-            d = os.path.join(dst, item)
-            move(src=s, dst=d)
 
 # TODO ==> camera integration
 # https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
