@@ -1,7 +1,8 @@
 from appFolder import app, db, logger
 from appFolder.models import User, Role
 from appFolder.forms import LoginForm, RegistrationForm
-from appFolder.utils import gen, add_exif_tags, get_dic_of_files, move_files
+from appFolder.utils import gen, add_exif_tags, get_dic_of_files, move_files,\
+    utils_take_photo, utils_take_timelapse, utils_take_video, PROJECT_NAME
 
 from flask import render_template, flash, redirect,\
      url_for, request, Response
@@ -13,18 +14,14 @@ from flask_babel import _
 from datetime import datetime
 from shutil import copyfile, move
 import os
-from fractions import Fraction
 from time import sleep
 
 try:
     from appFolder.camera_pi import Camera
-    import picamera
 except:
     from appFolder.camera import Camera
-from time import sleep
 
 
-PROJECT_NAME = "Hubble-Berry"
 
 
 @app.route('/video_feed')
@@ -163,7 +160,9 @@ def take_a_photo():
     """Function to take a photo with the Rpi camera
 
     Returns:
-        dictionnary: text=a message to display to the User; name=name of the pictures; status=if something went wrong
+        dict: text=a message to display to the User; 
+                     name=name of the pictures; 
+                     status=if something went wrong
     """
     try:
         photo_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
@@ -172,6 +171,14 @@ def take_a_photo():
         iso = int(request.form['iso_photo'])
         file_format = request.form['format_photo']
         advanced_options_is_checked = True if request.form['advanced_options_checkbox']=='true' else False
+        dic_forms = {
+            'photo_name': photo_name,
+            'exposure_photo': exposure_photo,
+            'resolution': resolution,
+            'iso': iso,
+            'file_format': file_format,
+            'advanced_options_is_checked': advanced_options_is_checked
+        }
         if advanced_options_is_checked:
             brightness = int(float(request.form['brightness_photo'].replace(',','.')))
             contrast = int(float(request.form['contrast_photo'].replace(',','.')))
@@ -185,71 +192,35 @@ def take_a_photo():
             image_effect = request.form['image_effect_photo']
             meter_mode = request.form['meter_mode_photo']
             awb_mode = request.form['awb_mode_photo']
+            dic_forms.update([('brightness', brightness),
+                              ('contrast', contrast),
+                              ('sharpness', sharpness),
+                              ('saturation', saturation),
+                              ('rotation', rotation),
+                              ('hflip', hflip),
+                              ('vflip', vflip),
+                              ('exposure_compensation', exposure_compensation),
+                              ('exposure_mode', exposure_mode),
+                              ('image_effect', image_effect),
+                              ('meter_mode', meter_mode),
+                              ('awb_mode', awb_mode)
+            ])
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         logger.error(message_error)
-        return {'text': message_error, 'name':"NULL", 'status':"error"}
+        return {'text': message_error, 'name':"", 'status':"error"}
 
     logger.info('Retrieved information from form')
-    try:
-        if exposure_photo == 0:
-            framerate = Fraction(0,1)
-            picamera.PiCamera.CAPTURE_TIMEOUT = 60
-        else:
-            framerate = Fraction(1,exposure_photo)
-            picamera.PiCamera.CAPTURE_TIMEOUT = exposure_photo * 8 # environ à revoir
+    return utils_take_photo(dic_forms)
 
-        with picamera.PiCamera(framerate=framerate) as camera:
-            if resolution == (4056,3040):
-                camera.sensor_mode = 3
-            else:
-                camera.sensor_mode = 0
-            camera.shutter_speed = exposure_photo * 1000000
-            camera.iso = iso
-            camera.resolution = resolution
-            if advanced_options_is_checked:
-                camera.brightness = brightness
-                camera.contrast = contrast
-                camera.sharpness = sharpness
-                camera.saturation = saturation
-                camera.rotation = rotation
-                camera.hflip = hflip
-                camera.vflip = vflip
-                camera.exposure_compensation = exposure_compensation
-                camera.exposure_mode = exposure_mode
-                camera.image_effect = image_effect
-                camera.meter_mode = meter_mode
-                camera.awb_mode = awb_mode
-            add_exif_tags(camera) # TODO: check if exif tags is working with format other than jpg
-            logger.info('Camera set up')
-            if exposure_photo > 10:
-                sleep(30) # warmup
-            else:
-                sleep(3)
-            logger.info('End of camera warmup')
-            if file_format == 'jpg':
-                file_format_bis = 'jpeg'
-            else:
-                file_format_bis = file_format
-            camera.capture(picture_directory + photo_name + '.' + file_format, format=file_format_bis)
-            logger.info('The photo was taken')
-            camera.shutter_speed = 0
-            camera.framerate = 1
-        logger.info('Everything is closed, sending back the response')
-        return {'text': _("Photo was taken!"), 'name':photo_name, 'status':"ok"}
-    except Exception as e:
-        message_error = "[ERROR] " + str(e)
-        logger.error(message_error)
-        return {'text': message_error, 'name':"NULL", 'status':"error"}
-
-# TODO: Make something with the name return in the response
 @app.route('/take_timelapse', methods=['POST'])
 @login_required
 def take_timelapse():
     """Function to take a timelapse with the Rpi camera
 
     Returns:
-        dictionnary: text=a message to display to the User; name=datetime when timelapse is over; status=if something went wrong
+        dict: text=a message to display to the User; 
+                status=if something went wrong
      """
     try:
         exposure_photo = int(float(request.form['exposure_photo'].replace(',','.')))
@@ -257,46 +228,20 @@ def take_timelapse():
         number_photos = int(float(request.form['number_photos'].replace(',','.')))
         resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
         iso = int(request.form['iso_timelapse'])
+        dic_forms = {
+            'exposure_photo': exposure_photo,
+            'time_between_photos': time_between_photos,
+            'number_photos': number_photos,
+            'resolution': resolution,
+            'iso': iso,
+        }
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         logger.error(message_error)
-        return {'text': message_error, 'name':"NULL", 'status':"error"}
+        return {'text': message_error, 'name':"", 'status':"error"}
 
     logger.info('Retrieved information from form')
-    try:
-        if exposure_photo == 0:
-            framerate = Fraction(0,1)
-        else:
-            framerate = Fraction(1,exposure_photo)
-        with picamera.PiCamera(framerate=framerate) as camera:
-            if resolution == (4056,3040):
-                camera.sensor_mode = 3
-            else:
-                camera.sensor_mode = 0
-            camera.resolution = resolution
-            camera.shutter_speed = exposure_photo * 1000000
-            add_exif_tags(camera)
-            logger.info('Camera set up')
-            if exposure_photo > 10:
-                sleep(30) # warmup
-            else:
-                sleep(3)
-            logger.info('End of camera warmup')
-            # TODO : essayer sans use_port_video
-            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
-                logger.info('I took a photo => ' + filename)
-                if i == number_photos-1:
-                    break
-                sleep(time_between_photos - exposure_photo) # essaie en enlevant le temps d'exposition
-            camera.shutter_speed = 0
-            camera.framerate = 1
-        logger.info('Everything is closed, sending back the response')
-        return {'text': _("Timelapse is over"), 'name': datetime.today().strftime('%Y-%m-%d-%H-%M-%S'), 'status':"ok"}
-    except Exception as e:
-        message_error = "[ERROR] " + str(e)
-        logger.error(message_error)
-        return {'text': message_error, 'name':"NULL", 'status':"error"}
-
+    return utils_take_timelapse(dic_forms)
 
 
 @app.route('/start_video', methods=['POST'])
@@ -305,32 +250,26 @@ def start_video():
     """Function to take a video with the Rpi camera
 
     Returns:
-        dictionnary: text=a message to display to the User; name=video name; status=if something went wrong
+        dict: text=a message to display to the User; 
+                name=video name;
+                status=if something went wrong
       """
     try:
         video_time = int(float(request.form['video_time'].replace(',','.')))
         video_name = datetime.today().strftime('%Y-%m-%d-%H-%M-%S')
         resolution = (int(request.form['resolution_video'].split(',')[0]),int(request.form['resolution_video'].split(',')[1]))
+        dic_forms = {
+            'video_time': video_time,
+            'video_name': video_name,
+            'resolution': resolution,
+        }
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         logger.error(message_error)
-        return {'text': message_error, 'name':"NULL", 'status':"error"}
+        return {'text': message_error, 'name':"", 'status':"error"}
 
     logger.info('Retrieved information from form')
-    try:
-        with picamera.PiCamera() as camera:
-            logger.info('Camera set up')
-            sleep(2) # warmup
-            logger.info('End of camera warmup')
-            camera.start_recording(video_directory+video_name+".h264",format='h264')
-            camera.wait_recording(video_time)
-            camera.stop_recording()
-        logger.info('Everything is closed, sending back the response')
-        return {'text': _("Video is over"), 'name': video_name, 'status':"ok"}
-    except Exception as e:
-        message_error = "[ERROR] " + str(e)
-        logger.error(message_error)
-        return {'text':message_error, 'name':"NULL", 'status':"error"}
+    return utils_take_video(dic_forms)
 
 
 
