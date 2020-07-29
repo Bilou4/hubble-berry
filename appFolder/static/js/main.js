@@ -41,9 +41,6 @@ function enable_tables(){
 }
 
 
-// var the_timeout_handler = null;
-const default_time_camera_warmup = 5;
-
 $(document).ready(function(){
 	document.getElementById("default_open").click(); // default tab 'photo' is opened	
 
@@ -126,7 +123,6 @@ $(document).ready(function(){
 				if(response.length!=0){
 					$("#running_timelapse").hide();
 					$("#message").text(response.text);
-					$("#filename").text(response.name);
 					enable_tables();
 					$("#take_timelapse").show();
 				}

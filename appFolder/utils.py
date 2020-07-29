@@ -171,11 +171,11 @@ def utils_take_timelapse(dic_elems):
             camera.shutter_speed = 0
             camera.framerate = 1
         logger.info('Everything is closed, sending back the response')
-        return {'text': _("Timelapse is over"), 'name': "", 'status':"ok"}
+        return {'text': _("Timelapse is over"), 'status':"ok"}
     except Exception as e:
         message_error = "[ERROR] " + str(e)
         logger.error(message_error)
-        return {'text': message_error, 'name':"", 'status':"error"}
+        return {'text': message_error, 'status':"error"}
 
 def utils_take_video(dic_elems):
     """Function using the picamera module to take a video
