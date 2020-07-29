@@ -14,6 +14,7 @@ from datetime import datetime
 from shutil import copyfile, move
 import os
 from fractions import Fraction
+from time import sleep
 
 try:
     from appFolder.camera_pi import Camera
@@ -46,7 +47,7 @@ def index():
         template: the default template according if the user is connected or not
     """
     if current_user.is_authenticated:
-        return redirect(url_for('preview'))
+        return redirect(url_for('gallery'))
     return render_template('index.html', title=PROJECT_NAME + _("- Index"))
 
 @app.route('/logout')
@@ -67,7 +68,7 @@ def login():
         template: The login page if he is not already connected or the index page
     """
     if current_user.is_authenticated:
-        return redirect(url_for('preview')) # TODO: change to index
+        return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -78,7 +79,7 @@ def login():
         logger.info(user.username + ' is now connected')
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '': # empecher l'utilisateur de rediriger vers un site malicieux
-            next_page = url_for('preview') # TODO: change to index
+            next_page = url_for('index')
         return redirect(next_page)
     return render_template('login.html', title=PROJECT_NAME + _("- Sign In"), form=form)
 
