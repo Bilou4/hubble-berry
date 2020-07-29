@@ -10,6 +10,11 @@ class Camera(BaseCamera):
 
     @staticmethod
     def frames():
+        """Generator that returns frames from the camera.
+
+        Yields:
+            list: list of images to return
+        """
         while True:
             time.sleep(1)
             yield Camera.imgs[int(time.time()) % 3]

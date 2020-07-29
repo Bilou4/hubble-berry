@@ -7,6 +7,11 @@ from appFolder.base_camera import BaseCamera
 class Camera(BaseCamera):
     @staticmethod
     def frames():
+        """Generator that returns frames from the camera.
+
+        Yields:
+            bytes: stream of bytes to return
+        """
         with picamera.PiCamera() as camera:
             # let camera warm up
             time.sleep(2)

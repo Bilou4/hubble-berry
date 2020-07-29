@@ -6,6 +6,11 @@ import colorlog
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
+    """Config class to set different variables
+
+    Args:
+        object (object): The most base type
+    """
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'saturn'
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
@@ -14,6 +19,15 @@ class Config(object):
 
 
 def init_logger(dunder_name, testing_mode):
+    """Instantiate a logger so as to log message
+
+    Args:
+        dunder_name (string): name of the logger
+        testing_mode (bool): indicates wether to use Debug or not
+
+    Returns:
+        Logger: A logger with the specified name
+    """
     log_format = ('[%(levelname)s] - %(asctime)s - %(message)s')
     bold_seq = '\033[1m'
     colorlog_format = '{} %(log_color)s {}'.format(bold_seq,log_format)
