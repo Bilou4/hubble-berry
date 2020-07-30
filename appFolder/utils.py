@@ -2,6 +2,7 @@ from appFolder import logger
 import os
 from fractions import Fraction
 from time import sleep
+from flask_babel import _
 
 try:
     import picamera
