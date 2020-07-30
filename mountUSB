@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo mount /dev/sda1 /media/pi/HUBBLE_SAVE/ -o uid=pi,gid=pi
