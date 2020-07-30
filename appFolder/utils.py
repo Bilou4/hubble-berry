@@ -1,6 +1,7 @@
 from appFolder import logger
 import os
 from fractions import Fraction
+from time import sleep
 
 try:
     import picamera

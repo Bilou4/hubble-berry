@@ -12,9 +12,8 @@ from werkzeug.urls import url_parse
 from flask_babel import _
 
 from datetime import datetime
-from shutil import copyfile, move
+from shutil import move
 import os
-from time import sleep
 
 try:
     from appFolder.camera_pi import Camera
