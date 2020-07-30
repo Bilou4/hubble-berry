@@ -3,6 +3,7 @@ import os
 from fractions import Fraction
 from time import sleep
 from flask_babel import _
+from shutil import move
 
 try:
     import picamera

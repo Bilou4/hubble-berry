@@ -2,7 +2,8 @@ from appFolder import app, db, logger
 from appFolder.models import User, Role
 from appFolder.forms import LoginForm, RegistrationForm
 from appFolder.utils import gen, add_exif_tags, get_dic_of_files, move_files,\
-    utils_take_photo, utils_take_timelapse, utils_take_video, PROJECT_NAME
+    utils_take_photo, utils_take_timelapse, utils_take_video, PROJECT_NAME, \
+    picture_directory, timelapse_directory, video_directory
 
 from flask import render_template, flash, redirect,\
      url_for, request, Response
@@ -12,7 +13,6 @@ from werkzeug.urls import url_parse
 from flask_babel import _
 
 from datetime import datetime
-from shutil import move
 import os
 
 try:
