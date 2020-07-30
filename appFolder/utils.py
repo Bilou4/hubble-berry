@@ -131,7 +131,7 @@ def utils_take_photo(dic_elems):
         logger.info('Everything is closed, sending back the response')
         return {'text': _("Photo was taken!"), 'name':dic_elems['photo_name'], 'status':"ok"}
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[utils_take_photo] " + str(e)
         logger.error(message_error)
         return {'text': message_error, 'name':"", 'status':"error"}
 
@@ -176,7 +176,7 @@ def utils_take_timelapse(dic_elems):
         logger.info('Everything is closed, sending back the response')
         return {'text': _("Timelapse is over"), 'status':"ok"}
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[utils_take_timelapse] " + str(e)
         logger.error(message_error)
         return {'text': message_error, 'status':"error"}
 
@@ -203,6 +203,6 @@ def utils_take_video(dic_elems):
         logger.info('Everything is closed, sending back the response')
         return {'text': _("Video is over"), 'name': dic_elems['video_name'], 'status':"ok"}
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[utils_take_video] " + str(e)
         logger.error(message_error)
         return {'text':message_error, 'name':"", 'status':"error"}

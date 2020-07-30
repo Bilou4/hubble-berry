@@ -205,7 +205,7 @@ def take_a_photo():
                               ('awb_mode', awb_mode)
             ])
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[take_a_photo] " + str(e)
         logger.error(message_error)
         return {'text': message_error, 'name':"", 'status':"error"}
 
@@ -235,7 +235,7 @@ def take_timelapse():
             'iso': iso,
         }
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[take_timelapse] " + str(e)
         logger.error(message_error)
         return {'text': message_error, 'name':"", 'status':"error"}
 
@@ -263,7 +263,7 @@ def start_video():
             'resolution': resolution,
         }
     except Exception as e:
-        message_error = "[ERROR] " + str(e)
+        message_error = "[start_video] " + str(e)
         logger.error(message_error)
         return {'text': message_error, 'name':"", 'status':"error"}
 
