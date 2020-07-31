@@ -1,102 +1,76 @@
-# hubble-berry
+# Hubble-Berry 
 
 
-## To activate the env
+<img src="./appFolder/static/photos/hubble_berry_logo.jpg " width="150">
 
-```sh
-. activate
-```
-or leave the env
 
-```sh
-deactivate
-```
+I wanted to start Astrophotography and the HQ pi camera was just announced. Thus I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
 
-If there is a problem with vscode venv
+## Getting Started
 
-> https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-<hr>
+### Prerequisites
 
-## Install dependencies
-```sh
-./installation.sh
-```
-To see requirements for the env
+Rpi + RaspAp + Directory for USB key
 
-```sh
-pip3 freeze > requirements.txt
-```
-<hr>
+![working_diagram](./img/working_diagram.png)
 
-## To start the app with Flask
+
+### Installing
+
++ After cloning the project, go inside the directory `cd hubble-berry`.
++ Activate the environment `. activate`
++ Execute the installation file `./installation.sh`
++ To finish, you can start the application
 
 ```sh
 FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --with-threads # just on localhost
 FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 --with-threads # to all active interfaces
 ```
-<hr>
 
-## To manage the database after changing models
+if everything worked properly, you should be able to reach the first page.
 
-```sh
-FLASK_APP=main.py flask db migrate -m "<explicative message>"
-FLASK_APP=main.py flask db upgrade
-```
+![First_page](./img/first_page.png)
 
-## Add user in sqlite
++ To leave the virtual environment `deactivate`
++ If you are using vscode and there is a problem with the virtual environment https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
 
-```sql
--- SQLite
-INSERT INTO `user` (id, username, email, password_hash, role_id)
-VALUES (1, 'test','bonjour@mail.fr', 'pbkdf2:sha256:150000$E7IKksJJ$7efee81204352ecfe031ae666716a9475cfd0a550658097e8181f388e6050e54', 1);
-INSERT INTO `role` (id, name)
-VALUES (1,"admin");
-INSERT INTO `role` (id, name)
-VALUES (2,"user");
-```
+## Deployment
 
-<hr>
+Add additional notes about how to deploy this on a live system
 
-## Manage languages
+## Built With
 
-### Extract information from all files
+    Flask - The web framework used
+    picamera - A pure Python interface to the Raspberry Pi camera module 
 
-```sh
-pybabel extract -F babel.cfg -k _l -o messages.pot . 
-```
+## Contributing
 
-### Update files for existing languages
+Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
-```sh
-pybabel update -i messages.pot -d appFolder/translations
-```
+## Versioning
 
-### If you need to create files for another language
+We use SemVer for versioning. For the versions available, see the tags on this repository.
 
-```sh
-pybabel init -i messages.pot -d appFolder/translations -l fr
-```
+## Authors
 
-### At the end, compile to make the runtime easier
+    Bilou4 - Initial work
 
-```sh
-pybabel compile -d appFolder/translations
-```
+See also the list of contributors who participated in this project.
 
-<hr>
+## License
 
-## Use of external projects or tutorial
+This project is licensed under the GPL License - see the COPYING file for details
 
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+## Acknowledgments
 
-https://blog.miguelgrinberg.com/post/video-streaming-with-flask
-
-https://galleriajs.github.io/
-
-http://www.astrosurf.com/luxorion/Images/messier-catalog-mike-keith.jpg
-
-https://www.ligo.caltech.edu/video/ligo20160211v2
-
-https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
++ Miguel Grinberg - Flask Tutorial - https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
++ Miguel Grinberg - Stream Video with Flask - https://blog.miguelgrinberg.com/post/video-streaming-with-flask
++ https://galleriajs.github.io/
++ Astrosurf - http://www.astrosurf.com/luxorion/Images/messier-catalog-mike-keith.jpg
++ Ligo Easter Egg - https://www.ligo.caltech.edu/video/ligo20160211v2
++ Python Logger - https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
++ RaspAp WebGUI - https://github.com/billz/raspap-webgui
++ USB key on Rpi - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
 
