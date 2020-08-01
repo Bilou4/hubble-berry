@@ -135,7 +135,6 @@ def utils_take_photo(dic_elems):
         logger.error(message_error)
         return {'text': message_error, 'name':"", 'status':"error"}
 
-# TODO: Make something with the name return in the response
 def utils_take_timelapse(dic_elems):
     """Function using the picamera module to take a timelapse
 

@@ -281,7 +281,6 @@ def save_usb():
         dictionnary: text=a message to inform the User
     """
     path_to_usb = "/media/pi/HUBBLE_SAVE/camera/"
-    # TODO: check for possibility to mount the usb key
     if os.path.exists(path=path_to_usb):
         move_files(picture_directory, path_to_usb+'pictures')
         logger.info('I moved pictures')
@@ -303,12 +302,3 @@ def messier():
     """
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
     return render_template("messier.html", title=PROJECT_NAME + _("- Messier's catalog"), role=user_role[0])
-
-
-
-
-# TODO ==> camera integration
-# https://picamera.readthedocs.io/en/release-1.13/api_camera.html#piframeraterange
-
-# TODO ==> cf splitter (plusieurs ports)
-
