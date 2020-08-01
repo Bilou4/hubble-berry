@@ -73,4 +73,4 @@ This project is licensed under the GPL License - see the COPYING file for detail
 + Python Logger - https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
 + RaspAp WebGUI - https://github.com/billz/raspap-webgui
 + USB key on Rpi - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
-
++ Picamera's documentation - https://picamera.readthedocs.io/en/release-1.13/
