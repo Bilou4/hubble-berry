@@ -20,6 +20,8 @@ Rpi + RaspAp + Directory for USB key
 ### Installing
 
 + After cloning the project, go inside the directory `cd hubble-berry`.
++ If virtualenv is not installed on your rpi `sudo pip install virtualenv`
++ create a virtual environment `virtualenv hubble-berry-project`
 + Activate the environment `. activate`
 + Execute the installation file `./installation.sh`
 + To finish, you can start the application
