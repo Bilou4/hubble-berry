@@ -158,18 +158,18 @@ def utils_take_timelapse(dic_elems):
             camera.resolution = dic_elems['resolution']
             camera.shutter_speed = dic_elems['exposure_photo'] * 1000000
             add_exif_tags(camera)
+            vide_port = True if dic_elems['time_between_photos'] < 2 else False
             logger.info('Camera set up')
             if dic_elems['exposure_photo'] > 10:
                 sleep(30) # warmup
             else:
                 sleep(3)
             logger.info('End of camera warmup')
-            # TODO : essayer sans use_port_video
-            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=True)):
+            for i, filename in enumerate(camera.capture_continuous(timelapse_directory+'{timestamp:%Y_%m_%d_%H_%M_%S}-{counter:03d}.jpg', format='jpeg', use_video_port=vide_port)):
                 logger.info('I took a photo => ' + filename)
                 if i == dic_elems['number_photos']-1:
                     break
-                sleep(dic_elems['time_between_photos'] - dic_elems['exposure_photo']) # essaie en enlevant le temps d'exposition
+                sleep(dic_elems['time_between_photos'] - dic_elems['exposure_photo'])
             camera.shutter_speed = 0
             camera.framerate = 1
         logger.info('Everything is closed, sending back the response')
