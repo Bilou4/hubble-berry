@@ -12,6 +12,7 @@ def make_timelapse(directory, fps):
         video = cv2.VideoWriter('video.avi', cv2.VideoWriter_fourcc(*"MJPG"),
                                 fps, (width, height))
         for img_path in l:
+            print("processing image -> " + img_path)
             video.write(cv2.imread(directory + img_path))
         cv2.destroyAllWindows()
         video.release()
@@ -19,9 +20,54 @@ def make_timelapse(directory, fps):
     else:
         print('cannot find the directory - ' + directory)
 
-def make_star_trail():
-    print('star trail not implemented yet')
-    
+def make_star_trail(directory):
+    print('star trail')
+    l = []
+    step = 1
+    output_image_path = "test.jpg"
+    if os.path.exists(path=directory):
+        l = os.listdir(directory)
+        l = sorted(l)
+        r, g, b = None, None, None
+        r_avg, g_avg, b_avg = averager(), averager(), averager()
+
+        count = 0
+        for img_path in l:
+            print("processing image -> " + img_path)
+
+            # Split the frame into its respective channels
+            frame = cv2.imread(directory + img_path)
+
+            if count % step == 0 and frame is not None:
+                # Get the current RGB
+                b_curr, g_curr, r_curr = cv2.split(frame.astype("float"))
+                r, g, b = r_avg(r_curr), g_avg(g_curr), b_avg(b_curr)
+            
+            count += 1
+
+        # Merge the RGB averages together and write the output image to disk
+        avg = cv2.merge([b, g, r]).astype("uint8")
+        print("Saving image as ", output_image_path)
+        cv2.imwrite(output_image_path, avg)
+
+        cv2.destroyAllWindows()
+            
+    else:
+        print('cannot find the directory - ' + directory)
+
+def averager():
+    """Calculate the average using a clojure."""
+    count = 0
+    total = 0.0
+
+    def average(value):
+        nonlocal count, total
+        count += 1
+        total += value
+        return total / count
+
+    return average
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--directory", help="the directory containing photos for the timelapse", required=True)
 parser.add_argument("-t", "--time", help="time for the duration of a frame in the final video", required=True, type=float)
@@ -37,8 +83,7 @@ if(args.directory is not None and args.time is not None and args.action is not N
     if (args.action == 'timelapse'):
         make_timelapse(directory, fps)
     elif (args.action == 'startrail'):
-        make_star_trail()
+        make_star_trail(directory)
     else:
         make_timelapse(directory, fps)
-        make_star_trail()
-
+        make_star_trail(directory)
