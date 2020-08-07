@@ -21,6 +21,7 @@ def make_timelapse(directory, fps):
         print('cannot find the directory - ' + directory)
 
 def make_star_trail(directory):
+    # TODO find a new operation different than average to make it brighter
     print('star trail')
     l = []
     step = 1
@@ -69,21 +70,32 @@ def averager():
     return average
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--directory", help="the directory containing photos for the timelapse", required=True)
-parser.add_argument("-t", "--time", help="time for the duration of a frame in the final video", required=True, type=float)
-parser.add_argument("-a", "--action", help="the action you want to perform", required=True)
+
+parser.add_argument("-timelapse", help="If you want to create a timelapse", action="store_true")
+parser.add_argument("-td", "--timelapse_input_directory", help="the input directory containing photos")
+parser.add_argument("-t", "--time", help="time for the duration of a frame in the final video", type=float)
+
+parser.add_argument("-startrail", help="If you want to create a startrail", action="store_true")
+parser.add_argument("-sd", "--startrail_input_directory", help="the input directory containing photos")
+
 
 args = parser.parse_args()
-if(args.directory is not None and args.time is not None and args.action is not None):
-    if (args.action not in ('startrail', 'timelapse', 'both')):
-        parser.error("Only available actions are 'timelapse', 'startrail' or 'both'")
-    directory = args.directory
+action_performed = False
+if args.timelapse:
+    if args.time is None or args.timelapse_input_directory is None:
+        parser.error("To make a timelapse, you need to define an input directory and a time for each photo")
+    directory = args.timelapse_input_directory
     time_one_im = args.time
     fps = 1/time_one_im # may need a cast to int
-    if (args.action == 'timelapse'):
-        make_timelapse(directory, fps)
-    elif (args.action == 'startrail'):
-        make_star_trail(directory)
-    else:
-        make_timelapse(directory, fps)
-        make_star_trail(directory)
+    make_timelapse(directory, fps)
+    action_performed = True
+
+if args.startrail:
+    if args.startrail_input_directory is None:
+        parser.error("To make a startrail, you need to define an input directory")
+    directory = args.startrail_input_directory
+    make_star_trail(directory)
+    action_performed = True
+
+if not action_performed:
+    parser.error("You need to choose an action to perform, either timelapse or startrail or both.")
