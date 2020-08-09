@@ -115,7 +115,7 @@ def utils_take_photo(dic_elems):
                 camera.awb_mode = dic_elems['awb_mode']
             add_exif_tags(camera) # TODO: check if exif tags is working with format other than jpg
             logger.info('Camera set up')
-            if dic_elems['exposure_photo'] > 10:
+            if dic_elems['exposure_photo'] > 6:
                 sleep(30) # warmup
             else:
                 sleep(3)
@@ -160,7 +160,7 @@ def utils_take_timelapse(dic_elems):
             add_exif_tags(camera)
             vide_port = dic_elems['use_video_port_checkbox']
             logger.info('Camera set up')
-            if dic_elems['exposure_photo'] > 10:
+            if dic_elems['exposure_photo'] > 6:
                 sleep(30) # warmup
             else:
                 sleep(3)
