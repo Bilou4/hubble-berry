@@ -227,12 +227,14 @@ def take_timelapse():
         number_photos = int(float(request.form['number_photos'].replace(',','.')))
         resolution = (int(request.form['resolution_timelapse'].split(',')[0]), int(request.form['resolution_timelapse'].split(',')[1]))
         iso = int(request.form['iso_timelapse'])
+        use_video_port = True if request.form['use_video_port_checkbox']=='true' else False
         dic_forms = {
             'exposure_photo': exposure_photo,
             'time_between_photos': time_between_photos,
             'number_photos': number_photos,
             'resolution': resolution,
             'iso': iso,
+            'use_video_port': use_video_port
         }
     except Exception as e:
         message_error = "[take_timelapse] " + str(e)

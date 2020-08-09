@@ -117,6 +117,7 @@ $(document).ready(function(){
 					+'&time_between_photos=' + $('#time_between_photos').val()
 					+'&number_photos=' + $('#number_photos').val()
 					+'&iso_timelapse='+$('#iso_timelapse').val()
+					+'&use_video_port_checkbox='+$('#use_video_port_checkbox').is(":checked")
 					+'&resolution_timelapse='+$('#resolution_timelapse').val(),
 
 			success : function(response){

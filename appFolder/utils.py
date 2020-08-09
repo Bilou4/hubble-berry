@@ -47,7 +47,7 @@ def get_dic_of_files():
     """Function to retrieve files in picture, timelapse and video folder
 
     Returns:
-        dictionnary: contains a list of files that are in each folder
+        dict: contains a list of files that are in each folder
     """
     list_photos = sorted(os.listdir(picture_directory))
     list_photos.remove('do_not_remove.txt')
@@ -158,7 +158,7 @@ def utils_take_timelapse(dic_elems):
             camera.resolution = dic_elems['resolution']
             camera.shutter_speed = dic_elems['exposure_photo'] * 1000000
             add_exif_tags(camera)
-            vide_port = True if dic_elems['time_between_photos'] < 2 else False
+            vide_port = dic_elems['use_video_port_checkbox']
             logger.info('Camera set up')
             if dic_elems['exposure_photo'] > 10:
                 sleep(30) # warmup
