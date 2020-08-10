@@ -157,6 +157,7 @@ def utils_take_timelapse(dic_elems):
                 camera.sensor_mode = 0
             camera.resolution = dic_elems['resolution']
             camera.shutter_speed = dic_elems['exposure_photo'] * 1000000
+            camera.iso = dic_elems['iso']
             add_exif_tags(camera)
             vide_port = dic_elems['use_video_port_checkbox']
             logger.info('Camera set up')
