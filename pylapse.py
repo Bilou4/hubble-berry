@@ -6,7 +6,7 @@ import argparse
 from datetime import datetime
 
 def make_timelapse(input_directory, output_directory, fps):
-    print('timelapse')
+    print("#### Timelapse ####")
     l = []
     output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.avi'
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
@@ -16,18 +16,18 @@ def make_timelapse(input_directory, output_directory, fps):
         video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"),
                                 fps, (width, height))
         for img_path in l:
-            print("processing image -> " + img_path)
+            #print("processing image -> " + img_path)
             video.write(cv2.imread(input_directory + img_path))
         cv2.destroyAllWindows()
         video.release()
-        print('video done', output_video)
+        print("[\033[0;32m OK\033[0m ] ", output_video)
     else:
-        print("cannot find the directory - ", input_directory)
+        print("Cannot find the directory - ", input_directory)
         print("Or cannot find ", output_directory)
 
 def make_star_trail(input_directory, output_directory):
     # TODO find a new operation different than average to make it brighter
-    print('star trail')
+    print("#### Star Trail ####")
     l = []
     step = 1
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
@@ -39,7 +39,7 @@ def make_star_trail(input_directory, output_directory):
 
         count = 0
         for img_path in l:
-            print("processing image -> " + img_path)
+            #print("processing image -> " + img_path)
 
             # Split the frame into its respective channels
             frame = cv2.imread(input_directory + img_path)
@@ -53,13 +53,13 @@ def make_star_trail(input_directory, output_directory):
 
         # Merge the RGB averages together and write the output image to disk
         avg = cv2.merge([b, g, r]).astype("uint8")
-        print("Saving image as ", output_image_path)
+        print("[\033[0;32m OK\033[0m ] ", output_image_path)
         cv2.imwrite(output_image_path, avg)
 
         cv2.destroyAllWindows()
             
     else:
-        print("cannot find the directory - ", input_directory)
+        print("Cannot find the directory - ", input_directory)
         print("Or cannot find ", output_directory)
 
 def averager():
