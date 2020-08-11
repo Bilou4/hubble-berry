@@ -4,6 +4,7 @@ import cv2
 import os
 import argparse
 from datetime import datetime
+from tqdm import tqdm
 
 def make_timelapse(input_directory, output_directory, fps):
     print("#### Timelapse ####")
@@ -15,7 +16,7 @@ def make_timelapse(input_directory, output_directory, fps):
         height , width , layers =  cv2.imread(input_directory + l[0]).shape
         video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"),
                                 fps, (width, height))
-        for img_path in l:
+        for img_path in tqdm(l):
             #print("processing image -> " + img_path)
             video.write(cv2.imread(input_directory + img_path))
         cv2.destroyAllWindows()
@@ -38,7 +39,7 @@ def make_star_trail(input_directory, output_directory):
         r_avg, g_avg, b_avg = averager(), averager(), averager()
 
         count = 0
-        for img_path in l:
+        for img_path in tqdm(l):
             #print("processing image -> " + img_path)
 
             # Split the frame into its respective channels
