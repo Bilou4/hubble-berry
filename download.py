@@ -4,7 +4,6 @@ import argparse
 from enum import Enum
 
 class Action(Enum):
-    NOTHING = 0
     COPY_PICTURES = 1
     COPY_TIMELAPSES = 2
     COPY_VIDEOS = 4
@@ -41,40 +40,34 @@ parser.add_argument("-p", "--pictures", help="if your demand concerns pictures",
 parser.add_argument("-t", "--timelapse", help="if your demand concerns timelapses", action="store_true")
 parser.add_argument("-v", "--video", help="if your demand concerns videos", action="store_true")
 
-
-
-
 args = parser.parse_args()
 action_performed = False
 action = 0
 
 if args.copy:
-    if args.pictures is None and args.timelapse is None and args.video is None:
-        parser.error("You need to specify at least one type of files to move")
-    if args.pictures:
-        action = action | Action.COPY_PICTURES.value
+    if not args.pictures and not args.timelapse and not args.video:
+        parser.error("You need to specify at least one type of files to copy")
+    else:
         action_performed = True
-    if args.timelapse:
-        action = action | Action.COPY_TIMELAPSES.value
-        action_performed = True
-    if args.video:
-        action = action | Action.COPY_VIDEOS.value
-        action_performed = True
+        if args.pictures:
+            action = action | Action.COPY_PICTURES.value
+        if args.timelapse:
+            action = action | Action.COPY_TIMELAPSES.value
+        if args.video:
+            action = action | Action.COPY_VIDEOS.value
 
 if args.move:
-    if args.pictures is None and args.timelapse is None and args.video is None:
+    if not args.pictures and not args.timelapse and not args.video:
         parser.error("You need to specify at least one type of files to move")
-    if args.pictures:
-        action = action | Action.MOVE_PICTURES.value
+    else:
         action_performed = True
-    if args.timelapse:
-        action = action | Action.MOVE_TIMELAPSES.value
-        action_performed = True
-    if args.video:
-        action = action | Action.MOVE_VIDEOS.value
-        action_performed = True
-
-
+        if args.pictures:
+            action = action | Action.MOVE_PICTURES.value
+        if args.timelapse:
+            action = action | Action.MOVE_TIMELAPSES.value
+        if args.video:
+            action = action | Action.MOVE_VIDEOS.value
+        
 if not action_performed:
     parser.error("You need to choose an action to perform, either copy or move files.")
 else:
