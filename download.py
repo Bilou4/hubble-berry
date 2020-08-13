@@ -58,8 +58,7 @@ if args.copy:
             action = action | Action.COPY_TIMELAPSES.value
         if args.video:
             action = action | Action.COPY_VIDEOS.value
-
-if args.move:
+elif args.move:
     if not args.pictures and not args.timelapse and not args.video:
         parser.error("You need to specify at least one type of files to move")
     else:
