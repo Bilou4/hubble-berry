@@ -5,6 +5,7 @@ import os
 import argparse
 from datetime import datetime
 from tqdm import tqdm
+import numpy
 
 def make_timelapse(input_directory, output_directory, fps):
     print("#### Timelapse ####")
@@ -28,9 +29,8 @@ def make_timelapse(input_directory, output_directory, fps):
         print("Cannot find the directory - ", input_directory)
         print("Or cannot find ", output_directory)
 
-def make_star_trail(input_directory, output_directory):
-    # TODO find a new operation different than average to make it brighter
-    print("#### Star Trail ####")
+def make_star_trail_avg(input_directory, output_directory):
+    print("#### Star Trail Average ####")
     l = []
     step = 1
     if output_directory == '.':
@@ -80,6 +80,33 @@ def averager():
 
     return average
 
+def make_star_trail_max(input_directory, output_directory):
+    print("#### Star Trail Maximum value ####")
+    l = []
+    if output_directory == '.':
+        output_directory = './'
+    output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
+    if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
+        l = os.listdir(input_directory)
+        l = sorted(l)
+        height, width, channel = cv2.imread(input_directory + l[0]).shape
+        stack = numpy.zeros((height, width, 3), numpy.float)
+        count = 1
+        for img_path in tqdm(l):
+            image_new = numpy.array(cv2.imread(input_directory + img_path), dtype = numpy.float)
+            stack = numpy.maximum(stack, image_new)
+            count += 1
+
+        stack = numpy.array(numpy.round(stack), dtype = numpy.uint8)
+
+        cv2.imwrite(output_image_path, stack)
+        print("[\033[0;32m OK\033[0m ] ", output_image_path)
+        cv2.destroyAllWindows()
+            
+    else:
+        print("Cannot find the directory - ", input_directory)
+        print("Or cannot find ", output_directory)
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-timelapse", help="If you want to create a timelapse", action="store_true")
@@ -109,7 +136,7 @@ if args.startrail:
         parser.error("To make a startrail, you need to define an input directory and an output directory")
     input_directory = args.startrail_input_directory
     output_directory = args.startrail_output_directory
-    make_star_trail(input_directory, output_directory)
+    make_star_trail(input_directory, output_directory) # TODO: change the way to choose the star trail algorithm
     action_performed = True
 
 if not action_performed:
