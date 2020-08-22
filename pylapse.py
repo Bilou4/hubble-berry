@@ -9,6 +9,8 @@ from tqdm import tqdm
 def make_timelapse(input_directory, output_directory, fps):
     print("#### Timelapse ####")
     l = []
+    if output_directory == '.':
+        output_directory = './'
     output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.avi'
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
@@ -31,6 +33,8 @@ def make_star_trail(input_directory, output_directory):
     print("#### Star Trail ####")
     l = []
     step = 1
+    if output_directory == '.':
+        output_directory = './'
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
