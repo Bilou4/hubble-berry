@@ -7,7 +7,7 @@ from datetime import datetime
 from tqdm import tqdm
 import numpy
 
-def make_timelapse(input_directory, output_directory, fps):
+def make_timelapse(input_directory, output_directory, fps, video_format):
     """make_timelapse allows to create a timelapse video from an input directory containing photos
 
     Args:
@@ -21,14 +21,18 @@ def make_timelapse(input_directory, output_directory, fps):
     if output_directory == '.':
         output_directory = './'
     
-    output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.avi'
+    output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.' + video_format
     
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
         l = sorted(l)
         height , width , layers =  cv2.imread(input_directory + l[0]).shape
-        video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"),
-                                fps, (width, height))
+
+        if video_format == 'avi':
+            video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"), fps, (width, height))
+        else:
+            video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
+            
         for img_path in tqdm(l):
             video.write(cv2.imread(input_directory + img_path))
 
@@ -142,7 +146,8 @@ parser.add_argument("-timelapse", help="If you want to create a timelapse", acti
 parser.add_argument("-ti", "--timelapse_input_directory", help="the input directory containing photos")
 parser.add_argument("-t", "--time", help="time for the duration of a frame in the final video", type=float)
 parser.add_argument("-to", "--timelapse_output_directory", help="the output directory containing the final video")
-
+parser.add_argument('--mp4', dest='format', action='store_const', const='mp4', default='avi', 
+    help='The format you want for the video (default: avi)')
 
 parser.add_argument("-startrail", help="If you want to create a startrail", action="store_true")
 parser.add_argument("-si", "--startrail_input_directory", help="the input directory containing photos")
@@ -159,7 +164,7 @@ if args.timelapse:
     output_directory = args.timelapse_output_directory
     time_one_im = args.time
     fps = 1/time_one_im # may need a cast to int
-    make_timelapse(input_directory, output_directory, fps)
+    make_timelapse(input_directory, output_directory, fps, args.format)
     action_performed = True
 
 if args.startrail:
