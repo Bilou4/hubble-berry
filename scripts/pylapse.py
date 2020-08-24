@@ -8,12 +8,12 @@ from tqdm import tqdm
 import numpy
 
 def make_timelapse(input_directory, output_directory, fps):
-    """[summary]
+    """make_timelapse allows to create a timelapse video from an input directory containing photos
 
     Args:
-        input_directory ([type]): [description]
-        output_directory ([type]): [description]
-        fps ([type]): [description]
+        input_directory (string): directory where are stored images used to create the video
+        output_directory (string): directory where you need to save the final video
+        fps (int): number of frame per seconds
     """
     print("#### Timelapse ####")
     l = []
@@ -41,11 +41,11 @@ def make_timelapse(input_directory, output_directory, fps):
         print("Or cannot find ", output_directory)
 
 def make_star_trail_avg(input_directory, output_directory):
-    """[summary]
+    """make_star_trail_avg allows to create a star trail based on the average method (make an average of pixel x,y from each image).
 
     Args:
-        input_directory ([type]): [description]
-        output_directory ([type]): [description]
+       input_directory (string): directory where are stored images used to create the star trail
+       output_directory (string): directory where you need to save the star trail
     """
     print("#### Star Trail Average ####")
     l = []
@@ -99,6 +99,12 @@ def averager():
     return average
 
 def make_star_trail_max(input_directory, output_directory):
+    """make_star_trail_max allows to create a star trail based on the maximum method (keep the maximum value of pixel x,y from each image).
+
+    Args:
+       input_directory (string): directory where are stored images used to create the star trail
+       output_directory (string): directory where you need to save the star trail
+    """
     print("#### Star Trail Maximum value ####")
     l = []
 
