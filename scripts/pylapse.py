@@ -8,11 +8,21 @@ from tqdm import tqdm
 import numpy
 
 def make_timelapse(input_directory, output_directory, fps):
+    """[summary]
+
+    Args:
+        input_directory ([type]): [description]
+        output_directory ([type]): [description]
+        fps ([type]): [description]
+    """
     print("#### Timelapse ####")
     l = []
+    
     if output_directory == '.':
         output_directory = './'
+    
     output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.avi'
+    
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
         l = sorted(l)
@@ -20,22 +30,32 @@ def make_timelapse(input_directory, output_directory, fps):
         video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"),
                                 fps, (width, height))
         for img_path in tqdm(l):
-            #print("processing image -> " + img_path)
             video.write(cv2.imread(input_directory + img_path))
+
         cv2.destroyAllWindows()
         video.release()
+        
         print("[\033[0;32m OK\033[0m ] ", output_video)
     else:
         print("Cannot find the directory - ", input_directory)
         print("Or cannot find ", output_directory)
 
 def make_star_trail_avg(input_directory, output_directory):
+    """[summary]
+
+    Args:
+        input_directory ([type]): [description]
+        output_directory ([type]): [description]
+    """
     print("#### Star Trail Average ####")
     l = []
     step = 1
+
     if output_directory == '.':
         output_directory = './'
+    
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
+    
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
         l = sorted(l)
@@ -44,8 +64,6 @@ def make_star_trail_avg(input_directory, output_directory):
 
         count = 0
         for img_path in tqdm(l):
-            #print("processing image -> " + img_path)
-
             # Split the frame into its respective channels
             frame = cv2.imread(input_directory + img_path)
 
@@ -58,10 +76,10 @@ def make_star_trail_avg(input_directory, output_directory):
 
         # Merge the RGB averages together and write the output image to disk
         avg = cv2.merge([b, g, r]).astype("uint8")
-        print("[\033[0;32m OK\033[0m ] ", output_image_path)
         cv2.imwrite(output_image_path, avg)
-
         cv2.destroyAllWindows()
+
+        print("[\033[0;32m OK\033[0m ] ", output_image_path)
             
     else:
         print("Cannot find the directory - ", input_directory)
@@ -83,9 +101,12 @@ def averager():
 def make_star_trail_max(input_directory, output_directory):
     print("#### Star Trail Maximum value ####")
     l = []
+
     if output_directory == '.':
         output_directory = './'
+
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
+    
     if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
         l = os.listdir(input_directory)
         l = sorted(l)
@@ -98,14 +119,16 @@ def make_star_trail_max(input_directory, output_directory):
             count += 1
 
         stack = numpy.array(numpy.round(stack), dtype = numpy.uint8)
-
         cv2.imwrite(output_image_path, stack)
-        print("[\033[0;32m OK\033[0m ] ", output_image_path)
         cv2.destroyAllWindows()
+
+        print("[\033[0;32m OK\033[0m ] ", output_image_path)
             
     else:
         print("Cannot find the directory - ", input_directory)
         print("Or cannot find ", output_directory)
+
+
 
 parser = argparse.ArgumentParser()
 
