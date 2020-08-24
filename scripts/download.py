@@ -15,22 +15,58 @@ class Action(Enum):
 
 
 def cp_pictures(scp):
+    """cp_pictures allows to copy pictures from the remote server using scp command.
+
+    Args:
+        scp (SCPClient): SCPClient object used to get files from the picture directory.
+    """
     print("cp_pictures")
     scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*.jpg', '/home/bilou/Téléchargements/pictures/')
 
 def cp_timelapse():
+    """cp_timelapse allows to copy pictures from the remote server using scp command.
+
+    Args:
+        scp (SCPClient): SCPClient object used to get files from the timelapse directory.
+    """
     print("cp_timelapse")
 
 def cp_videos():
+    """cp_videos allows to copy videos from the remote server using scp command.
+
+    Args:
+        scp (SCPClient): SCPClient object used to get files from the video directory.
+    """
     print("cp_videos")
 
-def move_pictures():
-    print("move_pictures")
+def move_pictures(scp, ssh):
+    """move_pictures allows to move pictures from the remote server using cp_pictures and an ssh connection.
 
-def move_timelapse():
+    Args:
+        scp (SCPClient): [description]
+        ssh (SSHClient)): [description]
+    """
+    print("move_pictures")
+    cp_pictures(scp)
+    # TODO: remove pictures by connecting to the server through ssh
+    
+
+def move_timelapse(scp, ssh):
+    """move_timelapse allows to move pictures from the remote server using cp_timelapse and an ssh connection.
+
+    Args:
+        scp (SCPClient): [description]
+        ssh (SSHClient): [description]
+    """
     print("move_timelapse")
 
-def move_videos():
+def move_videos(scp, ssh):
+    """move_videos allows to move videos from the remote server using cp_videos and an ssh connection.
+
+    Args:
+        scp (SCPClient): [description]
+        ssh (SSHClient): [description]
+    """
     print("move_videos")
 
 
