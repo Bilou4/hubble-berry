@@ -147,6 +147,8 @@ parser.add_argument("-to", "--timelapse_output_directory", help="the output dire
 parser.add_argument("-startrail", help="If you want to create a startrail", action="store_true")
 parser.add_argument("-si", "--startrail_input_directory", help="the input directory containing photos")
 parser.add_argument("-so", "--startrail_output_directory", help="the output directory containing the final photo")
+parser.add_argument('--avg', dest='method', action='store_const', const=make_star_trail_avg, default=make_star_trail_max, 
+    help='method used to create the star trail (default: max)')
 
 args = parser.parse_args()
 action_performed = False
@@ -165,7 +167,7 @@ if args.startrail:
         parser.error("To make a startrail, you need to define an input directory and an output directory")
     input_directory = args.startrail_input_directory
     output_directory = args.startrail_output_directory
-    make_star_trail(input_directory, output_directory) # TODO: change the way to choose the star trail algorithm
+    args.method(input_directory, output_directory) # call make_star_trail_avg or make_star_trail_max depending of the argument line
     action_performed = True
 
 if not action_performed:
