@@ -15,7 +15,7 @@
 <body>
 	<nav>{% block navbar %}
 			<a class="button" href="{{ url_for('logout') }}">{{ _("Logout") }}</a>
-			<a class="button" href="{{ url_for('preview') }}">{{ _("Preview") }}</a>
+			{% if role == "admin" %}<a class="button" href="{{ url_for('preview') }}">{{ _("Preview") }}</a>{%endif%}
 			<a class="button" href="{{ url_for('gallery') }}">{{ _("Gallery") }}</a>
 			<a class="button" href="{{ url_for('messier') }}">{{ _("Messier's catalog") }}</a>
 			{% if role == "admin" %}<a class="button" href="{{ url_for('functionalities') }}">{{ _("Functionalities") }}</a>{%endif%}

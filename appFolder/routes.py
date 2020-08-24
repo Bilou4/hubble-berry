@@ -113,7 +113,7 @@ def functionalities():
     if user_role[0] == 'admin':
         return render_template('functionalities.html', title=PROJECT_NAME + _("- Direct"), role=user_role[0])
     else:
-        return redirect(url_for('preview'))
+        return redirect(url_for('index'))
         
 @app.route('/preview')
 @login_required
@@ -124,7 +124,10 @@ def preview():
         template: Any user can access the preview page
     """
     user_role = db.session.query('name').filter(Role.id == current_user.role_id).first()
-    return render_template("preview.html", title=PROJECT_NAME + _("- Preview"), role=user_role[0])
+    if user_role[0] == 'admin':
+        return render_template("preview.html", title=PROJECT_NAME + _("- Preview"), role=user_role[0])
+    else:
+        return redirect(url_for('index'))
 
 @app.route('/gallery')
 @login_required
