@@ -122,11 +122,9 @@ def make_star_trail_max(input_directory, output_directory):
         l = sorted(l)
         height, width, channel = cv2.imread(input_directory + l[0]).shape
         stack = numpy.zeros((height, width, 3), numpy.float)
-        count = 1
         for img_path in tqdm(l):
             image_new = numpy.array(cv2.imread(input_directory + img_path), dtype = numpy.float)
             stack = numpy.maximum(stack, image_new)
-            count += 1
 
         stack = numpy.array(numpy.round(stack), dtype = numpy.uint8)
         cv2.imwrite(output_image_path, stack)
