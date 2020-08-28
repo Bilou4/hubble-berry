@@ -5,6 +5,7 @@
 
 
 I wanted to start Astrophotography and the HQ pi camera was just announced. Thus I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
+Hubble-Berry is my first contribution to the Open Source world, do not hesitate to suggest improvements on the code, the documentation or features.
 
 ## Getting Started
 
