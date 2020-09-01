@@ -148,8 +148,11 @@ def utils_take_timelapse(dic_elems):
     try:
         if dic_elems['exposure_photo'] == 0:
             framerate = Fraction(0,1)
+            picamera.PiCamera.CAPTURE_TIMEOUT = 60
         else:
             framerate = Fraction(1, dic_elems['exposure_photo'])
+            picamera.PiCamera.CAPTURE_TIMEOUT = dic_elems['exposure_photo'] * 8 # environ à revoir
+            
         with picamera.PiCamera(framerate=framerate) as camera:
             if dic_elems['resolution'] == (4056,3040):
                 camera.sensor_mode = 3
