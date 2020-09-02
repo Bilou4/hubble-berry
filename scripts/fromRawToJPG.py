@@ -32,7 +32,7 @@ if args.compression < 0 or args.compression > 100:
 input_directory = args.input
 output_directory = args.output
 
-if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+if os.path.isdir(input_directory) and os.path.isdir(output_directory):
     if input_directory[-1] != '/':
         input_directory = input_directory + '/'
     if output_directory[-1] != '/':

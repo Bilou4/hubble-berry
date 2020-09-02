@@ -17,7 +17,7 @@ def make_timelapse(input_directory, output_directory, fps, video_format):
     print("#### Timelapse ####")
     l = []
     
-    if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+    if os.path.isdir(input_directory) and os.path.isdir(output_directory):
         if input_directory[-1] != '/':
             input_directory = input_directory + '/'
         if output_directory[-1] != '/':

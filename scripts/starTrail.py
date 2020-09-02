@@ -77,14 +77,14 @@ def make_star_trail_max(input_directory, output_directory):
     print("#### Star Trail Maximum value ####")
     l = []
 
-    if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+    if os.path.isdir(input_directory) and os.path.isdir(output_directory):
         if input_directory[-1] != '/':
             input_directory = input_directory + '/'
         if output_directory[-1] != '/':
             output_directory = output_directory + '/'
     else:
         print("Either the input or ouput argument is not a directory")
-        # TODO return ERROR
+        # TODO return ERROR - FileNotFoundError - NotADirectoryError
 
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     
