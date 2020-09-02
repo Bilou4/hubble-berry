@@ -13,7 +13,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Rpi + RaspAp + Directory for USB key
+<!-- TODO -->Rpi + RaspAp + Directory for USB key
 
 ![working_diagram](./img/working_diagram.png)
 
@@ -52,15 +52,16 @@ Add additional notes about how to deploy this on a live system
 
 Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+<!-- TODO -->
+<!-- ## Versioning
 
-We use SemVer for versioning. For the versions available, see the tags on this repository.
+We use SemVer for versioning. For the versions available, see the tags on this repository. -->
 
 ## Authors
 
     Bilou4 - Initial work
 
-See also the list of contributors who participated in this project.
+<!-- See also the list of contributors who participated in this project. -->
 
 ## License
 
