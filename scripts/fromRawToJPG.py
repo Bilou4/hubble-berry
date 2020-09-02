@@ -32,13 +32,21 @@ if args.compression < 0 or args.compression > 100:
 input_directory = args.input
 output_directory = args.output
 
+if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+    if input_directory[-1] != '/':
+        input_directory = input_directory + '/'
+    if output_directory[-1] != '/':
+        output_directory = output_directory + '/'
+else:
+    print("Either the input or ouput argument is not a directory")
+    # TODO return ERROR
+
 if is_tool("ufraw-batch"):
     l = []
-    if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
-        l = os.listdir(input_directory)
-        for raw_path in tqdm(l):
-            input_full_path = input_directory + raw_path
-            input_full_path = escape_chars(input_full_path)
-            os.system("ufraw-batch {} --out-path {} --silent --out-type=jpeg --compression={} --wb=camera"
-                    .format(input_full_path, output_directory, str(args.compression)))
+    l = os.listdir(input_directory)
+    for raw_path in tqdm(l):
+        input_full_path = input_directory + raw_path
+        input_full_path = escape_chars(input_full_path)
+        os.system("ufraw-batch {} --out-path {} --silent --out-type=jpeg --compression={} --wb=camera"
+                .format(input_full_path, output_directory, str(args.compression)))
 

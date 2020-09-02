@@ -17,32 +17,33 @@ def make_timelapse(input_directory, output_directory, fps, video_format):
     print("#### Timelapse ####")
     l = []
     
-    if output_directory == '.':
-        output_directory = './'
+    if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+        if input_directory[-1] != '/':
+            input_directory = input_directory + '/'
+        if output_directory[-1] != '/':
+            output_directory = output_directory + '/'
+    else:
+        print("Either the input or ouput argument is not a directory")
+        # TODO return ERROR
     
     output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.' + video_format
     
-    if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
-        l = os.listdir(input_directory)
-        l = sorted(l)
-        height , width , layers =  cv2.imread(input_directory + l[0]).shape
+    l = os.listdir(input_directory)
+    l = sorted(l)
+    height , width , layers =  cv2.imread(input_directory + l[0]).shape
 
-        if video_format == 'avi':
-            video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"), fps, (width, height))
-        else:
-            video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
-            
-        for img_path in tqdm(l):
-            video.write(cv2.imread(input_directory + img_path))
-
-        cv2.destroyAllWindows()
-        video.release()
-        
-        print("[\033[0;32m OK\033[0m ] ", output_video)
+    if video_format == 'avi':
+        video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"MJPG"), fps, (width, height))
     else:
-        print("Cannot find the directory - ", input_directory)
-        print("Or cannot find ", output_directory)
+        video = cv2.VideoWriter(output_video, cv2.VideoWriter_fourcc(*"mp4v"), fps, (width, height))
+        
+    for img_path in tqdm(l):
+        video.write(cv2.imread(input_directory + img_path))
 
+    cv2.destroyAllWindows()
+    video.release()
+    
+    print("[\033[0;32m OK\033[0m ] ", output_video)
 
 
 parser = argparse.ArgumentParser()

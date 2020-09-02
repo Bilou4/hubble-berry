@@ -18,39 +18,41 @@ def make_star_trail_avg(input_directory, output_directory):
     l = []
     step = 1
 
-    if output_directory == '.':
-        output_directory = './'
-    
+    if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+        if input_directory[-1] != '/':
+            input_directory = input_directory + '/'
+        if output_directory[-1] != '/':
+            output_directory = output_directory + '/'
+    else:
+        print("Either the input or ouput argument is not a directory")
+        # TODO return ERROR
+
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     
-    if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
-        l = os.listdir(input_directory)
-        l = sorted(l)
-        r, g, b = None, None, None
-        r_avg, g_avg, b_avg = averager(), averager(), averager()
+    l = os.listdir(input_directory)
+    l = sorted(l)
+    r, g, b = None, None, None
+    r_avg, g_avg, b_avg = averager(), averager(), averager()
 
-        count = 0
-        for img_path in tqdm(l):
-            # Split the frame into its respective channels
-            frame = cv2.imread(input_directory + img_path)
+    count = 0
+    for img_path in tqdm(l):
+        # Split the frame into its respective channels
+        frame = cv2.imread(input_directory + img_path)
 
-            if count % step == 0 and frame is not None:
-                # Get the current RGB
-                b_curr, g_curr, r_curr = cv2.split(frame.astype("float"))
-                r, g, b = r_avg(r_curr), g_avg(g_curr), b_avg(b_curr)
-            
-            count += 1
+        if count % step == 0 and frame is not None:
+            # Get the current RGB
+            b_curr, g_curr, r_curr = cv2.split(frame.astype("float"))
+            r, g, b = r_avg(r_curr), g_avg(g_curr), b_avg(b_curr)
+        
+        count += 1
 
-        # Merge the RGB averages together and write the output image to disk
-        avg = cv2.merge([b, g, r]).astype("uint8")
-        cv2.imwrite(output_image_path, avg)
-        cv2.destroyAllWindows()
+    # Merge the RGB averages together and write the output image to disk
+    avg = cv2.merge([b, g, r]).astype("uint8")
+    cv2.imwrite(output_image_path, avg)
+    cv2.destroyAllWindows()
 
-        print("[\033[0;32m OK\033[0m ] ", output_image_path)
-            
-    else:
-        print("Cannot find the directory - ", input_directory)
-        print("Or cannot find ", output_directory)
+    print("[\033[0;32m OK\033[0m ] ", output_image_path)
+
 
 def averager():
     """Calculate the average using a clojure."""
@@ -75,30 +77,30 @@ def make_star_trail_max(input_directory, output_directory):
     print("#### Star Trail Maximum value ####")
     l = []
 
-    if output_directory == '.':
-        output_directory = './'
+    if os.path.isdir(path=input_directory) and os.path.isdir(path=output_directory):
+        if input_directory[-1] != '/':
+            input_directory = input_directory + '/'
+        if output_directory[-1] != '/':
+            output_directory = output_directory + '/'
+    else:
+        print("Either the input or ouput argument is not a directory")
+        # TODO return ERROR
 
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     
-    if os.path.exists(path=input_directory) and os.path.exists(path=output_directory):
-        l = os.listdir(input_directory)
-        l = sorted(l)
-        height, width, channel = cv2.imread(input_directory + l[0]).shape
-        stack = numpy.zeros((height, width, 3), numpy.float)
-        for img_path in tqdm(l):
-            image_new = numpy.array(cv2.imread(input_directory + img_path), dtype = numpy.float)
-            stack = numpy.maximum(stack, image_new)
+    l = os.listdir(input_directory)
+    l = sorted(l)
+    height, width, channel = cv2.imread(input_directory + l[0]).shape
+    stack = numpy.zeros((height, width, 3), numpy.float)
+    for img_path in tqdm(l):
+        image_new = numpy.array(cv2.imread(input_directory + img_path), dtype = numpy.float)
+        stack = numpy.maximum(stack, image_new)
 
-        stack = numpy.array(numpy.round(stack), dtype = numpy.uint8)
-        cv2.imwrite(output_image_path, stack)
-        cv2.destroyAllWindows()
+    stack = numpy.array(numpy.round(stack), dtype = numpy.uint8)
+    cv2.imwrite(output_image_path, stack)
+    cv2.destroyAllWindows()
 
-        print("[\033[0;32m OK\033[0m ] ", output_image_path)
-            
-    else:
-        print("Cannot find the directory - ", input_directory)
-        print("Or cannot find ", output_directory)
-
+    print("[\033[0;32m OK\033[0m ] ", output_image_path)
 
 
 parser = argparse.ArgumentParser()
