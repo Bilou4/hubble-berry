@@ -4,7 +4,7 @@ import argparse
 from enum import Enum
 from paramiko import SSHClient, RSAKey
 from scp import SCPClient
-from os import environ, remove
+from os import environ, remove, path
 
 class Action(Enum):
     COPY_PICTURES = 1
@@ -16,7 +16,7 @@ class Action(Enum):
 
 
 HOME = environ['HOME']
-STORAGE_FOLDER = '/Téléchargements'
+STORAGE_FOLDER = HOME + '/Téléchargements'
 PI_COMMON_FOLDER = '/home/pi/Documents/hubble-berry/appFolder/static/camera'
 
 def cp_pictures(scp):
@@ -26,8 +26,8 @@ def cp_pictures(scp):
         scp (SCPClient): SCPClient object used to get files from the picture directory.
     """
     try:
-        scp.get(PI_COMMON_FOLDER + '/pictures/*', HOME + STORAGE_FOLDER + '/pictures/')
-        remove(HOME + STORAGE_FOLDER + '/pictures/do_not_remove.txt')
+        scp.get(PI_COMMON_FOLDER + '/pictures/*', STORAGE_FOLDER + '/pictures/')
+        remove(STORAGE_FOLDER + '/pictures/do_not_remove.txt')
     except Exception as e:
         print('[cp_pictures]' + str(e))
     
@@ -39,8 +39,8 @@ def cp_timelapse(scp):
         scp (SCPClient): SCPClient object used to get files from the timelapse directory.
     """
     try:
-        scp.get(PI_COMMON_FOLDER + '/timelapse/*', HOME + STORAGE_FOLDER + '/timelapse/')
-        remove(HOME + STORAGE_FOLDER + '/timelapse/do_not_remove.txt')
+        scp.get(PI_COMMON_FOLDER + '/timelapse/*', STORAGE_FOLDER + '/timelapse/')
+        remove(STORAGE_FOLDER + '/timelapse/do_not_remove.txt')
     except Exception as e:
         print('[cp_timelapse]' + str(e))
 
@@ -51,8 +51,8 @@ def cp_videos(scp):
         scp (SCPClient): SCPClient object used to get files from the video directory.
     """
     try:
-        scp.get(PI_COMMON_FOLDER + '/video/*', HOME + STORAGE_FOLDER + '/video/')
-        remove(HOME + STORAGE_FOLDER + '/video/do_not_remove.txt')
+        scp.get(PI_COMMON_FOLDER + '/video/*', STORAGE_FOLDER + '/video/')
+        remove(STORAGE_FOLDER + '/video/do_not_remove.txt')
     except Exception as e:
         print('[cp_videos]' + str(e))
 
@@ -111,6 +111,15 @@ parser.add_argument("-v", "--video", help="if your demand concerns videos", acti
 args = parser.parse_args()
 action_performed = False
 action = 0
+
+if not path.isdir(HOME):
+    raise Exception('Cannot find ' + HOME)
+
+if not path.isdir(STORAGE_FOLDER):
+    raise Exception('Cannot find ' + STORAGE_FOLDER)
+
+if not path.isdir(STORAGE_FOLDER + '/pictures') or not path.isdir(STORAGE_FOLDER + '/timelapse') or not path.isdir(STORAGE_FOLDER + '/video'):
+    raise Exception('Cannot find ' + STORAGE_FOLDER + '/pictures or /timelapse or /video')
 
 if args.copy:
     if not args.pictures and not args.timelapse and not args.video:
