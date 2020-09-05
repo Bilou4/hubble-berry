@@ -33,7 +33,7 @@ def cp_pictures(scp):
         print('[cp_pictures]' + str(e))
     
     
-def cp_timelapse():
+def cp_timelapse(scp):
     """cp_timelapse allows to copy pictures from the remote server using scp command.
 
     Args:
@@ -46,7 +46,7 @@ def cp_timelapse():
     except Exception as e:
         print('[cp_timelapse]' + str(e))
 
-def cp_videos():
+def cp_videos(scp):
     """cp_videos allows to copy videos from the remote server using scp command.
 
     Args:
@@ -68,8 +68,14 @@ def move_pictures(scp, ssh):
     """
     print("move_pictures")
     cp_pictures(scp)
-    # TODO: remove pictures by connecting to the server through ssh
+    stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/pictures && find . -type f -not -name "*.txt" -delete')
+    if len(stdout.readlines()) > 0:
+        print(stdout.readlines()[0])
+    if len(stderr.readlines()) > 0:
+        print(stderr.readlines()[0])
     
+def shell_escape(arg):
+    return "'%s'" % (arg.replace(r"'", r"'\''"), )
 
 def move_timelapse(scp, ssh):
     """move_timelapse allows to move pictures from the remote server using cp_timelapse and an ssh connection.
@@ -79,6 +85,12 @@ def move_timelapse(scp, ssh):
         ssh (SSHClient): [description]
     """
     print("move_timelapse")
+    cp_timelapse(scp)
+    stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/timelapse && find . -type f -not -name "*.txt" -delete')
+    if len(stdout.readlines()) > 0:
+        print(stdout.readlines()[0])
+    if len(stderr.readlines()) > 0:
+        print(stderr.readlines()[0])
 
 def move_videos(scp, ssh):
     """move_videos allows to move videos from the remote server using cp_videos and an ssh connection.
@@ -88,6 +100,12 @@ def move_videos(scp, ssh):
         ssh (SSHClient): [description]
     """
     print("move_videos")
+    cp_videos(scp)
+    stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/video && find . -type f -not -name "*.txt" -delete')
+    if len(stdout.readlines()) > 0:
+        print(stdout.readlines()[0])
+    if len(stderr.readlines()) > 0:
+        print(stderr.readlines()[0])
 
 
 parser = argparse.ArgumentParser()
@@ -143,15 +161,15 @@ else:
         if action & Action.COPY_PICTURES.value:
             cp_pictures(scp)
         if action & Action.COPY_TIMELAPSES.value:
-            cp_timelapse()
+            cp_timelapse(scp)
         if action & Action.COPY_VIDEOS.value:
-            cp_videos()
+            cp_videos(scp)
         if action & Action.MOVE_PICTURES.value:
-            move_pictures()
+            move_pictures(scp, ssh)
         if action & Action.MOVE_TIMELAPSES.value:
-            move_timelapse()
+            move_timelapse(scp, ssh)
         if action & Action.MOVE_VIDEOS.value:
-            move_videos()
+            move_videos(scp, ssh)
 
     except Exception as e:
         print(e)
