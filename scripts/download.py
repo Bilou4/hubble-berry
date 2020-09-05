@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 import argparse
 from enum import Enum
-from paramiko import SSHClient
+from paramiko import SSHClient, RSAKey
 from scp import SCPClient
+from os import environ
 
 class Action(Enum):
     COPY_PICTURES = 1
@@ -14,6 +15,8 @@ class Action(Enum):
     MOVE_VIDEOS = 32
 
 
+HOME = environ['HOME']
+
 def cp_pictures(scp):
     """cp_pictures allows to copy pictures from the remote server using scp command.
 
@@ -21,7 +24,7 @@ def cp_pictures(scp):
         scp (SCPClient): SCPClient object used to get files from the picture directory.
     """
     print("cp_pictures")
-    scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*.jpg', '/home/bilou/Téléchargements/pictures/')
+    scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*.jpg', HOME + '/Téléchargements/pictures/')
 
 def cp_timelapse():
     """cp_timelapse allows to copy pictures from the remote server using scp command.
@@ -111,25 +114,29 @@ if not action_performed:
 else:
     ssh = SSHClient()
     ssh.load_system_host_keys()
-    ssh.connect(hostname='10.3.141.1', 
-            port = '22',
+    k = RSAKey.from_private_key_file(HOME + '/.ssh/id_rsa')
+    try:
+        ssh.connect(hostname='10.3.141.1', 
             username='pi',
-            password='changeMe',
-            pkey='load_key_if_relevant')
-    # SCPCLient takes a paramiko transport as its only argument
-    scp = SCPClient(ssh.get_transport())
+            pkey=k)
+        # SCPCLient takes a paramiko transport as its only argument
+        scp = SCPClient(ssh.get_transport(), sanitize=lambda x: x) # sanitize allows to use wildcards in command line
+        if action & Action.COPY_PICTURES.value:
+            cp_pictures(scp)
+        if action & Action.COPY_TIMELAPSES.value:
+            cp_timelapse()
+        if action & Action.COPY_VIDEOS.value:
+            cp_videos()
+        if action & Action.MOVE_PICTURES.value:
+            move_pictures()
+        if action & Action.MOVE_TIMELAPSES.value:
+            move_timelapse()
+        if action & Action.MOVE_VIDEOS.value:
+            move_videos()
 
-    if action & Action.COPY_PICTURES.value:
-        cp_pictures(scp)
-    if action & Action.COPY_TIMELAPSES.value:
-        cp_timelapse()
-    if action & Action.COPY_VIDEOS.value:
-        cp_videos()
-    if action & Action.MOVE_PICTURES.value:
-        move_pictures()
-    if action & Action.MOVE_TIMELAPSES.value:
-        move_timelapse()
-    if action & Action.MOVE_VIDEOS.value:
-        move_videos()
-
-    scp.close()
+    except Exception as e:
+        print(e)
+    
+    finally:
+        scp.close()
+        ssh.close()
