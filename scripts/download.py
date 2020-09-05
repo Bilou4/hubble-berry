@@ -25,7 +25,6 @@ def cp_pictures(scp):
     Args:
         scp (SCPClient): SCPClient object used to get files from the picture directory.
     """
-    print("cp_pictures")
     try:
         scp.get(PI_COMMON_FOLDER + '/pictures/*', HOME + STORAGE_FOLDER + '/pictures/')
         remove(HOME + STORAGE_FOLDER + '/pictures/do_not_remove.txt')
@@ -39,7 +38,6 @@ def cp_timelapse(scp):
     Args:
         scp (SCPClient): SCPClient object used to get files from the timelapse directory.
     """
-    print("cp_timelapse")
     try:
         scp.get(PI_COMMON_FOLDER + '/timelapse/*', HOME + STORAGE_FOLDER + '/timelapse/')
         remove(HOME + STORAGE_FOLDER + '/timelapse/do_not_remove.txt')
@@ -52,7 +50,6 @@ def cp_videos(scp):
     Args:
         scp (SCPClient): SCPClient object used to get files from the video directory.
     """
-    print("cp_videos")
     try:
         scp.get(PI_COMMON_FOLDER + '/video/*', HOME + STORAGE_FOLDER + '/video/')
         remove(HOME + STORAGE_FOLDER + '/video/do_not_remove.txt')
@@ -63,10 +60,9 @@ def move_pictures(scp, ssh):
     """move_pictures allows to move pictures from the remote server using cp_pictures and an ssh connection.
 
     Args:
-        scp (SCPClient): [description]
-        ssh (SSHClient)): [description]
+        scp (SCPClient): SCPClient object used to call cp function
+        ssh (SSHClient): SSHClient object used to execute a command on the remote server
     """
-    print("move_pictures")
     cp_pictures(scp)
     stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/pictures && find . -type f -not -name "*.txt" -delete')
     if len(stdout.readlines()) > 0:
@@ -81,10 +77,9 @@ def move_timelapse(scp, ssh):
     """move_timelapse allows to move pictures from the remote server using cp_timelapse and an ssh connection.
 
     Args:
-        scp (SCPClient): [description]
-        ssh (SSHClient): [description]
+        scp (SCPClient): SCPClient object used to call cp function
+        ssh (SSHClient): SSHClient object used to execute a command on the remote server
     """
-    print("move_timelapse")
     cp_timelapse(scp)
     stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/timelapse && find . -type f -not -name "*.txt" -delete')
     if len(stdout.readlines()) > 0:
@@ -96,10 +91,9 @@ def move_videos(scp, ssh):
     """move_videos allows to move videos from the remote server using cp_videos and an ssh connection.
 
     Args:
-        scp (SCPClient): [description]
-        ssh (SSHClient): [description]
+        scp (SCPClient): SCPClient object used to call cp function
+        ssh (SSHClient): SSHClient object used to execute a command on the remote server
     """
-    print("move_videos")
     cp_videos(scp)
     stdin, stdout, stderr = ssh.exec_command('cd ' + PI_COMMON_FOLDER + '/video && find . -type f -not -name "*.txt" -delete')
     if len(stdout.readlines()) > 0:
@@ -160,16 +154,22 @@ else:
         scp = SCPClient(ssh.get_transport(), sanitize=lambda x: x) # sanitize allows to use wildcards in command line
         if action & Action.COPY_PICTURES.value:
             cp_pictures(scp)
+            print('pictures copied')
         if action & Action.COPY_TIMELAPSES.value:
             cp_timelapse(scp)
+            print('timelapse copied')
         if action & Action.COPY_VIDEOS.value:
             cp_videos(scp)
+            print('videos copied')
         if action & Action.MOVE_PICTURES.value:
             move_pictures(scp, ssh)
+            print('pictures moved')
         if action & Action.MOVE_TIMELAPSES.value:
             move_timelapse(scp, ssh)
+            print('timelapse moved')
         if action & Action.MOVE_VIDEOS.value:
             move_videos(scp, ssh)
+            print('video moved')
 
     except Exception as e:
         print(e)
