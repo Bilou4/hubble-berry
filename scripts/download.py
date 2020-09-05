@@ -69,9 +69,6 @@ def move_pictures(scp, ssh):
         print(stdout.readlines()[0])
     if len(stderr.readlines()) > 0:
         print(stderr.readlines()[0])
-    
-def shell_escape(arg):
-    return "'%s'" % (arg.replace(r"'", r"'\''"), )
 
 def move_timelapse(scp, ssh):
     """move_timelapse allows to move pictures from the remote server using cp_timelapse and an ssh connection.
@@ -149,27 +146,27 @@ else:
         ssh.connect(hostname='10.3.141.1', 
             username='pi',
             pkey=k)
-        print('CONNECTED')
+        print("[\033[0;32m OK\033[0m ] CONNECTED")
 
         scp = SCPClient(ssh.get_transport(), sanitize=lambda x: x) # sanitize allows to use wildcards in command line
         if action & Action.COPY_PICTURES.value:
             cp_pictures(scp)
-            print('pictures copied')
+            print('[\033[0;32m OK\033[0m ] pictures copied')
         if action & Action.COPY_TIMELAPSES.value:
             cp_timelapse(scp)
-            print('timelapse copied')
+            print('[\033[0;32m OK\033[0m ] timelapse copied')
         if action & Action.COPY_VIDEOS.value:
             cp_videos(scp)
-            print('videos copied')
+            print('[\033[0;32m OK\033[0m ] videos copied')
         if action & Action.MOVE_PICTURES.value:
             move_pictures(scp, ssh)
-            print('pictures moved')
+            print('[\033[0;32m OK\033[0m ] pictures moved')
         if action & Action.MOVE_TIMELAPSES.value:
             move_timelapse(scp, ssh)
-            print('timelapse moved')
+            print('[\033[0;32m OK\033[0m ] timelapse moved')
         if action & Action.MOVE_VIDEOS.value:
             move_videos(scp, ssh)
-            print('video moved')
+            print('[\033[0;32m OK\033[0m ] video moved')
 
     except Exception as e:
         print(e)
