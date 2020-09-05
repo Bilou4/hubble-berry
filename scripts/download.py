@@ -16,6 +16,8 @@ class Action(Enum):
 
 
 HOME = environ['HOME']
+STORAGE_FOLDER = '/Téléchargements'
+PI_COMMON_FOLDER = '/home/pi/Documents/hubble-berry/appFolder/static/camera'
 
 def cp_pictures(scp):
     """cp_pictures allows to copy pictures from the remote server using scp command.
@@ -25,8 +27,8 @@ def cp_pictures(scp):
     """
     print("cp_pictures")
     try:
-        scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*', HOME + '/Téléchargements/pictures/')
-        remove(HOME + '/Téléchargements/pictures/do_not_remove.txt')
+        scp.get(PI_COMMON_FOLDER + '/pictures/*', HOME + STORAGE_FOLDER + '/pictures/')
+        remove(HOME + STORAGE_FOLDER + '/pictures/do_not_remove.txt')
     except Exception as e:
         print('[cp_pictures]' + str(e))
     
@@ -38,6 +40,11 @@ def cp_timelapse():
         scp (SCPClient): SCPClient object used to get files from the timelapse directory.
     """
     print("cp_timelapse")
+    try:
+        scp.get(PI_COMMON_FOLDER + '/timelapse/*', HOME + STORAGE_FOLDER + '/timelapse/')
+        remove(HOME + STORAGE_FOLDER + '/timelapse/do_not_remove.txt')
+    except Exception as e:
+        print('[cp_timelapse]' + str(e))
 
 def cp_videos():
     """cp_videos allows to copy videos from the remote server using scp command.
@@ -46,6 +53,11 @@ def cp_videos():
         scp (SCPClient): SCPClient object used to get files from the video directory.
     """
     print("cp_videos")
+    try:
+        scp.get(PI_COMMON_FOLDER + '/video/*', HOME + STORAGE_FOLDER + '/video/')
+        remove(HOME + STORAGE_FOLDER + '/video/do_not_remove.txt')
+    except Exception as e:
+        print('[cp_videos]' + str(e))
 
 def move_pictures(scp, ssh):
     """move_pictures allows to move pictures from the remote server using cp_pictures and an ssh connection.
