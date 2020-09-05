@@ -24,8 +24,7 @@ def make_star_trail_avg(input_directory, output_directory):
         if output_directory[-1] != '/':
             output_directory = output_directory + '/'
     else:
-        print("Either the input or ouput argument is not a directory")
-        # TODO return ERROR
+        raise Exception("Either the input or ouput argument is not a directory")
 
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     
@@ -83,8 +82,7 @@ def make_star_trail_max(input_directory, output_directory):
         if output_directory[-1] != '/':
             output_directory = output_directory + '/'
     else:
-        print("Either the input or ouput argument is not a directory")
-        # TODO return ERROR - FileNotFoundError - NotADirectoryError
+        raise Exception("Either the input or ouput argument is not a directory")
 
     output_image_path = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.jpg'
     

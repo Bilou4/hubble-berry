@@ -38,8 +38,7 @@ if os.path.isdir(input_directory) and os.path.isdir(output_directory):
     if output_directory[-1] != '/':
         output_directory = output_directory + '/'
 else:
-    print("Either the input or ouput argument is not a directory")
-    # TODO return ERROR
+    raise Exception("Either the input or ouput argument is not a directory")
 
 if is_tool("ufraw-batch"):
     l = []

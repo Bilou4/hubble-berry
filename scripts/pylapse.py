@@ -23,8 +23,7 @@ def make_timelapse(input_directory, output_directory, fps, video_format):
         if output_directory[-1] != '/':
             output_directory = output_directory + '/'
     else:
-        print("Either the input or ouput argument is not a directory")
-        # TODO return ERROR
+        raise Exception("Either the input or ouput argument is not a directory")
     
     output_video = output_directory + datetime.today().strftime('%Y-%m-%d-%H-%M-%S') + '.' + video_format
     
