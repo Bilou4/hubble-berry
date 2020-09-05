@@ -4,7 +4,7 @@ import argparse
 from enum import Enum
 from paramiko import SSHClient, RSAKey
 from scp import SCPClient
-from os import environ
+from os import environ, remove
 
 class Action(Enum):
     COPY_PICTURES = 1
@@ -24,8 +24,13 @@ def cp_pictures(scp):
         scp (SCPClient): SCPClient object used to get files from the picture directory.
     """
     print("cp_pictures")
-    scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*.jpg', HOME + '/Téléchargements/pictures/')
-
+    try:
+        scp.get('/home/pi/Documents/hubble-berry/appFolder/static/camera/pictures/*', HOME + '/Téléchargements/pictures/')
+        remove(HOME + '/Téléchargements/pictures/do_not_remove.txt')
+    except Exception as e:
+        print('[cp_pictures]' + str(e))
+    
+    
 def cp_timelapse():
     """cp_timelapse allows to copy pictures from the remote server using scp command.
 
@@ -115,11 +120,13 @@ else:
     ssh = SSHClient()
     ssh.load_system_host_keys()
     k = RSAKey.from_private_key_file(HOME + '/.ssh/id_rsa')
+    
     try:
         ssh.connect(hostname='10.3.141.1', 
             username='pi',
             pkey=k)
-        # SCPCLient takes a paramiko transport as its only argument
+        print('CONNECTED')
+
         scp = SCPClient(ssh.get_transport(), sanitize=lambda x: x) # sanitize allows to use wildcards in command line
         if action & Action.COPY_PICTURES.value:
             cp_pictures(scp)
