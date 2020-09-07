@@ -16,7 +16,7 @@ class Action(Enum):
 
 
 HOME = environ['HOME']
-STORAGE_FOLDER = HOME + '/Téléchargements'
+STORAGE_FOLDER = HOME + '/Images/hubble-berry'
 PI_COMMON_FOLDER = '/home/pi/Documents/hubble-berry/appFolder/static/camera'
 
 def cp_pictures(scp):
