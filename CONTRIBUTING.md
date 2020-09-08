@@ -30,7 +30,7 @@ Hubble-Berry is meant to be used by humans. So make sure to take
 a look at your changes in a browser.
 
 
-## Get the style right
+<!-- ## Get the style right -->
 
 <!-- TODO -->
 
