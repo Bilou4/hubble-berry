@@ -13,7 +13,21 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-<!-- TODO -->Rpi + RaspAp + Directory for USB key
+Here is what I used to make this project:
++ Raspberry PI model 3B [[1]](#1)
++ Raspberry PI HQ Camera [[2]](#2)
++ RaspAp [[3]](#3)
++ Activate the camera module (required) and SSH (optionnal but it's easier to control) on your Raspberry PI
++ USB key named 'HUBBLE_SAVE' and with the following organization (only if you want to save your files on a USB key. You can also use `./scripts/download.py` to download from another computer.):
+    ```bash
+    .
+    ├── camera
+    │   ├── pictures
+    │   ├── timelapse
+    │   ├── video
+
+    ```
+
 
 ![working_diagram](./img/working_diagram.png)
 
@@ -78,3 +92,12 @@ This project is licensed under the GPL License - see the COPYING file for detail
 + RaspAp WebGUI - https://github.com/billz/raspap-webgui
 + USB key on Rpi - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
 + Picamera's documentation - https://picamera.readthedocs.io/en/release-1.13/
+
+
+## References
+
+<a id="1">[1]</a> https://www.raspberrypi.org/products/raspberry-pi-3-model-b/
+
+<a id="2">[2]</a> https://www.raspberrypi.org/products/raspberry-pi-high-quality-camera/
+
+<a id="3">[3]</a> https://github.com/billz/raspap-webgui
