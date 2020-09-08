@@ -25,9 +25,7 @@ Here is what I used to make this project:
     │   ├── pictures
     │   ├── timelapse
     │   ├── video
-
     ```
-
 
 ![working_diagram](./img/working_diagram.png)
 
@@ -35,8 +33,8 @@ Here is what I used to make this project:
 ### Installing
 
 + After cloning the project, go inside the directory `cd hubble-berry`.
-+ If virtualenv is not installed on your rpi `sudo pip install virtualenv`
-+ create a virtual environment `virtualenv hubble-berry-project`
++ If virtualenv is not installed on your Raspberry PI `pip3 install virtualenv`
++ create a virtual environment (your python version must be greater than 3.6) `virtualenv --python=/usr/local/bin/python3.7 hubble-berry-project`
 + Activate the environment `. activate`
 + Execute the installation file `./installation.sh`
 + To finish, you can start the application
@@ -90,7 +88,7 @@ This project is licensed under the GPL License - see the COPYING file for detail
 + Ligo Easter Egg - https://www.ligo.caltech.edu/video/ligo20160211v2
 + Python Logger - https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
 + RaspAp WebGUI - https://github.com/billz/raspap-webgui
-+ USB key on Rpi - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
++ USB key on Raspberry PI - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
 + Picamera's documentation - https://picamera.readthedocs.io/en/release-1.13/
 
 
