@@ -83,12 +83,12 @@ This project is licensed under the GPL License - see the COPYING file for detail
 
 + Miguel Grinberg - Flask Tutorial - https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
 + Miguel Grinberg - Stream Video with Flask - https://blog.miguelgrinberg.com/post/video-streaming-with-flask
-+ https://galleriajs.github.io/
-+ Astrosurf - http://www.astrosurf.com/luxorion/Images/messier-catalog-mike-keith.jpg
-+ Ligo Easter Egg - https://www.ligo.caltech.edu/video/ligo20160211v2
++ Galleria - create a Gallery page - https://galleriajs.github.io/
++ Astrosurf - Messier catalog - http://www.astrosurf.com/luxorion/Images/messier-catalog-mike-keith.jpg
++ Ligo Easter Egg - The Sound of Two Black Holes Colliding - https://www.ligo.caltech.edu/video/ligo20160211v2
 + Python Logger - https://medium.com/@galea/python-logging-example-with-color-formatting-file-handlers-6ee21d363184
-+ RaspAp WebGUI - https://github.com/billz/raspap-webgui
-+ USB key on Raspberry PI - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
++ RaspAp WebGUI - Hotspot wifi - https://github.com/billz/raspap-webgui
++ USB key on Raspberry PI - Script to mount USB key - https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
 + Picamera's documentation - https://picamera.readthedocs.io/en/release-1.13/
 
 
