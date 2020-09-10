@@ -36,14 +36,17 @@ else:
 cap = cv2.VideoCapture(input_file)
 count = 0
 while cap.isOpened():
-    ret,frame = cap.read()
-    #cv2.imshow('window-name',frame)
-    cv2.imwrite(output_directory + 'frame%d.jpg' % count, frame)
-    count = count + 1
+    success,frame = cap.read()
+    if success:
+        # cv2.imshow('window-name',frame)
+        cv2.imwrite(output_directory + 'frame%d.jpg' % count, frame)
+        count = count + 1
+    else:
+        break
     if cv2.waitKey(10) & 0xFF == ord('q'): # press q to exit the program
         break
 
-
+print("[\033[0;32m OK\033[0m ] Extraction is over")
 cap.release()
 cv2.destroyAllWindows()  # destroy all the opened windows
 
