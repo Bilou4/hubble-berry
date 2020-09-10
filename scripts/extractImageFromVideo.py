@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import cv2
 cap = cv2.VideoCapture('/path/to/video')
 count = 0
