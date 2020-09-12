@@ -1,7 +1,7 @@
 # Hubble-Berry 
 
 
-<img src="./appFolder/static/photos/hubble_berry_logo.jpg " width="150">
+<img src="./img/shot_with_hubble-berry.jpg" width="150">
 
 
 I wanted to start Astrophotography and the HQ pi camera was just announced. Thus I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
