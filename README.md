@@ -1,7 +1,7 @@
 # Hubble-Berry 
 
 
-<img src="./img/shot_with_hubble-berry.jpg" width="150">
+<img src="./img/shot_with_hubble-berry.jpg" width="800">
 <br>
 
 Here is an example of a photo taken thanks to Hubble-Berry. More examples in 
