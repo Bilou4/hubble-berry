@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-07-21 21:39+0200\n"
+"POT-Creation-Date: 2020-09-14 14:35+0200\n"
 "PO-Revision-Date: 2020-07-03 18:04+0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -18,109 +18,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.8.0\n"
 
-#: appFolder/forms.py:10
+#: appFolder/forms.py:15
 msgid "Who are you?"
 msgstr "Qui êtes vous?"
 
-#: appFolder/forms.py:11
-msgid "What is your password?"
+#: appFolder/forms.py:16
+msgid "What's your password?"
 msgstr "Quel est votre mot de passe?"
 
-#: appFolder/forms.py:12
+#: appFolder/forms.py:17
 msgid "Remember Me"
 msgstr "Se souvenir de moi"
 
-#: appFolder/forms.py:13
+#: appFolder/forms.py:18
 msgid "Go!"
 msgstr "C&#8217;est parti!"
 
-#: appFolder/forms.py:19
+#: appFolder/forms.py:29
 msgid "How may I call you?"
 msgstr "Comment dois-je vous appeler?"
 
-#: appFolder/forms.py:20
-msgid "How may I reach you?"
+#: appFolder/forms.py:30
+msgid "How may I contact you?"
 msgstr "Comment puis-je vous joindre?"
 
-#: appFolder/forms.py:21
+#: appFolder/forms.py:31
 msgid "Choose a strong password"
 msgstr "Choisissez un mot de passe difficile"
 
-#: appFolder/forms.py:23
+#: appFolder/forms.py:33
 msgid "Repeat Password"
 msgstr "Répéter votre mot de passe"
 
-#: appFolder/forms.py:24 appFolder/templates/register.html:11
+#: appFolder/forms.py:34 appFolder/templates/register.html:11
 msgid "Register"
 msgstr "S&#8217;enregistrer"
 
-#: appFolder/forms.py:29
+#: appFolder/forms.py:47
 msgid "This username is already taken."
 msgstr "Ce nom d&#8217;utilisateur est déjà pris."
 
-#: appFolder/forms.py:34
+#: appFolder/forms.py:60
 msgid "This email address is already taken."
 msgstr "Cette adresse mail existe déjà."
 
-#: appFolder/routes.py:46
+#: appFolder/routes.py:47
 msgid "- Index"
 msgstr "- Accueil"
 
-#: appFolder/routes.py:61
-msgid "Invalid username or password"
+#: appFolder/routes.py:72
+msgid "Wrong username or password"
 msgstr "Nom d&#8217;utilisateur ou mot de passe incorrect"
 
-#: appFolder/routes.py:69
+#: appFolder/routes.py:80
 msgid "- Sign In"
 msgstr "- Connexion"
 
-#: appFolder/routes.py:83
+#: appFolder/routes.py:99
 msgid "Congratulations, you are now a registered user!"
 msgstr "Félicitations, vous êtes désormais enregistré!"
 
-#: appFolder/routes.py:85
+#: appFolder/routes.py:101
 msgid "- Register"
 msgstr "- S&#8217;enregistrer"
 
-#: appFolder/routes.py:93
+#: appFolder/routes.py:114
 msgid "- Direct"
 msgstr "- Direct"
 
-#: appFolder/routes.py:101
+#: appFolder/routes.py:128
 msgid "- Preview"
 msgstr "- Aperçu"
 
-#: appFolder/routes.py:108
+#: appFolder/routes.py:142
 msgid "- Gallery"
 msgstr "- Galerie"
 
-#: appFolder/routes.py:115
+#: appFolder/routes.py:157
 msgid "- ERROR"
 msgstr "- ERREUR"
 
-#: appFolder/routes.py:171
-msgid "Photo was taken!"
-msgstr "Photo prise!"
-
-#: appFolder/routes.py:204
-msgid "Timelapse is over"
-msgstr "Timelapse terminé"
-
-#: appFolder/routes.py:228
-msgid "Video is over"
-msgstr "Vidéo terminée"
-
-#: appFolder/routes.py:254
+#: appFolder/routes.py:296
 msgid "Files have been transferred"
 msgstr "Les fichiers ont été transférés"
 
-#: appFolder/routes.py:256
+#: appFolder/routes.py:298
 msgid "No USB key detected"
 msgstr "Aucune clé USB n&#8217;a été détectée"
 
-#: appFolder/routes.py:262
+#: appFolder/routes.py:309
 msgid "- Messier's catalog"
 msgstr "- Catalogue de Messier"
+
+#: appFolder/utils.py:132
+msgid "Photo taken!"
+msgstr "Photo prise!"
+
+#: appFolder/utils.py:180
+msgid "Timelapse is over"
+msgstr "Timelapse terminé"
+
+#: appFolder/utils.py:207
+msgid "Video is over"
+msgstr "Vidéo terminée"
 
 #: appFolder/templates/404.html:11
 msgid "Where did you think you were going?"
@@ -139,21 +139,21 @@ msgid "Photo"
 msgstr "Photo"
 
 #: appFolder/templates/functionalities.html:26
-#: appFolder/templates/gallery.html:46
+#: appFolder/templates/gallery.html:44
 msgid "Timelapse"
 msgstr "Timelapse"
 
 #: appFolder/templates/functionalities.html:27
-#: appFolder/templates/gallery.html:59
+#: appFolder/templates/gallery.html:55
 msgid "Video"
 msgstr "Vidéo"
 
 #: appFolder/templates/functionalities.html:33
-#: appFolder/templates/functionalities.html:179
+#: appFolder/templates/functionalities.html:196
 msgid ""
-"Sets the shutter speed of the camera in microseconds. Default is 0 "
-"(auto). Faster shutter times require greater amounts of illumination and "
-"vice versa."
+"Set the shutter speed of the camera in microseconds. Default is 0 (auto)."
+" Faster shutter times require greater amounts of illumination and vice "
+"versa."
 msgstr ""
 "Règle la vitesse d&#8217;obturation de l&#8217;appareil photo en "
 "microsecondes. La valeur par défaut est 0 (auto). Des temps "
@@ -161,30 +161,30 @@ msgstr ""
 "et et vice versa."
 
 #: appFolder/templates/functionalities.html:33
-#: appFolder/templates/functionalities.html:179
+#: appFolder/templates/functionalities.html:196
 msgid "Exposure time (seconds - default → 0)"
 msgstr "Temps d&#8217;exposition (secondes - par défaut → 0)"
 
 #: appFolder/templates/functionalities.html:37
-#: appFolder/templates/functionalities.html:191
-#: appFolder/templates/functionalities.html:222
+#: appFolder/templates/functionalities.html:208
+#: appFolder/templates/functionalities.html:248
 msgid ""
-"Sets the resolution at which image captures, video recordings, and "
+"Set the resolution at which image captures, video recordings, and "
 "previews will be captured."
 msgstr ""
 "Définit la résolution à laquelle les captures d&#8217;images, les "
 "enregistrements vidéo et les aperçus seront saisies."
 
 #: appFolder/templates/functionalities.html:37
-#: appFolder/templates/functionalities.html:191
-#: appFolder/templates/functionalities.html:222
+#: appFolder/templates/functionalities.html:208
+#: appFolder/templates/functionalities.html:248
 msgid "Resolution"
 msgstr "Résolution"
 
-#: appFolder/templates/functionalities.html:45
-#: appFolder/templates/functionalities.html:199
+#: appFolder/templates/functionalities.html:49
+#: appFolder/templates/functionalities.html:220
 msgid ""
-"Sets the apparent ISO setting of the camera, which represents its "
+"Set the apparent ISO setting of the camera, which represents its "
 "sensitivity to light. Lower values tend to produce less ‘noisy’ images, "
 "but operate poorly in low light conditions."
 msgstr ""
@@ -193,395 +193,406 @@ msgstr ""
 "produire des images moins bruyantes, mais fonctionnent mal dans des "
 "conditions de faible luminosité."
 
-#: appFolder/templates/functionalities.html:45
-#: appFolder/templates/functionalities.html:199
+#: appFolder/templates/functionalities.html:49
+#: appFolder/templates/functionalities.html:220
 msgid "ISO"
 msgstr "ISO"
 
-#: appFolder/templates/functionalities.html:47
-#: appFolder/templates/functionalities.html:104
-#: appFolder/templates/functionalities.html:201
+#: appFolder/templates/functionalities.html:51
+#: appFolder/templates/functionalities.html:65
+#: appFolder/templates/functionalities.html:121
+#: appFolder/templates/functionalities.html:222
 msgid "(default)"
 msgstr "(défaut)"
 
-#: appFolder/templates/functionalities.html:58
+#: appFolder/templates/functionalities.html:63
+msgid "Set the image file format."
+msgstr "Indique le format d&#8217;image"
+
+#: appFolder/templates/functionalities.html:63
+msgid "Format"
+msgstr ""
+
+#: appFolder/templates/functionalities.html:75
 msgid "Advanced options"
 msgstr "Options avancées"
 
-#: appFolder/templates/functionalities.html:63
-msgid "Sets the metering mode of the camera."
+#: appFolder/templates/functionalities.html:80
+msgid "Set the metering mode of the camera."
 msgstr "Règle le mode de mesure de l&#8217;appareil photo."
 
-#: appFolder/templates/functionalities.html:63
+#: appFolder/templates/functionalities.html:80
 msgid "Meter Mode"
 msgstr "Mode de mesure"
 
-#: appFolder/templates/functionalities.html:65
+#: appFolder/templates/functionalities.html:82
 msgid "average (default)"
 msgstr "moyenne (défaut)"
 
-#: appFolder/templates/functionalities.html:66
+#: appFolder/templates/functionalities.html:83
 msgid "spot"
 msgstr "spot"
 
-#: appFolder/templates/functionalities.html:67
+#: appFolder/templates/functionalities.html:84
 msgid "backlit"
 msgstr "rétroéclairé"
 
-#: appFolder/templates/functionalities.html:68
+#: appFolder/templates/functionalities.html:85
 msgid "matrix"
 msgstr "matrice"
 
-#: appFolder/templates/functionalities.html:71
-msgid "Sets the auto-white-balance mode of the camera."
+#: appFolder/templates/functionalities.html:88
+msgid "Set the auto-white-balance mode of the camera."
 msgstr "Règle le mode de balance automatique des blancs de l&#8217;appareil photo."
 
-#: appFolder/templates/functionalities.html:71
+#: appFolder/templates/functionalities.html:88
 msgid "AWB Mode"
 msgstr "Mode AWB"
 
-#: appFolder/templates/functionalities.html:73
-#: appFolder/templates/functionalities.html:131
+#: appFolder/templates/functionalities.html:90
+#: appFolder/templates/functionalities.html:148
 msgid "off"
 msgstr "off"
 
-#: appFolder/templates/functionalities.html:74
-#: appFolder/templates/functionalities.html:132
+#: appFolder/templates/functionalities.html:91
+#: appFolder/templates/functionalities.html:149
 msgid "auto (default)"
 msgstr "auto (défaut)"
 
-#: appFolder/templates/functionalities.html:75
+#: appFolder/templates/functionalities.html:92
 msgid "sunlight"
 msgstr "lumière du soleil"
 
-#: appFolder/templates/functionalities.html:76
+#: appFolder/templates/functionalities.html:93
 msgid "cloudy"
 msgstr "nuageux"
 
-#: appFolder/templates/functionalities.html:77
+#: appFolder/templates/functionalities.html:94
 msgid "shade"
 msgstr "ombre"
 
-#: appFolder/templates/functionalities.html:78
+#: appFolder/templates/functionalities.html:95
 msgid "tungsten"
 msgstr "tungstène"
 
-#: appFolder/templates/functionalities.html:79
+#: appFolder/templates/functionalities.html:96
 msgid "fluorescent"
 msgstr "fluorescent"
 
-#: appFolder/templates/functionalities.html:80
+#: appFolder/templates/functionalities.html:97
 msgid "incandescent"
 msgstr "incandescence"
 
-#: appFolder/templates/functionalities.html:81
+#: appFolder/templates/functionalities.html:98
 msgid "flash"
 msgstr "flash"
 
-#: appFolder/templates/functionalities.html:82
+#: appFolder/templates/functionalities.html:99
 msgid "horizon"
 msgstr "horizon"
 
-#: appFolder/templates/functionalities.html:87
-msgid ""
-"Sets the brightness setting of the camera, as an integer between 0 and "
-"100."
+#: appFolder/templates/functionalities.html:104
+msgid "Set the brightness setting of the camera, as an integer between 0 and 100."
 msgstr ""
 "Définit le réglage de la luminosité de l&#8217;appareil photo, comme un "
 "nombre entier entre 0 et 100."
 
-#: appFolder/templates/functionalities.html:87
+#: appFolder/templates/functionalities.html:104
 msgid "Brightness (default → 50)"
 msgstr "Luminosité (défaut → 50)"
 
-#: appFolder/templates/functionalities.html:91
+#: appFolder/templates/functionalities.html:108
 msgid ""
-"Sets the contrast setting of the camera, as an integer between -100 and "
+"Set the contrast setting of the camera, as an integer between -100 and "
 "100."
 msgstr ""
 "Définit le réglage du contraste de l&#8217;appareil photo, comme un "
 "nombre entier entre -100 et 100."
 
-#: appFolder/templates/functionalities.html:91
+#: appFolder/templates/functionalities.html:108
 msgid "Contrast (increase noise - default → 0)"
 msgstr "Contraste (augmentation du bruit - par défaut → 0)"
 
-#: appFolder/templates/functionalities.html:95
+#: appFolder/templates/functionalities.html:112
 msgid ""
-"Sets the sharpness setting of the camera as an integer between -100 and "
+"Set the sharpness setting of the camera as an integer between -100 and "
 "100."
 msgstr ""
 "Définit le réglage de la netteté de l&#8217;appareil photo comme un "
 "nombre entier compris entre -100 et 100."
 
-#: appFolder/templates/functionalities.html:95
+#: appFolder/templates/functionalities.html:112
 msgid "Sharpness (default → 0)"
 msgstr "Netteté (défaut → 0)"
 
-#: appFolder/templates/functionalities.html:98
+#: appFolder/templates/functionalities.html:115
 msgid ""
-"Sets the saturation setting of the camera, as an integer between -100 and"
-" 100."
+"Set the saturation setting of the camera, as an integer between -100 and "
+"100."
 msgstr ""
 "Définit le réglage de la saturation de l&#8217;appareil photo, comme un "
 "nombre entier entre -100 et 100."
 
-#: appFolder/templates/functionalities.html:98
+#: appFolder/templates/functionalities.html:115
 msgid "Saturation (default → 0)"
 msgstr "Saturation (défaut → 0)"
 
-#: appFolder/templates/functionalities.html:102
-msgid "Sets the current rotation of the camera’s image."
+#: appFolder/templates/functionalities.html:119
+msgid "Set the current rotation of the camera’s image."
 msgstr "Règle la rotation actuelle de l&#8217;image de la caméra."
 
-#: appFolder/templates/functionalities.html:102
+#: appFolder/templates/functionalities.html:119
 msgid "Rotation"
 msgstr "Rotation"
 
-#: appFolder/templates/functionalities.html:111
-msgid "Sets whether the camera’s output is horizontally flipped."
+#: appFolder/templates/functionalities.html:128
+msgid "Set whether the camera’s output is horizontally flipped."
 msgstr "Définit si la sortie de la caméra est inversée horizontalement."
 
-#: appFolder/templates/functionalities.html:111
+#: appFolder/templates/functionalities.html:128
 msgid "Horizontal flip"
 msgstr "Retournement horizontal"
 
-#: appFolder/templates/functionalities.html:113
-#: appFolder/templates/functionalities.html:119
+#: appFolder/templates/functionalities.html:130
+#: appFolder/templates/functionalities.html:136
 msgid "False (default)"
 msgstr "Faux (défaut)"
 
-#: appFolder/templates/functionalities.html:114
-#: appFolder/templates/functionalities.html:120
+#: appFolder/templates/functionalities.html:131
+#: appFolder/templates/functionalities.html:137
 msgid "True"
 msgstr "Vrai"
 
-#: appFolder/templates/functionalities.html:117
-msgid "Sets whether the camera’s output is vertically flipped."
+#: appFolder/templates/functionalities.html:134
+msgid "Set whether the camera’s output is vertically flipped."
 msgstr "Définit si la sortie de la caméra est inversée verticalement."
 
-#: appFolder/templates/functionalities.html:117
+#: appFolder/templates/functionalities.html:134
 msgid "Vertical flip"
 msgstr "Retournement vertical"
 
-#: appFolder/templates/functionalities.html:124
+#: appFolder/templates/functionalities.html:141
 msgid ""
-"Sets the exposure compensation level of the camera, as an integer between"
-" -25 and 25. Each increment represents 1/6th of a stop."
+"Set the exposure compensation level of the camera, as an integer between "
+"-25 and 25. Each increment represents 1/6th of a stop."
 msgstr ""
 "Définit le niveau de compensation de l&#8217;exposition de "
 "l&#8217;appareil photo, sous la forme d&#8217;un nombre entier entre et "
 "-25 et 25. Chaque incrément représente 1/6ème d&#8217;un arrêt."
 
-#: appFolder/templates/functionalities.html:124
+#: appFolder/templates/functionalities.html:141
 msgid "Exposure compensation (default → 0)"
 msgstr "Compensation de l&#8217;exposition (par défaut → 0)"
 
-#: appFolder/templates/functionalities.html:129
-msgid "Sets the exposure mode of the camera."
+#: appFolder/templates/functionalities.html:146
+msgid "Set the exposure mode of the camera."
 msgstr "Règle le mode d&#8217;exposition de l&#8217;appareil photo."
 
-#: appFolder/templates/functionalities.html:129
+#: appFolder/templates/functionalities.html:146
 msgid "Exposure mode"
 msgstr "Mode d&#8217;exposition"
 
-#: appFolder/templates/functionalities.html:133
+#: appFolder/templates/functionalities.html:150
 msgid "night"
 msgstr "nuit"
 
-#: appFolder/templates/functionalities.html:134
+#: appFolder/templates/functionalities.html:151
 msgid "nightpreview"
 msgstr ""
 
-#: appFolder/templates/functionalities.html:135
+#: appFolder/templates/functionalities.html:152
 msgid "backlight"
 msgstr "rétroéclairage"
 
-#: appFolder/templates/functionalities.html:136
+#: appFolder/templates/functionalities.html:153
 msgid "spotlight"
 msgstr "projecteur"
 
-#: appFolder/templates/functionalities.html:137
+#: appFolder/templates/functionalities.html:154
 msgid "sports"
 msgstr "sports"
 
-#: appFolder/templates/functionalities.html:138
+#: appFolder/templates/functionalities.html:155
 msgid "snow"
 msgstr "neige"
 
-#: appFolder/templates/functionalities.html:139
+#: appFolder/templates/functionalities.html:156
 msgid "beach"
 msgstr "plage"
 
-#: appFolder/templates/functionalities.html:140
+#: appFolder/templates/functionalities.html:157
 msgid "verylong"
 msgstr ""
 
-#: appFolder/templates/functionalities.html:141
+#: appFolder/templates/functionalities.html:158
 msgid "fixedfps"
 msgstr ""
 
-#: appFolder/templates/functionalities.html:142
-msgid "antishake"
+#: appFolder/templates/functionalities.html:159
+msgid "antiswing"
 msgstr "anti-balancement"
 
-#: appFolder/templates/functionalities.html:143
+#: appFolder/templates/functionalities.html:160
 msgid "fireworks"
 msgstr "feu d&#8217;artifices"
 
-#: appFolder/templates/functionalities.html:146
-msgid "Sets the current image effect applied by the camera."
+#: appFolder/templates/functionalities.html:163
+msgid "Set the current image effect applied by the camera."
 msgstr "Définit l&#8217;effet d&#8217;image actuel appliqué par la caméra."
 
-#: appFolder/templates/functionalities.html:146
+#: appFolder/templates/functionalities.html:163
 msgid "Image effect"
 msgstr "Effet d&#8217;image"
 
-#: appFolder/templates/functionalities.html:148
+#: appFolder/templates/functionalities.html:165
 msgid "none (default)"
 msgstr "aucun (défaut)"
 
-#: appFolder/templates/functionalities.html:149
+#: appFolder/templates/functionalities.html:166
 msgid "negative"
 msgstr "négatif"
 
-#: appFolder/templates/functionalities.html:150
+#: appFolder/templates/functionalities.html:167
 msgid "solarize"
 msgstr ""
 
-#: appFolder/templates/functionalities.html:151
+#: appFolder/templates/functionalities.html:168
 msgid "sketch"
 msgstr "croquis"
 
-#: appFolder/templates/functionalities.html:152
+#: appFolder/templates/functionalities.html:169
 msgid "denoise"
 msgstr "supprime le bruit"
 
-#: appFolder/templates/functionalities.html:153
+#: appFolder/templates/functionalities.html:170
 msgid "emboss"
 msgstr "estamper"
 
-#: appFolder/templates/functionalities.html:154
+#: appFolder/templates/functionalities.html:171
 msgid "oilpaint"
 msgstr "peinture à l&#8217;huile"
 
-#: appFolder/templates/functionalities.html:155
+#: appFolder/templates/functionalities.html:172
 msgid "hatch"
 msgstr "hachurer"
 
-#: appFolder/templates/functionalities.html:156
+#: appFolder/templates/functionalities.html:173
 msgid "gpen (graphite sketch effect)"
 msgstr "effet de croquis au graphite"
 
-#: appFolder/templates/functionalities.html:157
+#: appFolder/templates/functionalities.html:174
 msgid "pastel"
 msgstr "pastel"
 
-#: appFolder/templates/functionalities.html:158
+#: appFolder/templates/functionalities.html:175
 msgid "watercolor"
 msgstr "couleur d&#8217;eau"
 
-#: appFolder/templates/functionalities.html:159
+#: appFolder/templates/functionalities.html:176
 msgid "film"
 msgstr "film"
 
-#: appFolder/templates/functionalities.html:160
-msgid "blur"
+#: appFolder/templates/functionalities.html:177
+msgid "blurry"
 msgstr "flou"
 
-#: appFolder/templates/functionalities.html:161
+#: appFolder/templates/functionalities.html:178
 msgid "saturation"
 msgstr "saturation"
 
-#: appFolder/templates/functionalities.html:162
+#: appFolder/templates/functionalities.html:179
 msgid "colorswap"
 msgstr "changement de couleur"
 
-#: appFolder/templates/functionalities.html:163
+#: appFolder/templates/functionalities.html:180
 msgid "washedout"
 msgstr "lavé"
 
-#: appFolder/templates/functionalities.html:164
+#: appFolder/templates/functionalities.html:181
 msgid "posterise"
 msgstr "postériser"
 
-#: appFolder/templates/functionalities.html:165
+#: appFolder/templates/functionalities.html:182
 msgid "colorpoint"
 msgstr "point de couleur"
 
-#: appFolder/templates/functionalities.html:166
+#: appFolder/templates/functionalities.html:183
 msgid "colorbalance"
 msgstr "balance de couleur"
 
-#: appFolder/templates/functionalities.html:167
+#: appFolder/templates/functionalities.html:184
 msgid "cartoon"
 msgstr "dessin animé"
 
-#: appFolder/templates/functionalities.html:168
+#: appFolder/templates/functionalities.html:185
 msgid "deinterlace1"
 msgstr "désentrelacement 1"
 
-#: appFolder/templates/functionalities.html:169
+#: appFolder/templates/functionalities.html:186
 msgid "deinterlace2"
 msgstr "désentrelacement 2"
 
-#: appFolder/templates/functionalities.html:173
+#: appFolder/templates/functionalities.html:190
 msgid "Take a photo"
 msgstr "Prendre une photo"
 
-#: appFolder/templates/functionalities.html:183
+#: appFolder/templates/functionalities.html:200
 msgid "Time between each photo."
 msgstr "Temps entre chaque photo"
 
-#: appFolder/templates/functionalities.html:183
+#: appFolder/templates/functionalities.html:200
 msgid "Time between each photo (default → 5)"
 msgstr "Temps entre chaque photo (par défaut → 5)"
 
-#: appFolder/templates/functionalities.html:187
+#: appFolder/templates/functionalities.html:204
 msgid "The total number of photos required."
 msgstr "Nombre total de photo requis."
 
-#: appFolder/templates/functionalities.html:187
-msgid "Number of photo to be taken"
+#: appFolder/templates/functionalities.html:204
+msgid "Number of photos to be taken"
 msgstr "Nombre de photo à prendre"
 
-#: appFolder/templates/functionalities.html:211
+#: appFolder/templates/functionalities.html:234
+msgid "Use video port"
+msgstr "Utiliser le port vidéo"
+
+#: appFolder/templates/functionalities.html:237
 msgid "Total time (calculated)"
 msgstr "Temps total (calculé)"
 
-#: appFolder/templates/functionalities.html:211
+#: appFolder/templates/functionalities.html:237
 msgid "minutes"
 msgstr "minutes"
 
-#: appFolder/templates/functionalities.html:211
+#: appFolder/templates/functionalities.html:237
 msgid "seconds"
 msgstr "secondes"
 
-#: appFolder/templates/functionalities.html:212
+#: appFolder/templates/functionalities.html:238
 msgid "Start the timelapse"
 msgstr "Commencer le timelapse"
 
-#: appFolder/templates/functionalities.html:218
+#: appFolder/templates/functionalities.html:244
 msgid "Time required for the video."
 msgstr "Temps requis pour la vidéo."
 
-#: appFolder/templates/functionalities.html:218
+#: appFolder/templates/functionalities.html:244
 msgid "Video time"
 msgstr "Temps de la vidéo"
 
-#: appFolder/templates/functionalities.html:228
+#: appFolder/templates/functionalities.html:254
 msgid "Start the video"
 msgstr "Commencer la vidéo"
 
-#: appFolder/templates/functionalities.html:233
+#: appFolder/templates/functionalities.html:259
 msgid "The photo is running"
 msgstr "La photo est en cours"
 
-#: appFolder/templates/functionalities.html:234
+#: appFolder/templates/functionalities.html:260
 msgid "The timelapse is running"
 msgstr "Le timelapse est en cours"
 
-#: appFolder/templates/functionalities.html:235
+#: appFolder/templates/functionalities.html:261
 msgid "The video is running"
 msgstr "La vidéo est en cours"
 
@@ -589,15 +600,15 @@ msgstr "La vidéo est en cours"
 msgid "Photos"
 msgstr "Photos"
 
-#: appFolder/templates/index.html:10 appFolder/templates/layout.html:48
+#: appFolder/templates/index.html:13 appFolder/templates/layout.html:48
 msgid "by"
 msgstr "par"
 
-#: appFolder/templates/index.html:11
+#: appFolder/templates/index.html:14
 msgid "Login"
 msgstr "Se connecter"
 
-#: appFolder/templates/index.html:12
+#: appFolder/templates/index.html:15
 msgid "Sign up"
 msgstr "S&#8217;enregistrer"
 
