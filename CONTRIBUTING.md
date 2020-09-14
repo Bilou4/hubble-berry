@@ -21,7 +21,7 @@ git checkout -b add-japanese-translations
 
 ## Implement your fix or feature
 
-You can make all the changes you want, as long as it improves the project or user experience! 
+You can make all the changes you want, as long as it improves the project or the user experience! 
 Feel free to ask for help; everyone is a beginner at first.
 
 ## View your changes
@@ -45,7 +45,7 @@ git checkout master
 git pull upstream master
 ```
 
-Then update your feature branch from your local copy of master, and push it!
+Then, update your feature branch from your local copy of master, and push it!
 
 ```sh
 git checkout add-japanese-translations
