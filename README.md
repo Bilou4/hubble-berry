@@ -15,7 +15,7 @@ Here is an example of a photo taken thanks to Hubble-Berry. More examples in
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. If you have any question, please feel free to ask by creating a [new issue].
 
 <br>
 
@@ -133,3 +133,5 @@ This project is licensed under the GPL License - see the COPYING file for detail
 <a id="3">[3]</a> https://github.com/billz/raspap-webgui
 
 [server]:https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux
+
+[new issue]:https://github.com/Bilou4/hubble-berry/issues/new
