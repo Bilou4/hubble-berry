@@ -1,15 +1,15 @@
 # Hubble-Berry 
 
+I wanted to start Astrophotography and the HQ pi camera had just been marketed. Thus, I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
+Hubble-Berry is my first contribution to the Open Source world, so do not hesitate to suggest any improvements on the code, the documentation or features.
+
+<br>
 
 <img src="./img/shot_with_hubble-berry.jpg" width="800">
-<br>
 
 Here is an example of a photo taken thanks to Hubble-Berry. More examples in 
 `./appFolder/static/camera`
 <br><br>
-
-I wanted to start Astrophotography and the HQ pi camera had just been marketed. Thus, I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
-Hubble-Berry is my first contribution to the Open Source world, so do not hesitate to suggest any improvements on the code, the documentation or features.
 
 <hr>
 
