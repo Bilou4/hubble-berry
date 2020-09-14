@@ -39,7 +39,7 @@ pybabel update -i messages.pot -d appFolder/translations
 pybabel init -i messages.pot -d appFolder/translations -l fr
 ```
 
-### At the end, compile to make the runtime easier
+### In the end, compile to make the runtime easier
 
 ```sh
 pybabel compile -d appFolder/translations
