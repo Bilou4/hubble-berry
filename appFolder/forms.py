@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
         FlaskForm (FlaskForm): Flask-specific subclass of WTForms
     """
     username = StringField(_l('Who are you?'), validators=[DataRequired()])
-    password = PasswordField(_l('What is your password?'), validators=[DataRequired()])
+    password = PasswordField(_l('What\'s your password?'), validators=[DataRequired()])
     remember_me = BooleanField(_l('Remember Me'))
     submit = SubmitField(_l('Go!'))
 
@@ -27,7 +27,7 @@ class RegistrationForm(FlaskForm):
         FlaskForm (FlaskForm): Flask-specific subclass of WTForms
     """
     username = StringField(_l('How may I call you?'), validators=[DataRequired()], render_kw={"placeholder": "USERNAME"})
-    email = StringField(_l('How may I reach you?'), validators=[DataRequired(), Email()], render_kw={"placeholder": "username@example.com"})
+    email = StringField(_l('How may I contact you?'), validators=[DataRequired(), Email()], render_kw={"placeholder": "username@example.com"})
     password = PasswordField(_l('Choose a strong password'), validators=[DataRequired()], render_kw={"placeholder": "****"})
     password2 = PasswordField(
         _l('Repeat Password'), validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "****"})

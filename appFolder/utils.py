@@ -129,7 +129,7 @@ def utils_take_photo(dic_elems):
             camera.shutter_speed = 0
             camera.framerate = 1
         logger.info('Everything is closed, sending back the response')
-        return {'text': _("Photo was taken!"), 'name':dic_elems['photo_name'], 'status':"ok"}
+        return {'text': _("Photo taken!"), 'name':dic_elems['photo_name'], 'status':"ok"}
     except Exception as e:
         message_error = "[utils_take_photo] " + str(e)
         logger.error(message_error)
