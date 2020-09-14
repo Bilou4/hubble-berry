@@ -2,10 +2,14 @@
 
 
 <img src="./img/shot_with_hubble-berry.jpg" width="150">
+<br>
 
+Here is an example of a photo taken thanks to Hubble-Berry. More examples in 
+`./appFolder/static/camera`
+<br><br>
 
-I wanted to start Astrophotography and the HQ pi camera was just announced. Thus I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
-Hubble-Berry is my first contribution to the Open Source world, do not hesitate to suggest improvements on the code, the documentation or features.
+I wanted to start Astrophotography and the HQ pi camera had just been marketed. Thus, I decided to create a website to manage this camera easily and let others access some pages as a Gallery.
+Hubble-Berry is my first contribution to the Open Source world, so do not hesitate to suggest any improvements on the code, the documentation or features.
 
 <hr>
 
@@ -37,7 +41,7 @@ Here is what I used to make this project:
 
 ### Installing
 
-+ After cloning the project, go inside the directory `cd hubble-berry`.
++ After cloning the project, go into the directory `cd hubble-berry`.
 + If virtualenv is not installed on your Raspberry PI `pip3 install virtualenv`
 + create a virtual environment (your python version must be greater than 3.6) `virtualenv --python=/usr/local/bin/python3.7 hubble-berry-project`
 + Activate the environment `. activate`
@@ -73,7 +77,7 @@ if everything worked properly, you should be able to reach the first page.
 
 ## Contributing
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us.
+Please read CONTRIBUTING.md for details on our code of conduct, and the process to submit us pull requests.
 
 <!-- TODO -->
 <!-- ## Versioning
