@@ -1,1 +1,1 @@
-from appFolder import app
+from appFolder import app, cli
