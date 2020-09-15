@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# A script to help you mount automatically your USB key when no GUI is availabe on your Raspberry pi
+
 if [[ $# -ne 1 ]]; then
 	echo "Illegal number of parameters"
 	exit 2
