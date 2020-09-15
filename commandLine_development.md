@@ -47,6 +47,8 @@ INSERT INTO `role` (id, name) VALUES ([id_of_the_user_who_will_be_admin],"admin"
 
 ## Manage languages
 
+You can use the `flask translate [update/compile/init]` command line, or do it all by yourself.
+
 ### Extract information from all files
 
 ```sh
