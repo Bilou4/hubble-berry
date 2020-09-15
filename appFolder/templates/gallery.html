@@ -56,9 +56,9 @@
 	{% if video_file != [] %}
 		{% for filename in video_file %}
 				<li>{{ filename }}</li>
-				<video width="640" height="480" controls>
+				<!-- <video width="640" height="480" controls>
 					<source src="{{ url_for('static',  filename='camera/video/' + filename) }}" type="video/mp4">
-				</video>
+				</video> -->
 		{%endfor%}
 	{% endif %}
 
