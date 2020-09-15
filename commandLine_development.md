@@ -1,5 +1,31 @@
 # Some command lines for development
 
+## Setting up a development environment
+
+### Installing
+
+You have the possibility to develop on another computer than your raspberry pi, you just won't be able to test functionnalities for the camera.
+
++ After cloning the project, go into the directory `cd hubble-berry`.
++ If virtualenv is not installed on your Raspberry PI `pip3 install virtualenv`
++ create a virtual environment (your python version must be greater than 3.6) `virtualenv --python=/usr/local/bin/python3.7 hubble-berry-project`
++ Activate the environment `. activate`
++ Execute the installation file `./installation.sh`
++ To finish, you can start the application
+
+```sh
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --with-threads # just on localhost
+FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 --with-threads # to all active interfaces
+```
+
+if everything worked properly, you should be able to reach the first page.
+
+![First_page](./img/first_page.png)
+
++ To leave the virtual environment `deactivate`
++ If you are using vscode and there is a problem with the virtual environment https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
+
+
 ## To manage the database 
 
 ### After modifying models
