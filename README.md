@@ -27,44 +27,111 @@ Here is what I used to make this project:
 + RaspAp [[3]](#3)
 + Activate the camera module (required) and SSH (optionnal but it's easier to control) on your Raspberry PI
 + USB key named 'HUBBLE_SAVE' and with the following organization (only if you want to save your files on a USB key. You can also use `./scripts/download.py` to download from another computer.):
-    ```bash
-    .
-    ├── camera
-    │   ├── pictures
-    │   ├── timelapse
-    │   ├── video
-    ```
+
+```bash
+.
+├── camera
+│   ├── pictures
+│   ├── timelapse
+│   ├── video
+```
 
 ![working_diagram](./img/working_diagram.png)
 
 <br>
 
-### Installing
-
-+ After cloning the project, go into the directory `cd hubble-berry`.
-+ If virtualenv is not installed on your Raspberry PI `pip3 install virtualenv`
-+ create a virtual environment (your python version must be greater than 3.6) `virtualenv --python=/usr/local/bin/python3.7 hubble-berry-project`
-+ Activate the environment `. activate`
-+ Execute the installation file `./installation.sh`
-+ To finish, you can start the application
-
-```sh
-FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --with-threads # just on localhost
-FLASK_APP=main.py FLASK_ENV=development flask run --port 8000 --host=0.0.0.0 --with-threads # to all active interfaces
-```
-
-if everything worked properly, you should be able to reach the first page.
-
-![First_page](./img/first_page.png)
-
-+ To leave the virtual environment `deactivate`
-+ If you are using vscode and there is a problem with the virtual environment https://stackoverflow.com/questions/54106071/how-to-setup-virtual-environment-for-python-in-vs-code
 
 <hr>
 
-## Deployment
+## Deployment on your Raspberry pi
 
-<!-- Add additional notes about how to deploy this on a live system -->
+To set up a development environment, see the [commandLine_development.md] file.
+
+### First installation
+
+Clone the repository.
+
+```sh
+git clone https://github.com/Bilou4/hubble-berry.git
+cd hubble-berry
+```
+
+Initiate a virtual environment.
+```sh
+pip3 install virtualenv
+virtualenv --python=/usr/local/bin/python3.7 hubble-berry-project # your python version must be greater than 3.6
+. activate
+./installation.sh
+pip3 install picamera # not in installation.sh because it would not work on another computer than Raspberry Pi.
+```
+
+Set environment variable.
+```sh
+echo "export FLASK_APP=/path/to/hubble-berry/main.py" >> ~/.bashrc
+source ~/.bashrc
+. activate
+flask --help # shows available commands
+flask translate compile # To compile the language translations
+```
+
+
+The gunicorn package is a production web server for Python applications.
+The supervisor service is useful in ensuring the application is always up.
+
+```sh
+sudo apt-get install supervisor
+pip3 install gunicorn
+```
+
+If everything went well, you can try by manually starting the server.
+```sh
+gunicorn -b :8000 -w 3 --threads 1 --timeout 86400 appFolder:app
+```
+
+Change the Supervisor configuration file : `/etc/supervisor/conf.d/hubble-berry.conf`
+```sh
+[program:hubble-berry]
+command=/path/to/hubble-berry/hubble-berry-project/bin/gunicorn -b :8000 -w 3 --threads 1 --timeout 86400 appFolder:app
+directory=/path/to/hubble-berry
+user=pi
+stdout_logfile=/path/to/hubble-berry/supervisor_stdout.log
+stderr_logfile=/path/to/hubble-berry/supervisor_stderr.log
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+```
+
+After you write this configuration file, you have to reload the supervisor service for it to be imported:
+
+```sh
+sudo supervisorctl reload
+```
+
+And just like that, the gunicorn web server should be up and running and monitored!
+
+You have the possibility to watch logs:
+
+```sh
+tail -f /path/to/hubble-berry/supervisor_stderr.log # or supervisor_stdout.log
+```
+
+If everything worked properly, you should be able to reach the first page.
+
+![First_page](./img/first_page.png)
+
+### Upgrade
+
+Doing an upgrade is in general more complicated than just restarting the server. You may need to apply database migrations, or compile new language translations, so in reality, the process to perform an upgrade involves a sequence of commands:
+
+```sh
+git pull                              # download the new version
+sudo supervisorctl stop hubble-berry  # stop the current server
+flask db upgrade                      # upgrade the database
+flask translate compile               # upgrade the translations
+sudo supervisorctl start hubble-berry # start a new server
+```
+
 
 <hr>
 
@@ -98,8 +165,6 @@ We use SemVer for versioning. For the versions available, see the tags on this r
 
 | Task name | Description |
 |-----------|-------------|
-|Production server|Instead of Flask development server, use a [server] that can run on Raspberry PI|
-|Automate prod server usage   	|Create a script to deploy new versions of the application and to set up the server easily 	|
 |Exposure time timelapse | Allow the user to anticipate a longer exposure time after a certain runtime (or number of photos - maybe easier)
 
 <hr>
@@ -132,6 +197,5 @@ This project is licensed under the GPL License - see the COPYING file for detail
 
 <a id="3">[3]</a> https://github.com/billz/raspap-webgui
 
-[server]:https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-xvii-deployment-on-linux
-
 [new issue]:https://github.com/Bilou4/hubble-berry/issues/new
+[commandLine_development.md]:https://github.com/Bilou4/hubble-berry/blob/master/commandLine_development.md
