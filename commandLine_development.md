@@ -40,7 +40,7 @@ FLASK_APP=main.py flask db upgrade
 Open the SQLite table : `appFolder/app.db`
 
 ```SQL
-INSERT INTO `role` (id, name) VALUES ([id_of_the_user_who_will_be_admin],"admin");
+UPDATE user SET role_id = 1 WHERE username = '[name_of_the_user_who_will_be_admin]';
 ```
 
 <hr>
