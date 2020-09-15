@@ -120,6 +120,11 @@ If everything worked properly, you should be able to reach the first page.
 
 ![First_page](./img/first_page.png)
 
+There are 2 default users (username/password): 
+
+> 1. admin/admin
+> 2. user/user
+
 ### Upgrade
 
 Doing an upgrade is in general more complicated than just restarting the server. You may need to apply database migrations, or compile new language translations, so in reality, the process to perform an upgrade involves a sequence of commands:
