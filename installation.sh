@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# Automate installation of libraries
+
 pip3 install Flask
 pip3 install flask_login
 pip3 install flask-wtf
