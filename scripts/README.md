@@ -37,7 +37,7 @@ Here, it's when you use default configuration, maximum pixels (without --avg).
 
 ## pylapse.py
 
-There are 2 available formats at this moment, AVI and MP4. AVI is the default one, if you want MP4, just add --mp4 in the command line.
+There are 2 available formats at this moment, AVI and MP4. AVI is the default one, if you want MP4, just add --mp4 in the command line. Here is an example: [timelapse_example]
 
 ```sh
 ./pylapse.py -i [input_directory] -o [output_directory] -t [time]
@@ -45,7 +45,7 @@ There are 2 available formats at this moment, AVI and MP4. AVI is the default on
 
 ## extractImageFromVideo.py
 
-Thanks to a video in input, you can extract all images to an output.
+Thanks to a video in input, you can extract all images to an output directory.
 
 ```sh
 ./extractImageFromVideo.py -i [input_directory] -o [output_directory]
@@ -65,3 +65,4 @@ You need to have [ufraw] installed on your computer.
 <a id="1">[1]</a> https://www.digitalphotomentor.com/how-to-shoot-star-trails-and-sample-images-for-you-to-practice-stacking/
 
 [ufraw]:https://doc.ubuntu-fr.org/ufraw
+[timelapse_example]:https://github.com/Bilou4/hubble-berry/blob/master/appFolder/static/camera/video/2020-09-11-22-12-01.mp4

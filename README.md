@@ -15,7 +15,7 @@ Here is an example of a photo taken thanks to Hubble-Berry. More examples in
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. If you have any question, please feel free to ask by creating a [new issue].
+These instructions will get you a copy of the project up and running on your local machine (Raspberry Pi). For development and testing purposes, see [commandLine_development.md]. If you have any question, please feel free to ask by creating a [new issue].
 
 <br>
 
@@ -24,7 +24,7 @@ These instructions will get you a copy of the project up and running on your loc
 Here is what I used to make this project:
 + Raspberry PI model 3B [[1]](#1)
 + Raspberry PI HQ Camera [[2]](#2)
-+ RaspAp [[3]](#3)
++ RaspAp [[3]](#3): to create an access point
 + Activate the camera module (required) and SSH (optionnal but it's easier to control) on your Raspberry PI
 + USB key named 'HUBBLE_SAVE' and with the following organization (only if you want to save your files on a USB key. You can also use `./scripts/download.py` to download from another computer.):
 
@@ -149,7 +149,7 @@ sudo supervisorctl start hubble-berry # start a new server
 
 ## Contributing
 
-Please read CONTRIBUTING.md for details on our code of conduct, and the process to submit us pull requests.
+Please read CONTRIBUTING.md for details on the process to submit us pull requests.
 
 <!-- TODO -->
 <!-- ## Versioning
