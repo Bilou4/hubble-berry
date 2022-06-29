@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import os
+from pathlib import Path
 from tqdm import tqdm
 from shutil import which
 
@@ -12,25 +13,17 @@ def is_tool(name: str) -> bool:
 
 def escape_chars(string: str) -> str:
     string = string.replace(" ", "\\ ")
-    string = string.replace("(", "\(")
-    string = string.replace(")", "\)")
+    string = string.replace("(", "(")
+    string = string.replace(")", ")")
     return string
 
 
-def convert_raw_to_jpg(input_directory, output_directory, compression):
-
-    if os.path.isdir(input_directory) and os.path.isdir(output_directory):
-        if input_directory[-1] != "/":
-            input_directory = input_directory + "/"
-        if output_directory[-1] != "/":
-            output_directory = output_directory + "/"
-    else:
-        raise Exception("Either the input or ouput argument is not a directory")
+def convert_raw_to_jpg(input_directory: Path, output_directory: Path, compression: int):
 
     if is_tool("ufraw-batch"):
-        l = []
-        l = os.listdir(input_directory)
-        for raw_path in tqdm(l):
+        files_list = []
+        files_list = os.listdir(input_directory)
+        for raw_path in tqdm(files_list):
             input_full_path = input_directory + raw_path
             input_full_path = escape_chars(input_full_path)
             os.system(
