@@ -8,6 +8,7 @@ from pathlib import Path
 
 
 class Action(Enum):
+    DO_NOTHING = 0
     COPY_PICTURES = 1
     COPY_TIMELAPSES = 2
     COPY_VIDEOS = 4
@@ -26,13 +27,11 @@ PI_COMMON_FOLDER = Path(
 def copy_move_pictures_videos_timelapses(
     action: Action, pictures: bool, timelapses: bool, videos: bool
 ):
-    action = 0
-
     if not HOME.is_dir():
-        raise Exception("Cannot find " + HOME)
+        raise Exception(f"Cannot find {HOME}")
 
     if not STORAGE_FOLDER.is_dir():
-        raise Exception("Cannot find " + STORAGE_FOLDER)
+        raise Exception(f"Cannot find  {STORAGE_FOLDER}")
 
     if (
         not (STORAGE_FOLDER / "pictures").is_dir()
@@ -40,7 +39,7 @@ def copy_move_pictures_videos_timelapses(
         or not (STORAGE_FOLDER / "video").is_dir()
     ):
         raise Exception(
-            "Cannot find " + STORAGE_FOLDER + "/pictures or /timelapse or /video"
+            f"Cannot find {STORAGE_FOLDER} /pictures or /timelapse or /video"
         )
 
     ssh = SSHClient()
@@ -101,8 +100,8 @@ def cp_timelapse(scp: SCPClient) -> None:
         scp (SCPClient): SCPClient object used to get files from the timelapse directory.
     """
     try:
-        scp.get(PI_COMMON_FOLDER + "/timelapse/*", STORAGE_FOLDER + "/timelapse/")
-        remove(STORAGE_FOLDER + "/timelapse/do_not_remove.txt")
+        scp.get(PI_COMMON_FOLDER / "timelapse", STORAGE_FOLDER)
+        remove(STORAGE_FOLDER / "timelapse/do_not_remove.txt")
     except Exception as e:
         print("[cp_timelapse]" + str(e))
 
@@ -114,8 +113,8 @@ def cp_videos(scp: SCPClient) -> None:
         scp (SCPClient): SCPClient object used to get files from the video directory.
     """
     try:
-        scp.get(PI_COMMON_FOLDER + "/video/*", STORAGE_FOLDER + "/video/")
-        remove(STORAGE_FOLDER + "/video/do_not_remove.txt")
+        scp.get(PI_COMMON_FOLDER / "video", STORAGE_FOLDER)
+        remove(STORAGE_FOLDER / "video/do_not_remove.txt")
     except Exception as e:
         print("[cp_videos]" + str(e))
 
@@ -130,8 +129,8 @@ def move_pictures(scp: SCPClient, ssh: SSHClient) -> None:
     cp_pictures(scp)
     stdin, stdout, stderr = ssh.exec_command(
         "cd "
-        + PI_COMMON_FOLDER
-        + '/pictures && find . -type f -not -name "*.txt" -delete'
+        + str(PI_COMMON_FOLDER / "pictures")
+        + " && find . -type f -not -name '*.txt' -delete"
     )
     if len(stdout.readlines()) > 0:
         print(stdout.readlines()[0])
@@ -149,8 +148,8 @@ def move_timelapse(scp: SCPClient, ssh: SSHClient) -> None:
     cp_timelapse(scp)
     stdin, stdout, stderr = ssh.exec_command(
         "cd "
-        + PI_COMMON_FOLDER
-        + '/timelapse && find . -type f -not -name "*.txt" -delete'
+        + str(PI_COMMON_FOLDER / "timelapse")
+        + " && find . -type f -not -name '*.txt' -delete"
     )
     if len(stdout.readlines()) > 0:
         print(stdout.readlines()[0])
@@ -167,7 +166,9 @@ def move_videos(scp: SCPClient, ssh: SSHClient) -> None:
     """
     cp_videos(scp)
     stdin, stdout, stderr = ssh.exec_command(
-        "cd " + PI_COMMON_FOLDER + '/video && find . -type f -not -name "*.txt" -delete'
+        "cd "
+        + str(PI_COMMON_FOLDER / "video")
+        + " && find . -type f -not -name '*.txt' -delete"
     )
     if len(stdout.readlines()) > 0:
         print(stdout.readlines()[0])

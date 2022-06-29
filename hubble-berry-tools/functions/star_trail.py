@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from pathlib import Path
 import cv2
 import os
-import argparse
 from datetime import datetime
 from tqdm import tqdm
 import numpy
 
 
-def make_star_trail_avg(input_directory: str, output_directory: str) -> None:
+def make_star_trail_avg(input_directory: Path, output_directory: Path) -> None:
     """make_star_trail_avg allows to create a star trail based on the average method (make an average of pixel x,y from each image).
 
     Args:
@@ -16,28 +16,20 @@ def make_star_trail_avg(input_directory: str, output_directory: str) -> None:
        output_directory (string): directory where you need to save the star trail
     """
     print("#### Star Trail Average ####")
-    l = []
+    files_list = []
     step = 1
 
-    if os.path.isdir(input_directory) and os.path.isdir(output_directory):
-        if input_directory[-1] != "/":
-            input_directory = input_directory + "/"
-        if output_directory[-1] != "/":
-            output_directory = output_directory + "/"
-    else:
-        raise Exception("Either the input or ouput argument is not a directory")
-
-    output_image_path = (
-        output_directory + datetime.today().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg"
+    output_image_path = output_directory / str(
+        datetime.today().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg"
     )
 
-    l = os.listdir(input_directory)
-    l = sorted(l)
+    files_list = os.listdir(input_directory)
+    files_list = sorted(files_list)
     r, g, b = None, None, None
     r_avg, g_avg, b_avg = averager(), averager(), averager()
 
     count = 0
-    for img_path in tqdm(l):
+    for img_path in tqdm(files_list):
         # Split the frame into its respective channels
         frame = cv2.imread(input_directory + img_path)
 
@@ -70,7 +62,7 @@ def averager() -> float:
     return average
 
 
-def make_star_trail_max(input_directory: str, output_directory: str) -> None:
+def make_star_trail_max(input_directory: Path, output_directory: Path) -> None:
     """make_star_trail_max allows to create a star trail based on the maximum method (keep the maximum value of pixel x,y from each image).
 
     Args:
@@ -78,25 +70,17 @@ def make_star_trail_max(input_directory: str, output_directory: str) -> None:
        output_directory (string): directory where you need to save the star trail
     """
     print("#### Star Trail Maximum value ####")
-    l = []
+    files_list = []
 
-    if os.path.isdir(input_directory) and os.path.isdir(output_directory):
-        if input_directory[-1] != "/":
-            input_directory = input_directory + "/"
-        if output_directory[-1] != "/":
-            output_directory = output_directory + "/"
-    else:
-        raise Exception("Either the input or ouput argument is not a directory")
-
-    output_image_path = (
-        output_directory + datetime.today().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg"
+    output_image_path = output_directory / str(
+        datetime.today().strftime("%Y-%m-%d-%H-%M-%S") + ".jpg"
     )
 
-    l = os.listdir(input_directory)
-    l = sorted(l)
-    height, width, channel = cv2.imread(input_directory + l[0]).shape
+    files_list = os.listdir(input_directory)
+    files_list = sorted(files_list)
+    height, width, channel = cv2.imread(input_directory / files_list[0]).shape
     stack = numpy.zeros((height, width, 3), numpy.float)
-    for img_path in tqdm(l):
+    for img_path in tqdm(files_list):
         image_new = numpy.array(
             cv2.imread(input_directory + img_path), dtype=numpy.float
         )
