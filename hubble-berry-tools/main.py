@@ -19,7 +19,7 @@ def input_directory(function: Callable):
         "-i",
         "--input",
         type=click.Path(exists=True, dir_okay=True, file_okay=False),
-        help="the input directory containing photos",
+        help="The input directory containing photos.",
     )(function)
     return function
 
@@ -29,7 +29,7 @@ def output_directory(function: Callable):
         "-o",
         "--output",
         type=click.Path(exists=True, dir_okay=True, file_okay=False),
-        help="the output directory containing converted photos",
+        help="The output directory containing converted photos.",
     )(function)
     return function
 
@@ -39,17 +39,17 @@ def directory_to_retrieve(f: Callable):
         click.option(
             "-p",
             "--pictures",
-            help="if your demand concerns pictures",
+            help="If your demand concerns pictures.",
             is_flag=True,
         ),
         click.option(
             "-t",
             "--timelapses",
-            help="if your demand concerns timelapses",
+            help="If your demand concerns timelapses.",
             is_flag=True,
         ),
         click.option(
-            "-v", "--videos", is_flag=True, help="if your demand concerns videos"
+            "-v", "--videos", is_flag=True, help="If your demand concerns videos."
         ),
     ]
     return functools.reduce(lambda x, opt: opt(x), options, f)
@@ -160,7 +160,7 @@ def raw_to_jpg(input: Path, output: Path, compression: int):
     "-i",
     "--input",
     type=click.Path(dir_okay=False, exists=True, file_okay=True),
-    help="the input video",
+    help="The input video.",
 )
 @output_directory
 def extract_video_frames(input: Path, output: Path):
