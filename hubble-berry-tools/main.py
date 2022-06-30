@@ -94,7 +94,7 @@ def star_trail(input, output, avg: bool):
 def timelapse(input: Path, output: Path, time: float, mp4: bool):
     format = "mp4" if mp4 else "avi"
     time_one_im = time
-    fps = 1 / time_one_im  # may need a cast to int
+    fps = int(1 / time_one_im)
     make_timelapse(input, output, fps, format)
 
     click.secho("timelapse")
@@ -106,18 +106,18 @@ def copy_images(pictures: bool, timelapses: bool, videos: bool):
     """If you want to copy files"""
     click.secho("copy_images")
 
-    action = Action.DO_NOTHING.value
+    action = Action.DO_NOTHING
 
     if not pictures and not timelapses and not videos:
         print("You need to specify at least one type of files to copy")
         sys.exit(1)
     else:
         if pictures:
-            action = action | Action.COPY_PICTURES.value
+            action = action | Action.COPY_PICTURES
         if timelapses:
-            action = action | Action.COPY_TIMELAPSES.value
+            action = action | Action.COPY_TIMELAPSES
         if videos:
-            action = action | Action.COPY_VIDEOS.value
+            action = action | Action.COPY_VIDEOS
     copy_move_pictures_videos_timelapses(action, pictures, timelapses, videos)
 
 
@@ -126,19 +126,19 @@ def copy_images(pictures: bool, timelapses: bool, videos: bool):
 def move_images(pictures: bool, timelapses: bool, videos: bool):
     """If you want to move files"""
     click.secho("move_images")
-    action = Action.DO_NOTHING.value
+    action = Action.DO_NOTHING
 
     if not pictures and not timelapses and not videos:
         print("You need to specify at least one type of files to copy")
         sys.exit(1)
     else:
         if pictures:
-            action = action | Action.MOVE_PICTURES.value
+            action = action | Action.MOVE_PICTURES
         if timelapses:
-            action = action | Action.MOVE_TIMELAPSES.value
+            action = action | Action.MOVE_TIMELAPSES
         if videos:
-            action = action | Action.MOVE_VIDEOS.value
-    copy_move_pictures_videos_timelapses(pictures, timelapses, videos)
+            action = action | Action.MOVE_VIDEOS
+    copy_move_pictures_videos_timelapses(action, pictures, timelapses, videos)
 
 
 @cli.command()

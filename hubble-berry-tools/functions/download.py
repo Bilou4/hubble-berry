@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from enum import Enum
+from flags import Flags
 from paramiko import SSHClient, RSAKey
 from scp import SCPClient
 from os import environ, remove
 from pathlib import Path
 
 
-class Action(Enum):
+class Action(Flags):
     DO_NOTHING = 0
     COPY_PICTURES = 1
     COPY_TIMELAPSES = 2
@@ -25,7 +25,7 @@ PI_COMMON_FOLDER = Path(
 
 
 def copy_move_pictures_videos_timelapses(
-    action: Action, pictures: bool, timelapses: bool, videos: bool
+    action: int, pictures: bool, timelapses: bool, videos: bool
 ):
     if not HOME.is_dir():
         raise Exception(f"Cannot find {HOME}")
@@ -44,7 +44,7 @@ def copy_move_pictures_videos_timelapses(
 
     ssh = SSHClient()
     ssh.load_system_host_keys()
-    k = RSAKey.from_private_key_file(HOME / ".ssh/id_rsa")
+    k = RSAKey.from_private_key_file(str(HOME / ".ssh/id_rsa"))
 
     try:
         ssh.connect(hostname="10.3.141.1", username="pi", pkey=k)
@@ -53,22 +53,22 @@ def copy_move_pictures_videos_timelapses(
         scp = SCPClient(
             ssh.get_transport(), sanitize=lambda x: x
         )  # sanitize allows to use wildcards in command line
-        if action & Action.COPY_PICTURES.value:
+        if action & Action.COPY_PICTURES:
             cp_pictures(scp)
             print("pictures copied")
-        if action & Action.COPY_TIMELAPSES.value:
+        if action & Action.COPY_TIMELAPSES:
             cp_timelapse(scp)
             print("timelapse copied")
-        if action & Action.COPY_VIDEOS.value:
+        if action & Action.COPY_VIDEOS:
             cp_videos(scp)
             print("videos copied")
-        if action & Action.MOVE_PICTURES.value:
+        if action & Action.MOVE_PICTURES:
             move_pictures(scp, ssh)
             print("pictures moved")
-        if action & Action.MOVE_TIMELAPSES.value:
+        if action & Action.MOVE_TIMELAPSES:
             move_timelapse(scp, ssh)
             print("timelapse moved")
-        if action & Action.MOVE_VIDEOS.value:
+        if action & Action.MOVE_VIDEOS:
             move_videos(scp, ssh)
             print("video moved")
 
