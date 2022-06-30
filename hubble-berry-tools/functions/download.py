@@ -1,20 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from flags import Flags
+from enum import IntFlag, auto
 from paramiko import SSHClient, RSAKey
 from scp import SCPClient
 from os import environ, remove
 from pathlib import Path
 
 
-class Action(Flags):
-    DO_NOTHING = 0
-    COPY_PICTURES = 1
-    COPY_TIMELAPSES = 2
-    COPY_VIDEOS = 4
-    MOVE_PICTURES = 8
-    MOVE_TIMELAPSES = 16
-    MOVE_VIDEOS = 32
+class Action(IntFlag):
+    COPY_PICTURES = auto()
+    COPY_TIMELAPSES = auto()
+    COPY_VIDEOS = auto()
+    MOVE_PICTURES = auto()
+    MOVE_TIMELAPSES = auto()
+    MOVE_VIDEOS = auto()
 
 
 HOME = Path(environ["HOME"])

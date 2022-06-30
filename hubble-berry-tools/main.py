@@ -57,7 +57,8 @@ def directory_to_retrieve(f: Callable):
 
 @click.group()
 def cli():
-    click.secho("Hello")
+    """Hubble-Berry will help you interact with your images and your berry-box."""
+    pass
 
 
 @cli.command()
@@ -66,15 +67,14 @@ def cli():
 @click.option(
     "--avg",
     is_flag=True,
-    help="method used to create the star trail (default: max)",
+    help="Method used to create the star trail (default: max).",
 )
-def star_trail(input, output, avg: bool):
+def star_trail(input: Path, output: Path, avg: bool):
+    """Create a Star Trail by averaging or maximizing stars on the final image."""
     if avg:
-        click.secho("avg set")
         make_star_trail_avg(input, output)
     else:
         make_star_trail_max(input, output)
-    click.secho("star trail")
 
 
 @cli.command()
@@ -83,7 +83,7 @@ def star_trail(input, output, avg: bool):
 @click.option(
     "-t",
     "--time",
-    help="time for the duration of a frame in the final video",
+    help="Time for the duration of a frame in the final video.",
     type=float,
 )
 @click.option(
@@ -92,21 +92,19 @@ def star_trail(input, output, avg: bool):
     help="The format you want for the video (default: avi)",
 )
 def timelapse(input: Path, output: Path, time: float, mp4: bool):
+    """Create a timelapse by merging all images from an input directory."""
     format = "mp4" if mp4 else "avi"
     time_one_im = time
     fps = int(1 / time_one_im)
     make_timelapse(input, output, fps, format)
 
-    click.secho("timelapse")
-
 
 @cli.command()
 @directory_to_retrieve
 def copy_images(pictures: bool, timelapses: bool, videos: bool):
-    """If you want to copy files"""
-    click.secho("copy_images")
+    """Retrieve images from your berry-box by copying them."""
 
-    action = Action.DO_NOTHING
+    action = Action(0)
 
     if not pictures and not timelapses and not videos:
         print("You need to specify at least one type of files to copy")
@@ -124,9 +122,9 @@ def copy_images(pictures: bool, timelapses: bool, videos: bool):
 @cli.command()
 @directory_to_retrieve
 def move_images(pictures: bool, timelapses: bool, videos: bool):
-    """If you want to move files"""
-    click.secho("move_images")
-    action = Action.DO_NOTHING
+    """Retrieve images from your berry-box by moving them."""
+
+    action = Action(0)
 
     if not pictures and not timelapses and not videos:
         print("You need to specify at least one type of files to copy")
@@ -149,17 +147,12 @@ def move_images(pictures: bool, timelapses: bool, videos: bool):
     "--compression",
     type=click.IntRange(0, 100),
     default=85,
-    help="the compression rate of the jpg image. The compression rate must be between 0 and 100. Higher is the value, better is the quality.",
+    help="The compression rate of the jpg image. The compression rate must be between 0 and 100. Higher is the value, better is the quality.",
     show_default=True,
 )
 def raw_to_jpg(input: Path, output: Path, compression: int):
-
-    if input is None or output is None:
-        print(
-            "To convert your photos, you need to define an input directory and an output directory"
-        )
+    """Tool to convert RAW images to JPG."""
     convert_raw_to_jpg(input, output, compression)
-    click.secho("raw_to_jpg")
 
 
 @cli.command()
@@ -170,13 +163,11 @@ def raw_to_jpg(input: Path, output: Path, compression: int):
     help="the input video",
 )
 @output_directory
-def extract_video_frames(input, output):
-    click.secho("extract_video_frames")
+def extract_video_frames(input: Path, output: Path):
+    """Extract all images from a video."""
     extract_image_from_video(input, output)
 
 
-# TODO: linters: mypy-flake8-bandit-
+# TODO: linters: bandit-
 # TODO: logger for tools
-# TODO: click options
-# TODO: use pathlib
 # TODO: test it still works..
