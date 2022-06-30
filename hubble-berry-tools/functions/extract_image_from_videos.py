@@ -3,14 +3,13 @@
 
 from pathlib import Path
 import cv2
-import os
 import mimetypes
 
 
 def is_a_video(input_file: Path) -> bool:
     mimetypes.init()
     mimestart = mimetypes.guess_type(input_file)[0]
-    if mimestart != None:
+    if mimestart is not None:
         mimestart = mimestart.split("/")[0]
         if mimestart == "video":
             return True

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from pathlib import Path
+from typing import Callable
 import cv2
 import os
 from datetime import datetime
@@ -48,12 +49,12 @@ def make_star_trail_avg(input_directory: Path, output_directory: Path) -> None:
     print("[\033[0;32m OK\033[0m ] ", output_image_path)
 
 
-def averager() -> float:
+def averager() -> Callable:
     """Calculate the average using a clojure."""
     count = 0
     total = 0.0
 
-    def average(value):
+    def average(value) -> float:
         nonlocal count, total
         count += 1
         total += value
@@ -79,10 +80,10 @@ def make_star_trail_max(input_directory: Path, output_directory: Path) -> None:
     files_list = os.listdir(input_directory)
     files_list = sorted(files_list)
     height, width, channel = cv2.imread(input_directory / files_list[0]).shape
-    stack = numpy.zeros((height, width, 3), numpy.float)
+    stack = numpy.zeros((height, width, 3), numpy.float_)
     for img_path in tqdm(files_list):
         image_new = numpy.array(
-            cv2.imread(input_directory + img_path), dtype=numpy.float
+            cv2.imread(input_directory + img_path), dtype=numpy.float_
         )
         stack = numpy.maximum(stack, image_new)
 
