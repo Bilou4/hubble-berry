@@ -27,7 +27,5 @@ def convert_raw_to_jpg(input_directory: Path, output_directory: Path, compressio
             input_full_path = input_directory + raw_path
             input_full_path = escape_chars(input_full_path)
             os.system(
-                "ufraw-batch {} --out-path {} --silent --out-type=jpeg --compression={} --wb=camera".format(
-                    input_full_path, output_directory, str(compression)
-                )
+                f"ufraw-batch {input_full_path} --out-path {output_directory} --silent --out-type=jpeg --compression={str(compression)} --wb=camera"
             )
