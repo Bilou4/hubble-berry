@@ -1,6 +1,7 @@
 # virtual env
 hubble-berry-project/
 .vscode/
+image_stacking/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

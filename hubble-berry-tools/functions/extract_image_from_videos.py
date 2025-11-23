@@ -26,7 +26,7 @@ def extract_image_from_video(input_file: Path, output_directory: Path):
         success, frame = cap.read()
         if success:
             # cv2.imshow('window-name',frame)
-            cv2.imwrite(output_directory / f"frame{count}.jpg", frame)
+            cv2.imwrite(f"{output_directory}/frame{count}.jpg", frame)
             count = count + 1
         else:
             break

@@ -13,12 +13,17 @@ class User(UserMixin, db.Model):
         db (SQLAlchemy): The Database we want to use
 
     """
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     # Relationships
-    role_id = db.Column(db.Integer(), db.ForeignKey('role.id')) 
+    role_id = db.Column(db.Integer(), db.ForeignKey("role.id"))
+
+    @property
+    def role(self) -> str:
+        return "admin" if self.role_id == 1 else "user"
 
     def __repr__(self):
         """To represent a User with a string
@@ -26,9 +31,9 @@ class User(UserMixin, db.Model):
         Returns:
             string: return a string representing a user
         """
-        return '<User {}>'.format(self.username)    
+        return "<User {}>".format(self.username)
 
-    def set_password(self, password):
+    def set_password(self, password: str):
         """Set the password of the User
 
         Args:
@@ -36,7 +41,7 @@ class User(UserMixin, db.Model):
         """
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password: str):
         """Check if the password indicates by the User is the same as in the database
 
         Args:
@@ -48,11 +53,11 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def set_default_role(self):
-        """Set the default role for a User
-        """
+        """Set the default role for a User"""
         self.role_id = 2
 
-#1=admin, 2=user
+
+# 1=admin, 2=user
 # Define the Role data model
 class Role(db.Model):
     """Class to model a User's Role
@@ -60,9 +65,9 @@ class Role(db.Model):
     Args:
         db (SQLAlchemy): The Database we want to use
     """
+
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
-
 
 
 # The @login_manager.user_loader piece tells Flask-login how to load users given an id

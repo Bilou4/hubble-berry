@@ -2,8 +2,10 @@ import os
 
 import logging
 import colorlog
+from logging import Logger
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
 
 class Config(object):
     """Config class to set different variables
@@ -11,14 +13,16 @@ class Config(object):
     Args:
         object (object): The most base type
     """
-    SECRET_KEY = os.environ.get('SECRET_KEY') or 'saturn'
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-        'sqlite:///' + os.path.join(basedir, 'app.db')
+
+    SECRET_KEY = os.environ.get("SECRET_KEY") or "saturn"
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL"
+    ) or "sqlite:///" + os.path.join(basedir, "app.db")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    LANGUAGES = ['en', 'fr']
+    LANGUAGES = ["en", "fr"]
 
 
-def init_logger(dunder_name, testing_mode):
+def init_logger(dunder_name: str, testing_mode: bool) -> Logger:
     """Instantiate a logger so as to log message
 
     Args:
@@ -28,9 +32,9 @@ def init_logger(dunder_name, testing_mode):
     Returns:
         Logger: A logger with the specified name
     """
-    log_format = ('[%(levelname)s] - %(asctime)s - %(message)s')
-    bold_seq = '\033[1m'
-    colorlog_format = '{} %(log_color)s {}'.format(bold_seq,log_format)
+    log_format = "[%(levelname)s] - %(asctime)s - %(message)s"
+    bold_seq = "\033[1m"
+    colorlog_format = "{} %(log_color)s {}".format(bold_seq, log_format)
     colorlog.basicConfig(format=colorlog_format)
     logger = logging.getLogger(dunder_name)
 
